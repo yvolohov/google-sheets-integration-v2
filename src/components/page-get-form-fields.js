@@ -1,8 +1,12 @@
 import m from 'mithril';
+import ButtonToMenu from './button-to-menu';
 
 class PageGetFormFields {
   view() {
-    return m('div', {class: 'container'}, 'get-form-fields');
+    return m('div', {class: 'container'}, [
+      m(ButtonToMenu),      
+      'get-form-fields'
+    ]);
   }
 }
 

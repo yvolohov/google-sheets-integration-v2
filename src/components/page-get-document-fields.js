@@ -1,8 +1,12 @@
 import m from 'mithril';
+import ButtonToMenu from './button-to-menu';
 
 class PageGetDocumentFields {
   view() {
-    return m('div', {class: 'container'}, 'get-document-fields');
+    return m('div', {class: 'container'}, [
+      m(ButtonToMenu),
+      'get-document-fields'
+    ]);
   }
 }
 
