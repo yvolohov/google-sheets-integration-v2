@@ -14,3 +14,7 @@ m.route(document.getElementById('content'), '/page-loading', {
   '/page-get-form-fields': PageGetFormFields,
   '/page-get-editor-access-link': PageGetEditorAccessLink
 });
+
+setTimeout(() => {
+  m.route.set('/page-menu');
+}, 4000);
