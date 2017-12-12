@@ -1,11 +1,11 @@
 import m from 'mithril';
-import ButtonToMenu from './button-to-menu';
+import RowHeader from './row-header';
+import labels from '../labels';
 
 class PageGetDocumentFields {
   view() {
     return m('div', {class: 'container'}, [
-      m(ButtonToMenu),
-      'get-document-fields'
+      m(RowHeader, {pageLabel: labels.l_2})
     ]);
   }
 }

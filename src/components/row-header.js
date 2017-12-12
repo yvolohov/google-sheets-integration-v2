@@ -1,0 +1,16 @@
+import m from 'mithril';
+import labels from '../labels';
+
+class RowHeader {
+  view(vnode) {
+    return m('div', {class: 'row'}, [
+      m('div', {class: 'col-12-sm'}, [
+        m('b', m('a', {href: '#!/page-menu', target: '_self'}, labels.l_0)),
+        m('b', ' > '),
+        m('b', vnode.attrs.pageLabel)
+      ])
+    ]);
+  }
+}
+
+export default RowHeader;
