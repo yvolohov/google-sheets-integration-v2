@@ -6,6 +6,8 @@ import PageGetDocumentFields from './components/page-get-document-fields';
 import PageGetFormFields from './components/page-get-form-fields';
 import PageGetEditorAccessLink from './components/page-get-editor-access-link';
 
+import documents from './models/documents';
+
 m.route(document.getElementById('content'), '/page-loading', {
   '/page-loading': PageLoading,
   '/page-menu': PageMenu,
@@ -15,6 +17,9 @@ m.route(document.getElementById('content'), '/page-loading', {
   '/page-get-editor-access-link': PageGetEditorAccessLink
 });
 
-setTimeout(() => {
+Promise.all([
+  documents.loadList()
+])
+.then((result) => {
   m.route.set('/page-menu');
-}, 4000);
+});
