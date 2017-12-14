@@ -5,9 +5,12 @@ class Documents {
 
   loadList() {
     return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(true);
-      }, 4000);
+      google.script.run
+        .withSuccessHandler((documents) => {
+          console.log(documents);
+          resolve(true);
+        })
+        .ccGetDocuments(1);
     });
   }
 }
