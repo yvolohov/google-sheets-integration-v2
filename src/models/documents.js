@@ -1,17 +1,18 @@
+import MultipageRequest from '../lib/multipage-request';
+
 class Documents {
   constructor() {
     this.list = [];
   }
 
   loadList() {
-    return new Promise((resolve) => {
-      google.script.run
-        .withSuccessHandler((documents) => {
-          console.log(documents);
-          resolve(true);
-        })
-        .ccGetDocuments(1);
-    });
+    let multipageRequest = new MultipageRequest('ccGetDocuments');
+    multipageRequest.setPerPage(15);
+
+    return multipageRequest.get(
+      (response, result) => {result.push(response);},
+      (result) => {console.log(result);}
+    );
   }
 }
 
