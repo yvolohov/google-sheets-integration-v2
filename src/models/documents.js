@@ -29,6 +29,10 @@ class Documents {
 
     for (let documentId in documents) {
       let currentDocument = documents[documentId];
+
+      if (!currentDocument.fillable) {
+        continue;
+      }
       results.push(currentDocument);
     }
   }
@@ -36,9 +40,6 @@ class Documents {
   _postCallback(results, errors) {
     let tree = [];
     let addedFolders = {};
-    let sortCallback = (a, b) => {
-      return (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : -1;
-    };
 
     for (let documentId in results) {
       let currentDocument = results[documentId];
@@ -66,10 +67,18 @@ class Documents {
 
     for (let folderId in tree) {
       let currentFolder = tree[folderId];
-      currentFolder.documents.sort(sortCallback);
+      currentFolder.documents.sort(this._sortDocumentsCallback.bind(this));
     }
-    tree.sort(sortCallback);
+    tree.sort(this._sortFoldersCallback.bind(this));
     this.tree = tree;
+  }
+
+  _sortFoldersCallback(a, b) {
+    return (a.id === 0) ? -1 : ((b.id === 0) ? 1 : this._sortDocumentsCallback(a, b));
+  }
+
+  _sortDocumentsCallback(a, b) {
+    return (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : -1;
   }
 }
 
