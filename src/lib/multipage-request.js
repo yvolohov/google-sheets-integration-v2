@@ -13,7 +13,8 @@ class MultipageRequest {
   }
 
   get(callback, postCallback=null) {
-    var result = [];
+    var results = [];
+    var errors = [];
 
     /* get first page */
     let firstPage = new Promise((resolve) => {
@@ -25,8 +26,8 @@ class MultipageRequest {
     /* proccess result of first page, get next pages */
     let nextPages = firstPage.then((response) => {
       let pagesPromises = [];
-      let count = (response.code === 200) ? this._getCountOfPages(response) : 1;
-      callback(response, result);
+      let count = (response.responseCode === 200) ? this._getCountOfPages(response) : 1;
+      callback(response, results, errors);
 
       for (let page = 2; page <= count; page++) {
         pagesPromises.push(new Promise((resolve) => {
@@ -41,20 +42,20 @@ class MultipageRequest {
     /* process result of next pages */
     let postProcess = nextPages.then((responses) => {
       responses.forEach((response) => {
-        callback(response, result);
+        callback(response, results, errors);
       });
 
       if (postCallback !== null) {
-        postCallback(result);
+        postCallback(results, errors);
       }
-      return Promise.resolve(result);
+      return Promise.resolve({results: results, errors: errors});
     });
 
     return postProcess;
   }
 
   _getCountOfPages(response) {
-    let content = JSON.parse(response.data);
+    let content = response.responseContent;
     let total = (content.total && (parseInt(content.total) !== NaN)) ? parseInt(content.total) : 0;
     return Math.ceil(total / this.perPage);
   }
