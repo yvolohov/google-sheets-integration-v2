@@ -2,17 +2,21 @@ import MultipageRequest from '../lib/multipage-request';
 
 class Documents {
   constructor() {
-    this.list = [];
+    this.tree = [];
   }
 
   loadList() {
     let multipageRequest = new MultipageRequest('ccGetDocuments');
-    multipageRequest.setPerPage(15);
+    multipageRequest.setPerPage(100);
 
     return multipageRequest.get(
-      this._pageCallback,
-      this._postCallback
+      this._pageCallback.bind(this),
+      this._postCallback.bind(this)
     );
+  }
+
+  getFoldersTree() {
+    return this.tree;
   }
 
   _pageCallback(response, results, errors) {
@@ -30,29 +34,37 @@ class Documents {
   }
 
   _postCallback(results, errors) {
-    let folderSet = {};
+    let tree = [];
+    let addedFolders = {};
 
     for (let documentId in results) {
       let currentDocument = results[documentId];
       let folderId = currentDocument.folder.folder_id;
       let folderName = currentDocument.folder.name;
 
-      if (!(folderId in folderSet)) {
-        folderSet[folderId] = {
+      if (!(folderId in addedFolders)) {
+        tree.push({
           id: folderId,
           name: folderName,
           documents: []
-        };
+        });
+        addedFolders[folderId] = tree.length - 1;
       }
 
-      folderSet[folderId].documents.push({
-          id: currentDocument.id,
-          name: currentDocument.name,
-          folderName: folderName
+      let folderIndex = addedFolders[folderId];
+      let folder = tree[folderIndex];
+
+      folder.documents.push({
+        id: currentDocument.id,
+        name: currentDocument.name,
+        folderName: folderName
       });
     }
 
-    console.log(folderSet);
+    tree.sort((a, b) => {
+      return (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : -1;
+    });
+    this.tree = tree;
   }
 }
 
