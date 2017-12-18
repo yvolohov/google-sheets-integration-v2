@@ -36,6 +36,9 @@ class Documents {
   _postCallback(results, errors) {
     let tree = [];
     let addedFolders = {};
+    let sortCallback = (a, b) => {
+      return (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : -1;
+    };
 
     for (let documentId in results) {
       let currentDocument = results[documentId];
@@ -61,9 +64,11 @@ class Documents {
       });
     }
 
-    tree.sort((a, b) => {
-      return (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : -1;
-    });
+    for (let folderId in tree) {
+      let currentFolder = tree[folderId];
+      currentFolder.documents.sort(sortCallback);
+    }
+    tree.sort(sortCallback);
     this.tree = tree;
   }
 }
