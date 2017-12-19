@@ -7,6 +7,7 @@ import PageGetFormFields from './components/page-get-form-fields';
 import PageGetEditorAccessLink from './components/page-get-editor-access-link';
 
 import documents from './models/documents';
+import folders from './models/folders';
 
 m.route(document.getElementById('content'), '/page-loading', {
   '/page-loading': PageLoading,
@@ -18,7 +19,8 @@ m.route(document.getElementById('content'), '/page-loading', {
 });
 
 Promise.all([
-  documents.loadList()
+  documents.load(),
+  folders.load()
 ])
 .then((result) => {
   m.route.set('/page-menu');

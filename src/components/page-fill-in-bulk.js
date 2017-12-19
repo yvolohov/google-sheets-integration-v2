@@ -3,6 +3,7 @@ import RowHeader from './row-header';
 import RowDocumentSelector from './row-document-selector';
 import RowDocumentId from './row-document-id';
 import RowDocumentFolder from './row-document-folder';
+import RowFolderSelector from './row-folder-selector';
 import labels from '../labels';
 
 class PageFillInBulk {
@@ -11,7 +12,8 @@ class PageFillInBulk {
       m(RowHeader, {pageLabel: labels.l_1}),
       m(RowDocumentSelector),
       m(RowDocumentId),
-      m(RowDocumentFolder)
+      m(RowDocumentFolder),
+      m(RowFolderSelector)
     ]);
   }
 }

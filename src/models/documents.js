@@ -7,7 +7,7 @@ class Documents {
     this.selectedDocumentId = 0;
   }
 
-  loadList() {
+  load() {
     let multipageRequest = new MultipageRequest('ccGetDocuments');
     multipageRequest.setPerPage(100);
 
