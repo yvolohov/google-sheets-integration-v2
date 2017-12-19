@@ -7,9 +7,14 @@ class RowDocumentFolder {
     return m('div', {class: 'row'}, [
       m('div', {class: 'col-12-sm'}, [
         m('div', {class: 'gray'}, labels.l_8 + ':'),
-        m('div', {style: 'height: 25px;'}, '...')
+        m('div', {style: 'height: 25px;'}, this._prepareFolder())
       ])
     ]);
+  }
+
+  _prepareFolder() {
+    let selectedDocument = documents.getSelectedDocument();
+    return (selectedDocument !== null) ? selectedDocument.folder.name : '...';
   }
 }
 

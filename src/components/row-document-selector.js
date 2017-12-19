@@ -8,14 +8,27 @@ class RowDocumentSelector {
       m('div', {class: 'col-12-sm'}, [
         m('div', {class: 'block form-group'}, [
           m('label', {class: 'gray', for: 'document-select'}, labels.l_5 + ':'),
-          m('select', {id: 'document-select', style: 'width: 100%; text-align: left;'}, this._makeTree())
+          m('select', {
+            id: 'document-select',
+            style: 'width: 100%; text-align: left;',
+            onchange: this._changeHandler.bind(this)
+          },
+          this._makeTree())
         ])
       ])
     ]);
   }
 
+  _changeHandler(event) {
+    documents.setSelectedDocument(event.target.value);
+  }
+
   _makeTree() {
-    let tree = [m('option', {value: '0', selected: 'selected'}, '...')];
+    let selectedDocument = documents.getSelectedDocument();
+    let selectedDocumentId = (selectedDocument !== null) ? selectedDocument.id : 0;
+
+    let settings = this._makeOptionSettings(0, selectedDocumentId);
+    let tree = [m('option', settings, '...')];
     let folders = documents.getFoldersTree();
 
     for (let folderIndex in folders) {
@@ -25,11 +38,21 @@ class RowDocumentSelector {
 
       for (let documentIndex in documents) {
         let currentDocument = documents[documentIndex];
-        options.push(m('option', {value: currentDocument.id}, currentDocument.name));
+        let settings = this._makeOptionSettings(currentDocument.id, selectedDocumentId);
+        options.push(m('option', settings, currentDocument.name));
       }
       tree.push(m('optgroup', {label: currentFolder.name}, options));
     }
     return tree;
+  }
+
+  _makeOptionSettings(currentDocumentId, selectedDocumentId) {
+    let options = {value: currentDocumentId};
+
+    if (currentDocumentId === selectedDocumentId) {
+      options.selected = 'selected';
+    }
+    return options;
   }
 }
 

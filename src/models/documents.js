@@ -57,7 +57,7 @@ class Documents {
       let currentDocument = results[documentId];
       let folderId = currentDocument.folder.folder_id;
       let folderName = currentDocument.folder.name;
-      documents[documentId] = currentDocument;
+      documents[currentDocument.id] = currentDocument;
 
       if (!(folderId in addedFolders)) {
         tree.push({
