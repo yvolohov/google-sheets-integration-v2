@@ -5,5 +5,7 @@ export default {
   l_3: 'Extract data from filled forms to the sheet',
   l_4: 'Get editor access links for documents',
   l_5: 'Template document',
-  l_6: 'Loading ...'
+  l_6: 'Loading ...',
+  l_7: 'Document ID',
+  l_8: 'Document folder'
 };

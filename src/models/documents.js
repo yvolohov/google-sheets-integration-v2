@@ -3,6 +3,8 @@ import MultipageRequest from '../lib/multipage-request';
 class Documents {
   constructor() {
     this.tree = [];
+    this.documents = {};
+    this.selectedDocumentId = 0;
   }
 
   loadList() {
@@ -13,6 +15,15 @@ class Documents {
       this._pageCallback.bind(this),
       this._postCallback.bind(this)
     );
+  }
+
+  getSelectedDocument() {
+    return (this.selectedDocumentId in this.documents)
+      ? this.documents[this.selectedDocumentId] : null;
+  }
+
+  setSelectedDocument(documentId) {
+    this.selectedDocumentId = documentId;
   }
 
   getFoldersTree() {
@@ -39,12 +50,14 @@ class Documents {
 
   _postCallback(results, errors) {
     let tree = [];
+    let documents = {};
     let addedFolders = {};
 
     for (let documentId in results) {
       let currentDocument = results[documentId];
       let folderId = currentDocument.folder.folder_id;
       let folderName = currentDocument.folder.name;
+      documents[documentId] = currentDocument;
 
       if (!(folderId in addedFolders)) {
         tree.push({
@@ -70,6 +83,7 @@ class Documents {
       currentFolder.documents.sort(this._sortDocumentsCallback.bind(this));
     }
     tree.sort(this._sortFoldersCallback.bind(this));
+    this.documents = documents;
     this.tree = tree;
   }
 
