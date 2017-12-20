@@ -8,5 +8,6 @@ export default {
   l_6: 'Loading ...',
   l_7: 'Document ID',
   l_8: 'Document folder',
-  l_9: 'Forms folder'
+  l_9: 'Forms folder',
+  l_10: 'Unsorted'
 };

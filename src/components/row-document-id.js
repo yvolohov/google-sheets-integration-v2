@@ -6,7 +6,7 @@ class RowDocumentId {
   view(vnode) {
     return m('div', {class: 'row'}, [
       m('div', {class: 'col-12-sm'}, [
-        m('div', {class: 'gray'}, labels.l_7 + ':'),
+        m('div', {class: 'gray'}, `${labels.l_7}:`),
         m('div', {style: 'height: 25px;'}, this._prepareId())
       ])
     ]);

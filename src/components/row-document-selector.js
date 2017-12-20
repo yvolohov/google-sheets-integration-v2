@@ -1,13 +1,14 @@
 import m from 'mithril';
+import BaseSelector from './base-selector';
 import documents from '../models/documents';
 import labels from '../labels';
 
-class RowDocumentSelector {
+class RowDocumentSelector extends BaseSelector {
   view(vnode) {
     return m('div', {class: 'row'}, [
       m('div', {class: 'col-12-sm'}, [
         m('div', {class: 'block form-group'}, [
-          m('label', {class: 'gray', for: 'document-select'}, labels.l_5 + ':'),
+          m('label', {class: 'gray', for: 'document-select'}, `${labels.l_5}:`),
           m('select', {
             id: 'document-select',
             style: 'width: 100%; text-align: left;',
@@ -44,15 +45,6 @@ class RowDocumentSelector {
       tree.push(m('optgroup', {label: currentFolder.name}, options));
     }
     return tree;
-  }
-
-  _makeOptionSettings(currentDocumentId, selectedDocumentId) {
-    let options = {value: currentDocumentId};
-
-    if (currentDocumentId === selectedDocumentId) {
-      options.selected = 'selected';
-    }
-    return options;
   }
 }
 
