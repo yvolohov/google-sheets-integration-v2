@@ -6,17 +6,25 @@ import RowDocumentId from './row-document-id';
 import RowDocumentFolder from './row-document-folder';
 import RowFolderSelector from './row-folder-selector';
 import labels from '../labels';
-import pages from '../models/pages';
+import modelsLoader from '../models/models-loader';
 
 class PageFillInBulk {
+  constructor() {
+    this.models = ['documents', 'folders'];
+  }
+
   oninit() {
-    if (!pages.pageFillInBulkIsLoaded()) {
-      pages.loadPageFillInBulk(() => {m.redraw();});
+    let notLoaded = modelsLoader.getNotLoadedModels(this.models);
+
+    if (notLoaded.length > 0) {
+      modelsLoader.loadModels(notLoaded, () => {m.redraw();});
     }
   }
 
   view() {
-    if (!pages.pageFillInBulkIsLoaded()) {
+    let notLoaded = modelsLoader.getNotLoadedModels(this.models);
+
+    if (notLoaded.length > 0) {
       return m(PageLoading);
     }
 

@@ -11,6 +11,5 @@ m.route(document.getElementById('content'), '/page-menu', {
   '/page-fill-in-bulk': PageFillInBulk,
   '/page-get-document-fields': PageGetDocumentFields,
   '/page-get-form-fields': PageGetFormFields,
-  '/page-get-editor-access-link': PageGetEditorAccessLink,
-  '/page-loading': PageLoading
+  '/page-get-editor-access-link': PageGetEditorAccessLink
 });
