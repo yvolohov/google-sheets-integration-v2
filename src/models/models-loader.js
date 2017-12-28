@@ -1,5 +1,6 @@
 import documents from './documents';
 import folders from './folders';
+import errors from './errors';
 
 class ModelsLoader {
   constructor() {
@@ -38,11 +39,17 @@ class ModelsLoader {
     }
 
     Promise.all(promises)
-    .then((result) => {
+    .then((results) => {
       for (let modelIndex in models) {
         let currentModelName = models[modelIndex];
         this.modelsStatuses[currentModelName] = true;
       }
+
+      for (let resultIndex in results) {
+        let currentResult = results[resultIndex];
+        errors.addPortion(currentResult.errors);
+      }
+      errors.send();
 
       if (callback !== null) {
         callback();
