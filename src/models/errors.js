@@ -14,7 +14,6 @@ class Errors {
     if (this.errors.length === 0) {
       return;
     }
-
     google.script.run
       .withSuccessHandler(() => {this.errors = [];})
       .ccErrors(this.errors);

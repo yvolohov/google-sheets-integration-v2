@@ -1,3 +1,5 @@
+import errors from './errors';
+
 class DocumentFields {
   constructor() {
     this.fields = {};
@@ -30,9 +32,15 @@ class DocumentFields {
     });
 
     fields.then((response) => {
-      // проверить код 200, обработать данные
-      this.fields[documentId] = response;
-      console.log(response);
+      if (response.responseCode === 200) {
+        this.fields[documentId] = response.responseContent;
+      }
+      else {
+        errors.addPortion([response]);
+        errors.send();
+      }
+
+      console.log(response.responseContent);
 
       if (callback !== null) {
         callback();
