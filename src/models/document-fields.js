@@ -8,7 +8,7 @@ class DocumentFields {
 
   getDocumentFields() {
     return (this.selectedDocumentId in this.fields)
-      ? this.fields[this.selectedDocumentId] : null;
+      ? this.fields[this.selectedDocumentId] : [];
   }
 
   setFields(documentId, callback=null) {
@@ -39,8 +39,6 @@ class DocumentFields {
         errors.addPortion([response]);
         errors.send();
       }
-
-      console.log(response.responseContent);
 
       if (callback !== null) {
         callback();
