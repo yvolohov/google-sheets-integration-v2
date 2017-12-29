@@ -2,13 +2,17 @@ import m from 'mithril';
 import documentFields from '../models/document-fields';
 import labels from '../labels';
 
+const SCROLL_BOX_STYLES = `width: 100%; height: 300px; border: 1px solid silver;
+border-radius: 2px; overflow-x: hidden; overflow-y: scroll;`;
+
 class RowFieldsList {
   view(vnode) {
     return m('div', {class: 'row'}, [
       m('div', {class: 'col-12-sm'}, [
         m('label', {class: 'gray', for: 'template-fields-div'}, `${labels.l_11}:`),
-        m('div', {style: `width: 100%; height: 300px; border: 1px solid silver;
-          border-radius: 2px; overflow-x: hidden; overflow-y: scroll;`}, this._makeList())
+        m('div', {style: SCROLL_BOX_STYLES}, [
+          m('div', {class: 'container'}, this._makeList())
+        ])
       ])
     ]);
   }
@@ -20,7 +24,15 @@ class RowFieldsList {
     for (let fieldIndex in fields) {
       let currentField = fields[fieldIndex];
       list.push(
-        m('div', {}, currentField.name)
+        m('div', {class: 'row'}, [
+          m('div', {class: 'col-2-sm'}, [
+            m('input', {type: 'checkbox'})
+          ]),
+          m('div', {class: 'col-10-sm'}, [
+            m('div', currentField.name),
+            m('div', {class: 'secondary'}, `${labels.l_12}: ${currentField.type}`)
+          ])
+        ])
       );
     }
     return list;

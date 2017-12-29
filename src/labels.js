@@ -10,5 +10,6 @@ export default {
   l_8: 'Document folder',
   l_9: 'Forms folder',
   l_10: 'Unsorted',
-  l_11: 'Document fields'
+  l_11: 'Document fields',
+  l_12: 'Type'
 };
