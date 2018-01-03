@@ -1,15 +1,20 @@
 export default {
   l_0: 'Operations',
-  l_1: 'Make filled documents from selected cells',
+  l_1: 'Create filled documents from selected cells',
   l_2: 'Extract data from filled documents to the sheet',
   l_3: 'Extract data from filled forms to the sheet',
   l_4: 'Get editor access links for documents',
-  l_5: 'Template document',
+  l_5: '1. Select a template document',
   l_6: 'Loading ...',
   l_7: 'Document ID',
   l_8: 'Document folder',
-  l_9: 'Forms folder',
+  l_9: '5. Select a folder for created documents',
   l_10: 'Unsorted',
-  l_11: 'Document fields',
-  l_12: 'Type'
+  l_11: '2. Select and order used fields',
+  l_12: 'Type',
+  l_13: '3. Create header from selected fields and insert to',
+  l_14: 'Current sheet horisontally',
+  l_15: 'Current sheet vertically',
+  l_16: 'New sheet horisontally',
+  l_17: 'New sheet vertically'
 };
