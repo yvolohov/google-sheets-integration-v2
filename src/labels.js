@@ -12,9 +12,9 @@ export default {
   l_10: 'Unsorted',
   l_11: '2. Select and order used fields',
   l_12: 'Type',
-  l_13: '3. Create header from selected fields and insert to',
-  l_14: 'Current sheet horisontally',
-  l_15: 'Current sheet vertically',
-  l_16: 'New sheet horisontally',
-  l_17: 'New sheet vertically'
+  l_13: '3. Create header from selected fields and insert',
+  l_14: 'To current sheet horisontally',
+  l_15: 'To current sheet vertically',
+  l_16: 'To new sheet horisontally',
+  l_17: 'To new sheet vertically'
 };
