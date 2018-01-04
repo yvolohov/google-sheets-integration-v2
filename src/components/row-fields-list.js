@@ -25,12 +25,15 @@ class RowFieldsList {
       let currentField = selectedDocumentFields[fieldIndex];
       let checkboxSettings = {
         type: 'checkbox',
-        onclick: this._clickHandler.bind(this, currentField.name)
+        onclick: this._clickHandler.bind(this, currentField.name),
+        checked: (currentField.checkboxChecked) ? true : null
       };
 
+      /*
       if (currentField.checkboxChecked) {
         checkboxSettings['checked'] = 'checked';
       }
+      */
 
       list.push(
         m('div', [
