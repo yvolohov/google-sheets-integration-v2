@@ -19,14 +19,24 @@ class RowFieldsList {
 
   _makeList() {
     let list = [];
-    let fields = documentFields.getDocumentFields();
+    let selectedDocumentFields = documentFields.getDocumentFields();
+    let selectedDocumentId = documentFields.getDocumentId();
 
-    for (let fieldIndex in fields) {
-      let currentField = fields[fieldIndex];
+    for (let fieldIndex in selectedDocumentFields) {
+      let currentField = selectedDocumentFields[fieldIndex];
+      let checkboxSettings = {
+        type: 'checkbox',
+        onclick: this._clickHandler.bind(this, selectedDocumentId, currentField.name)
+      };
+
+      if (currentField.checkboxChecked) {
+        checkboxSettings['checked'] = 'checked';
+      }
+
       list.push(
         m('div', [
           m('div', {style: RADIO_BUTTON_STYLES}, [
-            m('input', {type: 'checkbox'})
+            m('input', checkboxSettings)
           ]),
           m('div', {style: 'display: inline-block;'}, [
             m('div', currentField.name),
@@ -36,6 +46,11 @@ class RowFieldsList {
       );
     }
     return list;
+  }
+
+  _clickHandler(selectedDocumentId, fieldName, event) {
+    event.redraw = false;
+    console.log(selectedDocumentId, fieldName, event.target.checked);
   }
 }
 

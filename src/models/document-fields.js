@@ -11,6 +11,10 @@ class DocumentFields {
       ? this.fields[this.selectedDocumentId] : [];
   }
 
+  getDocumentId() {
+    return this.selectedDocumentId;
+  }
+
   setFields(documentId, callback=null) {
     this.selectedDocumentId = documentId;
 
@@ -33,7 +37,7 @@ class DocumentFields {
 
     fields.then((response) => {
       if (response.responseCode === 200) {
-        this.fields[documentId] = response.responseContent;
+        this.fields[documentId] = this._prepareContent(response.responseContent);
       }
       else {
         errors.addPortion([response]);
@@ -44,6 +48,17 @@ class DocumentFields {
         callback();
       }
     });
+  }
+
+  _prepareContent(rawContent) {
+    let fields = [];
+
+    for (let fieldIndex in rawContent) {
+      let currentField = rawContent[fieldIndex];
+      currentField['checkboxChecked'] = true;
+      fields.push(currentField);
+    }
+    return fields;
   }
 }
 
