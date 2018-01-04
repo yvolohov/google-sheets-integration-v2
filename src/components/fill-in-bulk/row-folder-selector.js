@@ -1,7 +1,7 @@
 import m from 'mithril';
-import BaseSelector from './base-selector';
-import folders from '../models/folders';
-import labels from '../labels';
+import BaseSelector from '../common/base-selector';
+import folders from '../../models/folders';
+import labels from '../../labels';
 
 class RowFolderSelector extends BaseSelector {
   view(vnode) {

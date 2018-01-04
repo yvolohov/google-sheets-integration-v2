@@ -1,5 +1,5 @@
 import m from 'mithril';
-import labels from '../labels';
+import labels from '../../labels';
 
 class RowHeader {
   view(vnode) {

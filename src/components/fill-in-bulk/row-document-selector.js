@@ -1,8 +1,8 @@
 import m from 'mithril';
-import BaseSelector from './base-selector';
-import documents from '../models/documents';
-import documentFields from '../models/document-fields';
-import labels from '../labels';
+import BaseSelector from '../common/base-selector';
+import documents from '../../models/documents';
+import documentFields from '../../models/document-fields';
+import labels from '../../labels';
 
 class RowDocumentSelector extends BaseSelector {
   view(vnode) {

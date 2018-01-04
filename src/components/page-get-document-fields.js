@@ -1,5 +1,5 @@
 import m from 'mithril';
-import RowHeader from './row-header';
+import RowHeader from './common/row-header';
 import labels from '../labels';
 
 class PageGetDocumentFields {

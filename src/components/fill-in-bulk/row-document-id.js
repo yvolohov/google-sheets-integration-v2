@@ -1,6 +1,6 @@
 import m from 'mithril';
-import documents from '../models/documents';
-import labels from '../labels';
+import documents from '../../models/documents';
+import labels from '../../labels';
 
 class RowDocumentId {
   view(vnode) {

@@ -1,6 +1,6 @@
 import m from 'mithril';
-import documentFields from '../models/document-fields';
-import labels from '../labels';
+import documentFields from '../../models/document-fields';
+import labels from '../../labels';
 
 const SCROLL_BOX_STYLES = `width: 100%; height: 300px; border: 1px solid silver; border-radius: 2px; overflow-x: hidden; overflow-y: scroll;`;
 const RADIO_BUTTON_STYLES = `display: inline-block; width: 30px; vertical-align: top; text-align: center;`;
@@ -28,12 +28,6 @@ class RowFieldsList {
         onclick: this._clickHandler.bind(this, currentField.name),
         checked: (currentField.checkboxChecked) ? true : null
       };
-
-      /*
-      if (currentField.checkboxChecked) {
-        checkboxSettings['checked'] = 'checked';
-      }
-      */
 
       list.push(
         m('div', [

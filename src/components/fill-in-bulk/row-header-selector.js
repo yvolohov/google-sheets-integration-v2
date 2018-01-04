@@ -1,6 +1,6 @@
 import m from 'mithril';
-import BaseSelector from './base-selector';
-import labels from '../labels';
+import BaseSelector from '../common/base-selector';
+import labels from '../../labels';
 
 class RowHeaderSelector extends BaseSelector {
   view(vnode) {
