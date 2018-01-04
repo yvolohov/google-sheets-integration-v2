@@ -3,6 +3,7 @@ import errors from './errors';
 class DocumentFields {
   constructor() {
     this.fields = {};
+    this.fieldsByName = {};
     this.selectedDocumentId = 0;
   }
 
@@ -13,6 +14,19 @@ class DocumentFields {
 
   getDocumentId() {
     return this.selectedDocumentId;
+  }
+
+  selectField(fieldName, checkboxChecked) {
+    if (!(this.selectedDocumentId in this.fieldsByName)) {
+      return;
+    }
+
+    let currentDocumentFieldsByName = this.fieldsByName[this.selectedDocumentId];
+
+    if (fieldName in currentDocumentFieldsByName) {
+      let currentField = currentDocumentFieldsByName[fieldName];
+      currentField.checkboxChecked = checkboxChecked;
+    }
   }
 
   setFields(documentId, callback=null) {
@@ -37,7 +51,9 @@ class DocumentFields {
 
     fields.then((response) => {
       if (response.responseCode === 200) {
-        this.fields[documentId] = this._prepareContent(response.responseContent);
+        let fieldsList = this._prepareFields(response.responseContent);
+        this.fields[documentId] = fieldsList;
+        this.fieldsByName[documentId] = this._prepareFieldsByName(fieldsList);
       }
       else {
         errors.addPortion([response]);
@@ -50,13 +66,23 @@ class DocumentFields {
     });
   }
 
-  _prepareContent(rawContent) {
+  _prepareFields(rawContent) {
     let fields = [];
 
     for (let fieldIndex in rawContent) {
       let currentField = rawContent[fieldIndex];
       currentField['checkboxChecked'] = true;
       fields.push(currentField);
+    }
+    return fields;
+  }
+
+  _prepareFieldsByName(fieldsList) {
+    let fields = {};
+
+    for (let fieldIndex in fieldsList) {
+      let currentField = fieldsList[fieldIndex];
+      fields[currentField.name] = currentField;
     }
     return fields;
   }

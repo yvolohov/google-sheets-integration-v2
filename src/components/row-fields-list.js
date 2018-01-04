@@ -20,13 +20,12 @@ class RowFieldsList {
   _makeList() {
     let list = [];
     let selectedDocumentFields = documentFields.getDocumentFields();
-    let selectedDocumentId = documentFields.getDocumentId();
 
     for (let fieldIndex in selectedDocumentFields) {
       let currentField = selectedDocumentFields[fieldIndex];
       let checkboxSettings = {
         type: 'checkbox',
-        onclick: this._clickHandler.bind(this, selectedDocumentId, currentField.name)
+        onclick: this._clickHandler.bind(this, currentField.name)
       };
 
       if (currentField.checkboxChecked) {
@@ -48,9 +47,9 @@ class RowFieldsList {
     return list;
   }
 
-  _clickHandler(selectedDocumentId, fieldName, event) {
+  _clickHandler(fieldName, event) {
     event.redraw = false;
-    console.log(selectedDocumentId, fieldName, event.target.checked);
+    documentFields.selectField(fieldName, event.target.checked);
   }
 }
 
