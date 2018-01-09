@@ -27,7 +27,7 @@ class Folders {
   }
 
   setSelectedFolderId(folderId) {
-    this.selectedFolderId = folderId;
+    this.selectedFolderId = parseInt(folderId);
   }
 
   getFoldersList() {

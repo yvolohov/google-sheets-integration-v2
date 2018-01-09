@@ -23,14 +23,12 @@ class RowDocumentSelector extends BaseSelector {
 
   _changeHandler(event) {
     let documentId = event.target.value;
-    documents.setSelectedDocument(documentId);
+    documents.setSelectedDocumentId(documentId);
     documentFields.setFields(documentId, () => {m.redraw();});
   }
 
   _makeTree() {
-    let selectedDocument = documents.getSelectedDocument();
-    let selectedDocumentId = (selectedDocument !== null) ? selectedDocument.id : 0;
-
+    let selectedDocumentId = documents.getSelectedDocumentId();
     let settings = this._makeOptionSettings(0, selectedDocumentId);
     let tree = [m('option', settings, '...')];
     let folders = documents.getFoldersTree();

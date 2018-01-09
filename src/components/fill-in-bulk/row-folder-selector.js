@@ -19,7 +19,7 @@ class RowFolderSelector extends BaseSelector {
   }
 
   _changeHandler(event) {
-    folders.setSelectedFolderId(parseInt(event.target.value));
+    folders.setSelectedFolderId(event.target.value);
   }
 
   _makeList() {

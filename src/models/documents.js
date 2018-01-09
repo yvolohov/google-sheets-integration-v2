@@ -22,8 +22,12 @@ class Documents {
       ? this.documents[this.selectedDocumentId] : null;
   }
 
-  setSelectedDocument(documentId) {
-    this.selectedDocumentId = documentId;
+  getSelectedDocumentId() {
+    return this.selectedDocumentId;
+  }
+
+  setSelectedDocumentId(documentId) {
+    this.selectedDocumentId = parseInt(documentId);
   }
 
   getFoldersTree() {
