@@ -19,13 +19,11 @@ class RowFolderSelector extends BaseSelector {
   }
 
   _changeHandler(event) {
-    folders.setSelectedFolder(event.target.value);
+    folders.setSelectedFolderId(parseInt(event.target.value));
   }
 
   _makeList() {
-    let selectedFolder = folders.getSelectedFolder();
-    let selectedFolderId = (selectedFolder !== null) ? selectedFolder.folder_id : 0;
-
+    let selectedFolderId = folders.getSelectedFolderId();
     let settings = this._makeOptionSettings(0, selectedFolderId);
     let list = [m('option', settings, labels.l_10)];
     let foldersData = folders.getFoldersList();
@@ -35,6 +33,9 @@ class RowFolderSelector extends BaseSelector {
       let settings = this._makeOptionSettings(currentFolder.folder_id, selectedFolderId);
       list.push(m('option', settings, currentFolder.name));
     }
+
+    settings = this._makeOptionSettings(1, selectedFolderId);
+    list.push(m('option', settings, `--- ${labels.l_20} ---`));
     return list;
   }
 }

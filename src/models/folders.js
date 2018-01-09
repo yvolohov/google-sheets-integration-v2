@@ -22,7 +22,11 @@ class Folders {
       ? this.folders[this.selectedFolderId] : null;
   }
 
-  setSelectedFolder(folderId) {
+  getSelectedFolderId() {
+    return this.selectedFolderId;
+  }
+
+  setSelectedFolderId(folderId) {
     this.selectedFolderId = folderId;
   }
 

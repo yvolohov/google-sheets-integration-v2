@@ -16,5 +16,8 @@ export default {
   l_14: 'To current sheet horisontally',
   l_15: 'To current sheet vertically',
   l_16: 'To new sheet horisontally',
-  l_17: 'To new sheet vertically'
+  l_17: 'To new sheet vertically',
+  l_18: 'New folder name',
+  l_19: 'Current timestamp by default',
+  l_20: 'Create new folder'
 };
