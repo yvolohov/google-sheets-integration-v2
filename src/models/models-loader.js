@@ -1,5 +1,6 @@
 import documents from './documents';
 import folders from './folders';
+import fillRequests from './fill-requests';
 import errors from './errors';
 
 class ModelsLoader {
@@ -61,5 +62,6 @@ class ModelsLoader {
 let modelsLoader = new ModelsLoader();
 modelsLoader.registerModel('documents', documents);
 modelsLoader.registerModel('folders', folders);
+modelsLoader.registerModel('fillRequests', fillRequests);
 
 export default modelsLoader;
