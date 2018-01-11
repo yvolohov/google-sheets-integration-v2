@@ -19,5 +19,6 @@ export default {
   l_17: 'To new sheet vertically',
   l_18: 'New folder name',
   l_19: 'Current timestamp by default',
-  l_20: 'Create new folder'
+  l_20: 'Create new folder',
+  l_21: '1. Select a fill request'
 };

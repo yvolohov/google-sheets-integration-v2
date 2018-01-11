@@ -2,7 +2,9 @@ import MultipageRequest from '../lib/multipage-request';
 
 class FillRequests {
   constructor() {
-
+    this.list = [];
+    this.fillRequests = {};
+    this.selectedFillRequestId = 0;
   }
 
   load() {
@@ -13,6 +15,23 @@ class FillRequests {
       this._pageCallback.bind(this),
       this._postCallback.bind(this)
     );
+  }
+
+  getSelectedFillRequest() {
+    return (this.selectedFillRequestId in this.fillRequests)
+      ? this.fillRequests[this.selectedFillRequestId] : null;
+  }
+
+  getSelectedFillRequestId() {
+    return this.selectedFillRequestId;
+  }
+
+  setSelectedFillRequestId(fillRequestId) {
+    this.selectedFillRequestId = parseInt(fillRequestId);
+  }
+
+  getFillRequestsList() {
+    return this.list;
   }
 
   _pageCallback(response, results, errors) {
@@ -34,7 +53,20 @@ class FillRequests {
   }
 
   _postCallback(results, errors) {
-    console.log(results);
+    let fillRequests = {};
+
+    for (let fillRequestId in results) {
+      let currentFillRequest = results[fillRequestId];
+      fillRequests[currentFillRequest.fillable_form_id] = currentFillRequest;
+    }
+
+    results.sort(this._sortFillRequestsCallback.bind(this));
+    this.fillRequests = fillRequests;
+    this.list = results;
+  }
+
+  _sortFillRequestsCallback(a, b) {
+    return (a.document_name.toLowerCase() > b.document_name.toLowerCase()) ? 1 : -1;
   }
 }
 
