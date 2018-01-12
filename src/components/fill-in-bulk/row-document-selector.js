@@ -1,6 +1,7 @@
 import m from 'mithril';
 import BaseSelector from '../common/base-selector';
 import documents from '../../models/documents';
+import documentLinks from '../../models/document-links';
 import documentFields from '../../models/document-fields';
 import labels from '../../labels';
 
@@ -25,6 +26,7 @@ class RowDocumentSelector extends BaseSelector {
     let documentId = event.target.value;
     documents.setSelectedDocumentId(documentId);
     documentFields.setFields(documentId, () => {m.redraw();});
+    documentLinks.setLink(documentId);
   }
 
   _makeTree() {
