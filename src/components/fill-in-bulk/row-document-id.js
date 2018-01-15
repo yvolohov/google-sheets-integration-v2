@@ -12,9 +12,16 @@ class RowDocumentId {
     ]);
   }
 
+  _clickHandler(event) {
+    event.preventDefault();
+  }
+
   _prepareId() {
     let selectedDocument = documents.getSelectedDocument();
-    return (selectedDocument !== null) ? selectedDocument.id : '...';
+
+    return (selectedDocument !== null)
+      ? m('a', {href: '#', onclick: this._clickHandler.bind(this)}, selectedDocument.id)
+      : '...';
   }
 }
 
