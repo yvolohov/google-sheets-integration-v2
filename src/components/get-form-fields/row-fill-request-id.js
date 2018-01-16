@@ -12,15 +12,11 @@ class RowFillRequestId {
     ]);
   }
 
-  _clickHandler(event) {
-    event.preventDefault();
-  }
-
   _prepareId() {
     let selectedFillRequest = fillRequests.getSelectedFillRequest();
 
     return (selectedFillRequest !== null)
-      ? m('a', {href: '#', onclick: this._clickHandler.bind(this)}, selectedFillRequest.fillable_form_id)
+      ? m('a', {href: selectedFillRequest.url, target: '_blank'}, selectedFillRequest.fillable_form_id)
       : '...';
   }
 }

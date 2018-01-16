@@ -21,5 +21,6 @@ export default {
   l_19: 'Current timestamp by default',
   l_20: 'Create new folder',
   l_21: '1. Select a fill request',
-  l_22: 'Fillable form ID'
+  l_22: 'Fill request ID',
+  l_23: '2. Select and order filled forms'
 };
