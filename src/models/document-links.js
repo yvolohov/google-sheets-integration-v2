@@ -3,15 +3,12 @@ import errors from './errors';
 class DocumentLinks {
   constructor() {
     this.links = {};
-    this.selectedDocumentId = 0;
   }
 
-  setLink(documentId, expireForExisting=1, expireForNew=3, callback=null) {
-    this.selectedDocumentId = documentId;
-
-    if (this.selectedDocumentId == 0 || (this.selectedDocumentId in this.links)) {
+  loadLink(documentId, expireForExisting=1, expireForNew=30, callback=null) {
+    if (documentId in this.links) {
       if (callback !== null) {
-        callback();
+        callback(this.links[documentId]);
       }
     }
     else {
@@ -27,7 +24,17 @@ class DocumentLinks {
     });
 
     link.then((response) => {
-      console.log(response.responseContent);
+      if (response.responseCode !== 200) {
+        errors.addPortion([response]);
+        errors.send();
+        return;
+      }
+
+      this.links[documentId] = response.responseContent;
+
+      if (callback !== null) {
+        callback(response.responseContent);
+      }
     });
   }
 }
