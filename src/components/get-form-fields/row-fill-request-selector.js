@@ -1,6 +1,7 @@
 import m from 'mithril';
 import BaseSelector from '../common/base-selector';
 import fillRequests from '../../models/fill-requests';
+import fillRequestForms from '../../models/fill-request-forms';
 import labels from '../../labels';
 
 class RowFillRequestSelector extends BaseSelector {
@@ -47,8 +48,10 @@ class RowFillRequestSelector extends BaseSelector {
   }
 
   _changeHandler(event) {
-    fillRequests.setSelectedFillRequestId(event.target.value);
-  }   
+    let fillRequestId = event.target.value;
+    fillRequests.setSelectedFillRequestId(fillRequestId);
+    fillRequestForms.setForms(fillRequestId, () => {m.redraw();})
+  }
 }
 
 export default RowFillRequestSelector;
