@@ -16,12 +16,12 @@ class RowFillRequestSelector extends BaseSelector {
           },
           this._makeList())
         ])
+      ]),
+      m('div', {class: 'col-12-sm'}, [
+        m('div', {class: 'gray'}, `${labels.l_22}:`),
+        m('div', {style: 'height: 25px;'}, this._prepareId())
       ])
     ]);
-  }
-
-  _changeHandler(event) {
-    fillRequests.setSelectedFillRequestId(event.target.value);
   }
 
   _makeList() {
@@ -37,6 +37,18 @@ class RowFillRequestSelector extends BaseSelector {
     }
     return list;
   }
+
+  _prepareId() {
+    let selectedFillRequest = fillRequests.getSelectedFillRequest();
+
+    return (selectedFillRequest !== null)
+      ? m('a', {href: selectedFillRequest.url, target: '_blank'}, selectedFillRequest.fillable_form_id)
+      : '...';
+  }
+
+  _changeHandler(event) {
+    fillRequests.setSelectedFillRequestId(event.target.value);
+  }   
 }
 
 export default RowFillRequestSelector;
