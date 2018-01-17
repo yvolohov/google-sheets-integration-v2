@@ -22,5 +22,6 @@ export default {
   l_20: 'Create new folder',
   l_21: '1. Select a fill request',
   l_22: 'Fill request ID',
-  l_23: '2. Select and order filled forms'
+  l_23: '2. Select and order filled forms',
+  l_24: 'Fill forms from selected area'
 };

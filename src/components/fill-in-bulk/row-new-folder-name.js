@@ -1,9 +1,10 @@
 import m from 'mithril';
+import folders from '../../models/folders';
 import labels from '../../labels';
 
 class RowNewFolderName {
   view(vnode) {
-    return m('div', {class: 'row'}, [
+    return m('div', this._setVisibility({class: 'row'}), [
       m('div', {class: 'col-12-sm'}, [
         m('label', {class: 'gray', for: 'folder-name-input'}, `${labels.l_18}:`),
         m('input', {
@@ -14,6 +15,13 @@ class RowNewFolderName {
         })
       ])
     ]);
+  }
+
+  _setVisibility(rowSettings) {
+    if (folders.getSelectedFolderId() !== 1) {
+      rowSettings['style'] = 'display: none;';
+    }
+    return rowSettings;
   }
 }
 

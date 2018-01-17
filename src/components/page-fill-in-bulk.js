@@ -8,6 +8,7 @@ import RowFieldsList from './fill-in-bulk/row-fields-list';
 import RowHeaderSelector from './fill-in-bulk/row-header-selector';
 import RowFolderSelector from './fill-in-bulk/row-folder-selector';
 import RowNewFolderName from './fill-in-bulk/row-new-folder-name';
+import RowFillFormsButton from './fill-in-bulk/row-fill-forms-button'
 import labels from '../labels';
 import modelsLoader from '../models/models-loader';
 
@@ -39,7 +40,8 @@ class PageFillInBulk {
       m(RowFieldsList),
       m(RowHeaderSelector),
       m(RowFolderSelector),
-      m(RowNewFolderName)
+      m(RowNewFolderName),
+      m(RowFillFormsButton)
     ]);
   }
 }
