@@ -2,8 +2,6 @@ import m from 'mithril';
 import PageLoading from './page-loading';
 import RowHeader from './common/row-header';
 import RowDocumentSelector from './fill-in-bulk/row-document-selector';
-import RowDocumentId from './fill-in-bulk/row-document-id';
-import RowDocumentFolder from './fill-in-bulk/row-document-folder';
 import RowFieldsList from './fill-in-bulk/row-fields-list';
 import RowHeaderSelector from './fill-in-bulk/row-header-selector';
 import RowFolderSelector from './fill-in-bulk/row-folder-selector';
@@ -35,8 +33,6 @@ class PageFillInBulk {
     return m('div', {class: 'container'}, [
       m(RowHeader, {pageLabel: labels.l_1}),
       m(RowDocumentSelector),
-      m(RowDocumentId),
-      m(RowDocumentFolder),
       m(RowFieldsList),
       m(RowHeaderSelector),
       m(RowFolderSelector),

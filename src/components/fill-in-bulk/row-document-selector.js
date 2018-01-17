@@ -1,6 +1,7 @@
 import m from 'mithril';
 import BaseSelector from '../common/base-selector';
 import documents from '../../models/documents';
+import documentLinks from '../../models/document-links';
 import documentFields from '../../models/document-fields';
 import labels from '../../labels';
 
@@ -17,14 +18,16 @@ class RowDocumentSelector extends BaseSelector {
           },
           this._makeTree())
         ])
+      ]),
+      m('div', {class: 'col-12-sm'}, [
+        m('div', {class: 'gray'}, `${labels.l_7}:`),
+        m('div', {style: 'height: 25px;'}, this._prepareId())
+      ]),
+      m('div', {class: 'col-12-sm'}, [
+        m('div', {class: 'gray'}, `${labels.l_8}:`),
+        m('div', {style: 'height: 25px;'}, this._prepareFolder())
       ])
     ]);
-  }
-
-  _changeHandler(event) {
-    let documentId = event.target.value;
-    documents.setSelectedDocumentId(documentId);
-    documentFields.setFields(documentId, () => {m.redraw();});
   }
 
   _makeTree() {
@@ -46,6 +49,32 @@ class RowDocumentSelector extends BaseSelector {
       tree.push(m('optgroup', {label: currentFolder.name}, options));
     }
     return tree;
+  }
+
+  _prepareId() {
+    let selectedDocument = documents.getSelectedDocument();
+
+    return (selectedDocument !== null)
+      ? m('a', {href: '#', onclick: this._clickHandler.bind(this, selectedDocument.id)}, selectedDocument.id)
+      : '...';
+  }
+
+  _prepareFolder() {
+    let selectedDocument = documents.getSelectedDocument();
+    return (selectedDocument !== null) ? selectedDocument.folder.name : '...';
+  }  
+
+  _changeHandler(event) {
+    let documentId = event.target.value;
+    documents.setSelectedDocumentId(documentId);
+    documentFields.setFields(documentId, () => {m.redraw();});
+  }
+
+  _clickHandler(documentId, event) {
+    event.preventDefault();
+    documentLinks.loadLink(documentId, 1, 30, (link) => {
+      window.open(link.url);
+    });
   }
 }
 
