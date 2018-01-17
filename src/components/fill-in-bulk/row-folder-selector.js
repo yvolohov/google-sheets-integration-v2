@@ -14,12 +14,17 @@ class RowFolderSelector extends BaseSelector {
           onchange: this._changeHandler.bind(this)
         },
         this._makeList())
+      ]),
+      m('div', this._setVisibility({class: 'col-12-sm'}), [
+        m('label', {class: 'gray', for: 'folder-name-input'}, `${labels.l_18}:`),
+        m('input', {
+          id: 'folder-name-input',
+          type: 'text',
+          placeholder: labels.l_19,
+          style: 'width: 100%;'
+        })
       ])
     ]);
-  }
-
-  _changeHandler(event) {
-    folders.setSelectedFolderId(event.target.value);
   }
 
   _makeList() {
@@ -37,6 +42,17 @@ class RowFolderSelector extends BaseSelector {
     settings = this._makeOptionSettings(1, selectedFolderId);
     list.push(m('option', settings, `--- ${labels.l_20} ---`));
     return list;
+  }
+
+  _setVisibility(cellSettings) {
+    if (folders.getSelectedFolderId() !== 1) {
+      cellSettings['style'] = 'display: none;';
+    }
+    return cellSettings;
+  }
+
+  _changeHandler(event) {
+    folders.setSelectedFolderId(event.target.value);
   }
 }
 
