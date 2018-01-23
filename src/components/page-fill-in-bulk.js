@@ -3,6 +3,7 @@ import PageLoading from './page-loading';
 import RowHeader from './common/row-header';
 import RowDocumentSelector from './fill-in-bulk/row-document-selector';
 import RowFieldsList from './fill-in-bulk/row-fields-list';
+import RowCreateDataHeader from './fill-in-bulk/row-create-data-header';
 import RowFolderSelector from './fill-in-bulk/row-folder-selector';
 import RowFillFormsButton from './fill-in-bulk/row-fill-forms-button'
 import labels from '../labels';
@@ -32,6 +33,7 @@ class PageFillInBulk {
       m(RowHeader, {pageLabel: labels.l_1}),
       m(RowDocumentSelector),
       m(RowFieldsList),
+      m(RowCreateDataHeader),
       m(RowFolderSelector),
       m(RowFillFormsButton)
     ]);

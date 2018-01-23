@@ -13,21 +13,7 @@ class RowFieldsList {
         m('div', {style: SCROLL_BOX_STYLES}, [
           m('div', this._makeList())
         ])
-      ]),
-      m('div', {class: 'col-12-sm'}, [
-        m('input', this._setChecked({
-          id: 'new-sheet-checkbox',
-          type: 'checkbox',
-          onclick: this._clickHandler.bind(this)
-        })),
-        m('label', {for: 'new-sheet-checkbox', class: 'gray'}, labels.l_13)
-      ]),
-      m('div', {class: 'col-6-sm'}, [
-        m('button', {style: 'width: 100%;'}, labels.l_14)
-      ]),
-      m('div', {class: 'col-6-sm'}, [
-        m('button', {style: 'width: 100%;'}, labels.l_15)
-      ]),
+      ])
     ]);
   }
 
@@ -39,7 +25,7 @@ class RowFieldsList {
       let currentField = selectedDocumentFields[fieldIndex];
       let checkboxSettings = {
         type: 'checkbox',
-        onclick: this._clickFieldHandler.bind(this, currentField.name),
+        onclick: this._fieldCheckboxesClickHandler.bind(this, currentField.name),
         checked: (currentField.checkboxChecked) ? true : null
       };
 
@@ -58,21 +44,9 @@ class RowFieldsList {
     return list;
   }
 
-  _setChecked(checkboxSettings) {
-    if (documentFields.getNewSheetFlag()) {
-      checkboxSettings['checked'] = 'checked';
-    }
-    return checkboxSettings;
-  }
-
-  _clickFieldHandler(fieldName, event) {
+  _fieldCheckboxesClickHandler(fieldName, event) {
     event.redraw = false;
     documentFields.selectField(fieldName, event.target.checked);
-  }
-
-  _clickHandler(event) {
-    event.redraw = false;
-    documentFields.setNewSheetFlag(event.target.checked);
   }
 }
 
