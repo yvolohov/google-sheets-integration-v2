@@ -5,6 +5,7 @@ class DocumentFields {
     this.fields = {};
     this.fieldsByName = {};
     this.selectedDocumentId = 0;
+    this.createNewSheet = false;
   }
 
   getDocumentFields() {
@@ -14,6 +15,10 @@ class DocumentFields {
 
   getDocumentId() {
     return this.selectedDocumentId;
+  }
+
+  getNewSheetFlag() {
+    return this.createNewSheet;
   }
 
   selectField(fieldName, checkboxChecked) {
@@ -40,6 +45,10 @@ class DocumentFields {
     else {
       this._loadFields(documentId, callback);
     }
+  }
+
+  setNewSheetFlag(flag) {
+    this.createNewSheet = flag;
   }
 
   _loadFields(documentId, callback) {
@@ -71,6 +80,14 @@ class DocumentFields {
 
     for (let fieldIndex in rawContent) {
       let currentField = rawContent[fieldIndex];
+
+      if (currentField.type === 'image' || currentField.type === 'signature') {
+        continue;
+      }
+
+      if (!currentField.fillable) {
+        continue;
+      }
       currentField['checkboxChecked'] = true;
       fields.push(currentField);
     }
