@@ -13,7 +13,17 @@ class RowFieldsList {
         m('div', {style: SCROLL_BOX_STYLES}, [
           m('div', this._makeList())
         ])
-      ])
+      ]),
+      m('div', {class: 'col-12-sm'}, [
+        m('input', {id: 'new-sheet-checkbox', type: 'checkbox'}),
+        m('label', {for: 'new-sheet-checkbox', class: 'gray'}, labels.l_13)
+      ]),
+      m('div', {class: 'col-6-sm'}, [
+        m('button', {style: 'width: 100%;'}, labels.l_14)
+      ]),
+      m('div', {class: 'col-6-sm'}, [
+        m('button', {style: 'width: 100%;'}, labels.l_15)
+      ]),
     ]);
   }
 
