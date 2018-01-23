@@ -15,7 +15,11 @@ class RowFieldsList {
         ])
       ]),
       m('div', {class: 'col-12-sm'}, [
-        m('input', {id: 'new-sheet-checkbox', type: 'checkbox'}),
+        m('input', this._setChecked({
+          id: 'new-sheet-checkbox',
+          type: 'checkbox',
+          onclick: this._clickHandler.bind(this)
+        })),
         m('label', {for: 'new-sheet-checkbox', class: 'gray'}, labels.l_13)
       ]),
       m('div', {class: 'col-6-sm'}, [
@@ -35,7 +39,7 @@ class RowFieldsList {
       let currentField = selectedDocumentFields[fieldIndex];
       let checkboxSettings = {
         type: 'checkbox',
-        onclick: this._clickHandler.bind(this, currentField.name),
+        onclick: this._clickFieldHandler.bind(this, currentField.name),
         checked: (currentField.checkboxChecked) ? true : null
       };
 
@@ -54,9 +58,21 @@ class RowFieldsList {
     return list;
   }
 
-  _clickHandler(fieldName, event) {
+  _setChecked(checkboxSettings) {
+    if (documentFields.getNewSheetFlag()) {
+      checkboxSettings['checked'] = 'checked';
+    }
+    return checkboxSettings;
+  }
+
+  _clickFieldHandler(fieldName, event) {
     event.redraw = false;
     documentFields.selectField(fieldName, event.target.checked);
+  }
+
+  _clickHandler(event) {
+    event.redraw = false;
+    documentFields.setNewSheetFlag(event.target.checked);
   }
 }
 
