@@ -5,7 +5,6 @@ class DocumentFields {
     this.fields = {};
     this.fieldsByName = {};
     this.selectedDocumentId = 0;
-    this.createNewSheet = false;
   }
 
   getDocumentFields() {
@@ -15,10 +14,6 @@ class DocumentFields {
 
   getDocumentId() {
     return this.selectedDocumentId;
-  }
-
-  getNewSheetFlag() {
-    return this.createNewSheet;
   }
 
   selectField(fieldName, checkboxChecked) {
@@ -45,10 +40,6 @@ class DocumentFields {
     else {
       this._loadFields(documentId, callback);
     }
-  }
-
-  setNewSheetFlag(flag) {
-    this.createNewSheet = flag;
   }
 
   _loadFields(documentId, callback) {

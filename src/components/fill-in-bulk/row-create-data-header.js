@@ -1,6 +1,11 @@
 import m from 'mithril';
-import documentFields from '../../models/document-fields';
+import dataHeader from '../../models/data-header';
 import labels from '../../labels';
+
+const INSERT_IN_ROW_ON_CURRENT_SHEET = 0;
+const INSERT_IN_COLUMN_ON_CURRENT_SHEET = 1;
+const INSERT_IN_ROW_ON_NEW_SHEET = 2;
+const INSERT_IN_COLUMN_ON_NEW_SHEET = 3;
 
 class RowCreateDataHeader {
   view(vnode) {
@@ -9,43 +14,57 @@ class RowCreateDataHeader {
         m('input', this._setChecked({
           id: 'new-sheet-checkbox',
           type: 'checkbox',
-          onclick: this._newSheetCheckboxClickHandler.bind(this)
+          onclick: this._checkboxClickHandler.bind(this)
         })),
         m('label', {for: 'new-sheet-checkbox', class: 'gray'}, labels.l_13)
       ]),
       m('div', {class: 'col-6-sm'}, [
         m('button', {
           style: 'width: 100%;',
-          onclick: this._insertInRowButtonClickHandler.bind(this)
+          onclick: this._rowButtonClickHandler.bind(this)
         }, labels.l_14)
       ]),
       m('div', {class: 'col-6-sm'}, [
         m('button', {
           style: 'width: 100%;',
-          onclick: this._insertIoColumnButtonClickHandler.bind(this)
+          onclick: this._columnButtonClickHandler.bind(this)
         }, labels.l_15)
       ])
     ]);
   }
 
   _setChecked(checkboxSettings) {
-    if (documentFields.getNewSheetFlag()) {
+    if (dataHeader.getNewSheetFlag()) {
       checkboxSettings['checked'] = 'checked';
     }
     return checkboxSettings;
   }
 
-  _newSheetCheckboxClickHandler(event) {
+  _checkboxClickHandler(event) {
     event.redraw = false;
-    documentFields.setNewSheetFlag(event.target.checked);
+    dataHeader.setNewSheetFlag(event.target.checked);
   }
 
-  _insertInRowButtonClickHandler(event) {
+  _rowButtonClickHandler(event) {
     event.redraw = false;
+
+    if (dataHeader.getNewSheetFlag()) {
+      dataHeader.createDataHeader(INSERT_IN_ROW_ON_NEW_SHEET);
+    }
+    else {
+      dataHeader.createDataHeader(INSERT_IN_ROW_ON_CURRENT_SHEET);
+    }
   }
 
-  _insertIoColumnButtonClickHandler(event) {
+  _columnButtonClickHandler(event) {
     event.redraw = false;
+
+    if (dataHeader.getNewSheetFlag()) {
+      dataHeader.createDataHeader(INSERT_IN_COLUMN_ON_NEW_SHEET);
+    }
+    else {
+      dataHeader.createDataHeader(INSERT_IN_COLUMN_ON_CURRENT_SHEET);
+    }
   }
 }
 

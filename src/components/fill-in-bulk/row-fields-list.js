@@ -25,7 +25,7 @@ class RowFieldsList {
       let currentField = selectedDocumentFields[fieldIndex];
       let checkboxSettings = {
         type: 'checkbox',
-        onclick: this._fieldCheckboxesClickHandler.bind(this, currentField.name),
+        onclick: this._clickHandler.bind(this, currentField.name),
         checked: (currentField.checkboxChecked) ? true : null
       };
 
@@ -44,7 +44,7 @@ class RowFieldsList {
     return list;
   }
 
-  _fieldCheckboxesClickHandler(fieldName, event) {
+  _clickHandler(fieldName, event) {
     event.redraw = false;
     documentFields.selectField(fieldName, event.target.checked);
   }
