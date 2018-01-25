@@ -15,6 +15,7 @@ class DataHeader {
   }
 
   createDataHeader(headerType) {
+    let documentId = documentFields.getDocumentId();
     let selectedDocumentFields = documentFields.getDocumentFields();
     let selectedFields = [];
 
@@ -29,7 +30,7 @@ class DataHeader {
     if (selectedFields.length === 0) {
       return;
     }
-    google.script.run.ccCreateDataHeader(selectedFields, headerType);
+    google.script.run.ccCreateDataHeader(documentId, selectedFields, headerType);
   }
 }
 
