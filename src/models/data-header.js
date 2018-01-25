@@ -1,3 +1,4 @@
+import documentFields from './document-fields';
 import errors from './errors';
 
 class DataHeader {
@@ -14,7 +15,21 @@ class DataHeader {
   }
 
   createDataHeader(headerType) {
-    console.log(headerType);
+    let selectedDocumentFields = documentFields.getDocumentFields();
+    let selectedFields = [];
+
+    for (let fieldIndex in selectedDocumentFields) {
+      let currentField = selectedDocumentFields[fieldIndex];
+
+      if (currentField.checkboxChecked) {
+        selectedFields.push(currentField);
+      }
+    }
+
+    if (selectedFields.length === 0) {
+      return;
+    }
+    google.script.run.ccCreateDataHeader(selectedFields, headerType);
   }
 }
 
