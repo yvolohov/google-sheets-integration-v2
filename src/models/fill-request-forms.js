@@ -21,15 +21,16 @@ class FillRequestForms {
   }
 
   _loadForms(fillRequestId, callback) {
-    /*
     let multipageRequest = new MultipageRequest('ccGetFilledForms');
     multipageRequest.setPerPage(100);
+    multipageRequest.setAdditionalParameters({
+      fillableFormId: this.selectedFillRequestId
+    });    
 
     return multipageRequest.get(
       this._pageCallback.bind(this),
       this._postCallback.bind(this)
     );
-    */
   }
 
   _pageCallback(response, results, errors) {

@@ -2,6 +2,7 @@ class MultipageRequest {
   constructor(method) {
     this.method = method;
     this.perPage = 100;
+    this.additionalParameters = null;
   }
 
   setMethod(method) {
@@ -12,6 +13,10 @@ class MultipageRequest {
     this.perPage = perPage;
   }
 
+  setAdditionalParameters(additionalParameters) {
+    this.additionalParameters = additionalParameters;
+  }
+
   get(callback, postCallback=null) {
     var results = [];
     var errors = [];
@@ -20,7 +25,7 @@ class MultipageRequest {
     let firstPage = new Promise((resolve) => {
       google.script.run
         .withSuccessHandler((response) => {resolve(response);})
-        [this.method](this.perPage, 1);
+        [this.method](this.perPage, 1, this.additionalParameters);
     });
 
     /* proccess result of first page, get next pages */
@@ -33,7 +38,7 @@ class MultipageRequest {
         pagesPromises.push(new Promise((resolve) => {
           google.script.run
             .withSuccessHandler((response) => {resolve(response);})
-            [this.method](this.perPage, page);
+            [this.method](this.perPage, page, this.additionalParameters);
         }));
       }
       return Promise.all(pagesPromises);
