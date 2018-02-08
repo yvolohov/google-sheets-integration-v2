@@ -8,6 +8,11 @@ class FillRequestForms {
     this.selectedFillRequestId = 0;
   }
 
+  getSelectedFillRequestForms() {
+    return (this.selectedFillRequestId in this.filledFormsAsList)
+      ? this.filledFormsAsList[this.selectedFillRequestId] : [];
+  }
+
   setForms(fillRequestId, callback=null) {
     this.selectedFillRequestId = fillRequestId;
 
@@ -30,7 +35,7 @@ class FillRequestForms {
 
     return multipageRequest.get(
       this._pageCallback.bind(this),
-      this._postCallback.bind(this)
+      this._postCallback.bind(this, callback)
     );
   }
 
@@ -48,10 +53,10 @@ class FillRequestForms {
     }
   }
 
-  _postCallback(pagesResults, pagesErrors) {
+  _postCallback(redrawCallback, pagesResults, pagesErrors) {
     errors.addPortion(pagesErrors);
     errors.send();
-        
+
     let filledForms = {};
 
     for (let filledFormIdx in pagesResults) {
@@ -60,6 +65,10 @@ class FillRequestForms {
     }
     this.filledForms[this.selectedFillRequestId] = filledForms;
     this.filledFormsAsList[this.selectedFillRequestId] = pagesResults;
+
+    if (redrawCallback !== null) {
+      redrawCallback();
+    }
   }
 }
 

@@ -15,7 +15,7 @@ export default {
   l_13: 'Insert to new sheet',
   l_14: 'Insert in row',
   l_15: 'Insert in column',
-  l_16: '',
+  l_16: 'Form',
   l_17: '',
   l_18: 'New folder name',
   l_19: 'Current timestamp by default',
