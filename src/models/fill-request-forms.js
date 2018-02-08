@@ -4,6 +4,7 @@ import errors from './errors';
 class FillRequestForms {
   constructor() {
     this.filledForms = {};
+    this.filledFormsAsList = {};
     this.selectedFillRequestId = 0;
   }
 
@@ -25,7 +26,7 @@ class FillRequestForms {
     multipageRequest.setPerPage(100);
     multipageRequest.setAdditionalParameters({
       fillableFormId: this.selectedFillRequestId
-    });    
+    });
 
     return multipageRequest.get(
       this._pageCallback.bind(this),
@@ -33,12 +34,32 @@ class FillRequestForms {
     );
   }
 
-  _pageCallback(response, results, errors) {
-    console.log(response.responseContent);
+  _pageCallback(response, pagesResults, pagesErrors) {
+    if (response.responseCode !== 200) {
+      pagesErrors.push(response);
+      return;
+    }
+
+    let filledForms = response.responseContent.items;
+
+    for (let filledFormIdx in filledForms) {
+      let currentFilledForm = filledForms[filledFormIdx];
+      pagesResults.push(currentFilledForm);
+    }
   }
 
-  _postCallback(results, errors) {
+  _postCallback(pagesResults, pagesErrors) {
+    errors.addPortion(pagesErrors);
+    errors.send();
+        
+    let filledForms = {};
 
+    for (let filledFormIdx in pagesResults) {
+      let currentFilledForm = pagesResults[filledFormIdx];
+      filledForms[currentFilledForm.filled_form_id] = currentFilledForm;
+    }
+    this.filledForms[this.selectedFillRequestId] = filledForms;
+    this.filledFormsAsList[this.selectedFillRequestId] = pagesResults;
   }
 }
 
