@@ -1,5 +1,4 @@
 import documentFields from './document-fields';
-import errors from './errors';
 
 class DataHeader {
   constructor() {
