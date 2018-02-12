@@ -16,12 +16,13 @@ export default {
   l_14: 'Insert in row',
   l_15: 'Insert in column',
   l_16: 'Form',
-  l_17: '',
+  l_17: 'From',
   l_18: 'New folder name',
   l_19: 'Current timestamp by default',
   l_20: 'Create new folder',
   l_21: '1. Select a fill request',
   l_22: 'Fill request ID',
   l_23: '2. Select and order filled forms',
-  l_24: 'Fill forms from selected area'
+  l_24: 'Fill forms from selected area',
+  l_25: 'Unknown user'
 };

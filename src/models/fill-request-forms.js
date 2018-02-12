@@ -61,14 +61,20 @@ class FillRequestForms {
 
     for (let filledFormIdx in pagesResults) {
       let currentFilledForm = pagesResults[filledFormIdx];
+      currentFilledForm['checkboxChecked'] = true;
       filledForms[currentFilledForm.filled_form_id] = currentFilledForm;
     }
+    pagesResults.sort(this._sortFilledFormsCallback.bind(this));
     this.filledForms[this.selectedFillRequestId] = filledForms;
     this.filledFormsAsList[this.selectedFillRequestId] = pagesResults;
 
     if (redrawCallback !== null) {
       redrawCallback();
     }
+  }
+
+  _sortFilledFormsCallback(a, b) {
+    return (a.filled_form_id > b.filled_form_id) ? 1 : -1;
   }
 }
 
