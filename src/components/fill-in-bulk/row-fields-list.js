@@ -1,9 +1,9 @@
 import m from 'mithril';
+import ListItemOne from '../common/list-item-one';
 import documentFields from '../../models/document-fields';
 import labels from '../../labels';
 
 const SCROLL_BOX_STYLES = `width: 100%; height: 300px; border: 1px solid silver; border-radius: 2px; overflow-x: hidden; overflow-y: scroll;`;
-const CHECK_BOX_STYLES = `display: inline-block; width: 30px; vertical-align: top; text-align: center;`;
 
 class RowFieldsList {
   view(vnode) {
@@ -23,23 +23,13 @@ class RowFieldsList {
 
     for (let fieldIndex in selectedDocumentFields) {
       let currentField = selectedDocumentFields[fieldIndex];
-      let checkboxSettings = {
-        type: 'checkbox',
-        onclick: this._clickHandler.bind(this, currentField.name),
-        checked: (currentField.checkboxChecked) ? true : null
-      };
 
-      list.push(
-        m('div', [
-          m('div', {style: CHECK_BOX_STYLES}, [
-            m('input', checkboxSettings)
-          ]),
-          m('div', {style: 'display: inline-block;'}, [
-            m('div', currentField.name),
-            m('div', {class: 'secondary'}, `${labels.l_12}: ${currentField.type}`)
-          ])
-        ])
-      );
+      list.push(m(ListItemOne, {
+        bigHeader: currentField.name,
+        smallHeader: `${labels.l_12}: ${currentField.type}`,
+        clickHandler: this._clickHandler.bind(this, currentField.name),
+        checked: (currentField.checkboxChecked) ? true : null
+      }));
     }
     return list;
   }
