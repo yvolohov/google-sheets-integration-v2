@@ -13,6 +13,19 @@ class FillRequestForms {
       ? this.filledFormsAsList[this.selectedFillRequestId] : [];
   }
 
+  selectForm(filledFormId, checkboxChecked) {
+    if (!(this.selectedFillRequestId in this.filledForms)) {
+      return;
+    }
+
+    let currentFillRequestForms = this.filledForms[this.selectedFillRequestId];
+
+    if (filledFormId in currentFillRequestForms) {
+      let currentForm = currentFillRequestForms[filledFormId];
+      currentForm.checkboxChecked = checkboxChecked;
+    }
+  }
+
   setForms(fillRequestId, callback=null) {
     this.selectedFillRequestId = fillRequestId;
 

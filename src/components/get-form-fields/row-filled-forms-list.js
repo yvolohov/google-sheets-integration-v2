@@ -36,7 +36,7 @@ class RowFilledFormsList {
 
   _clickHandler(filledFormId, event) {
     event.redraw = false;
-    console.log(filledFormId);
+    fillRequestForms.selectForm(filledFormId, event.target.checked);
   }
 
   _createSmallHeader(currentForm) {
