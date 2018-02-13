@@ -7,7 +7,9 @@ class Documents {
     this.selectedDocumentId = 0;
   }
 
-  load() {
+  load(documents) {
+
+    /*
     let multipageRequest = new MultipageRequest('ccGetDocuments');
     multipageRequest.setPerPage(100);
 
@@ -15,6 +17,7 @@ class Documents {
       this._pageCallback.bind(this),
       this._postCallback.bind(this)
     );
+    */
   }
 
   getSelectedDocument() {

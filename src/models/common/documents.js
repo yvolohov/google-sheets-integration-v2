@@ -1,4 +1,7 @@
 import MultipageRequest from '../../lib/multipage-request';
+import firstDocuments from '../fill-in-bulk/documents';
+import secondDocuments from '../extract-in-bulk-for-docs/documents';
+import thirdDocuments from '../get-editor-access-links/documents';
 
 class Documents {
   constructor() {
@@ -30,8 +33,9 @@ class Documents {
 
   _postCallback(results, errors) {
     this.documents = results;
-    /* HERE WE CAN LOAD ANOTHER DOCUMENTS MODELS */
-    console.log(this.documents);
+    firstDocuments.load(this.documents);
+    secondDocuments.load(this.documents);
+    thirdDocuments.load(this.documents);
   }
 }
 
