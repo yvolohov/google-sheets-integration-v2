@@ -1,5 +1,5 @@
 import m from 'mithril';
-import PageLoading from './page-loading';
+import BasePage from './base-page';
 import PageHeader from './common/page-header';
 import DocumentSelector from './fill-in-bulk/document-selector';
 import FieldsList from './fill-in-bulk/fields-list';
@@ -7,26 +7,19 @@ import DataHeaderSection from './fill-in-bulk/data-header-section';
 import FolderSelector from './fill-in-bulk/folder-selector';
 import FillFormsButton from './fill-in-bulk/fill-forms-button';
 import labels from '../labels';
-import modelsLoader from '../models/common/models-loader';
 
-class FillInBulk {
+class FillInBulk extends BasePage {
   constructor() {
-    this.models = ['documents', 'folders'];
+    super(['documents', 'folders']);
   }
 
   oninit() {
-    let notLoaded = modelsLoader.getNotLoadedModels(this.models);
-
-    if (notLoaded.length > 0) {
-      modelsLoader.loadModels(notLoaded, () => {m.redraw();});
-    }
+    this.loadModels();
   }
 
   view() {
-    let notLoaded = modelsLoader.getNotLoadedModels(this.models);
-
-    if (notLoaded.length > 0) {
-      return m(PageLoading);
+    if (!this.areModelsLoaded()) {
+      return this.getLoadingScreen();
     }
 
     return m('div', {class: 'container'}, [
