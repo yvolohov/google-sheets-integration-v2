@@ -1,11 +1,11 @@
 import m from 'mithril';
 import ListItemOne from '../common/list-item-one';
-import documentFields from '../../models/document-fields';
+import documentFields from '../../models/fill-in-bulk/document-fields';
 import labels from '../../labels';
 
 const SCROLL_BOX_STYLES = `width: 100%; height: 300px; border: 1px solid silver; border-radius: 2px; overflow-x: hidden; overflow-y: scroll;`;
 
-class RowFieldsList {
+class FieldsList {
   view(vnode) {
     return m('div', {class: 'row'}, [
       m('div', {class: 'col-12-sm'}, [
@@ -40,4 +40,4 @@ class RowFieldsList {
   }
 }
 
-export default RowFieldsList;
+export default FieldsList;

@@ -1,8 +1,8 @@
 import m from 'mithril';
-import documents from '../../models/documents';
+import documents from '../../models/fill-in-bulk/documents';
 import labels from '../../labels';
 
-class RowFillFormsButton {
+class FillFormsButton {
   view(vnode) {
     return m('div', {class: 'row'}, [
       m('div', {class: 'col-12-sm'}, [
@@ -28,4 +28,4 @@ class RowFillFormsButton {
   }
 }
 
-export default RowFillFormsButton;
+export default FillFormsButton;

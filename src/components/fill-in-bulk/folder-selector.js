@@ -1,9 +1,9 @@
 import m from 'mithril';
 import BaseSelector from '../common/base-selector';
-import folders from '../../models/folders';
+import folders from '../../models/fill-in-bulk/folders';
 import labels from '../../labels';
 
-class RowFolderSelector extends BaseSelector {
+class FolderSelector extends BaseSelector {
   view(vnode) {
     return m('div', {class: 'row'}, [
       m('div', {class: 'col-12-sm'}, [
@@ -56,4 +56,4 @@ class RowFolderSelector extends BaseSelector {
   }
 }
 
-export default RowFolderSelector;
+export default FolderSelector;

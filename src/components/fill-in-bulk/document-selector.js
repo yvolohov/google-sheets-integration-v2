@@ -1,11 +1,11 @@
 import m from 'mithril';
 import BaseSelector from '../common/base-selector';
-import documents from '../../models/documents';
-import documentLinks from '../../models/document-links';
-import documentFields from '../../models/document-fields';
+import documents from '../../models/fill-in-bulk/documents';
+import documentLinks from '../../models/fill-in-bulk/document-links';
+import documentFields from '../../models/fill-in-bulk/document-fields';
 import labels from '../../labels';
 
-class RowDocumentSelector extends BaseSelector {
+class DocumentSelector extends BaseSelector {
   view(vnode) {
     return m('div', {class: 'row'}, [
       m('div', {class: 'col-12-sm'}, [
@@ -62,7 +62,7 @@ class RowDocumentSelector extends BaseSelector {
   _prepareFolder() {
     let selectedDocument = documents.getSelectedDocument();
     return (selectedDocument !== null) ? selectedDocument.folder.name : '...';
-  }  
+  }
 
   _changeHandler(event) {
     let documentId = event.target.value;
@@ -78,4 +78,4 @@ class RowDocumentSelector extends BaseSelector {
   }
 }
 
-export default RowDocumentSelector;
+export default DocumentSelector;

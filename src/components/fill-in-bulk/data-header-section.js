@@ -1,5 +1,5 @@
 import m from 'mithril';
-import dataHeader from '../../models/data-header';
+import dataHeader from '../../models/fill-in-bulk/data-header';
 import labels from '../../labels';
 
 const INSERT_IN_ROW_ON_CURRENT_SHEET = 0;
@@ -7,7 +7,7 @@ const INSERT_IN_COLUMN_ON_CURRENT_SHEET = 1;
 const INSERT_IN_ROW_ON_NEW_SHEET = 2;
 const INSERT_IN_COLUMN_ON_NEW_SHEET = 3;
 
-class RowCreateDataHeader {
+class DataHeaderSection {
   view(vnode) {
     return m('div', {class: 'row'}, [
       m('div', {class: 'col-12-sm'}, [
@@ -68,4 +68,4 @@ class RowCreateDataHeader {
   }
 }
 
-export default RowCreateDataHeader;
+export default DataHeaderSection;
