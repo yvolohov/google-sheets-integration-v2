@@ -1,6 +1,6 @@
 import documents from './documents';
-import folders from './folders';
-import fillRequests from './fill-requests';
+import folders from '../fill-in-bulk/folders';
+import fillRequests from '../extract-in-bulk-for-forms/fill-requests';
 import errors from './errors';
 
 class ModelsLoader {

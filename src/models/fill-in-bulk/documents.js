@@ -1,4 +1,4 @@
-import MultipageRequest from '../lib/multipage-request';
+import MultipageRequest from '../../lib/multipage-request';
 
 class Documents {
   constructor() {

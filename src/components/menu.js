@@ -1,13 +1,13 @@
 import m from 'mithril';
 import labels from '../labels';
 
-class PageMenu {
+class Menu {
   view() {
     return m('div', {class: 'container'}, [
-      this._insertLink(labels.l_1, '#!/page-fill-in-bulk'),
-      this._insertLink(labels.l_2, '#!/page-get-document-fields'),
-      this._insertLink(labels.l_3, '#!/page-get-form-fields'),
-      this._insertLink(labels.l_4, '#!/page-get-editor-access-link')
+      this._insertLink(labels.l_1, '#!/fill-in-bulk'),
+      this._insertLink(labels.l_2, '#!/extract-in-bulk-for-docs'),
+      this._insertLink(labels.l_3, '#!/extract-in-bulk-for-forms'),
+      this._insertLink(labels.l_4, '#!/get-editor-access-links')
     ]);
   }
 
@@ -20,4 +20,4 @@ class PageMenu {
   }
 }
 
-export default PageMenu;
+export default Menu;

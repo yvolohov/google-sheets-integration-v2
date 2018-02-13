@@ -1,15 +1,15 @@
 import m from 'mithril';
 import PageLoading from './components/page-loading';
-import PageMenu from './components/page-menu';
-import PageFillInBulk from './components/page-fill-in-bulk';
-import PageGetDocumentFields from './components/page-get-document-fields';
-import PageGetFormFields from './components/page-get-form-fields';
-import PageGetEditorAccessLink from './components/page-get-editor-access-link';
+import Menu from './components/menu';
+import FillInBulk from './components/fill-in-bulk';
+import ExtractInBulkForDocs from './components/extract-in-bulk-for-docs';
+import ExtractInBulkForForms from './components/extract-in-bulk-for-forms';
+import GetEditorAccessLinks from './components/get-editor-access-links';
 
-m.route(document.getElementById('content'), '/page-menu', {
-  '/page-menu': PageMenu,
-  '/page-fill-in-bulk': PageFillInBulk,
-  '/page-get-document-fields': PageGetDocumentFields,
-  '/page-get-form-fields': PageGetFormFields,
-  '/page-get-editor-access-link': PageGetEditorAccessLink
+m.route(document.getElementById('content'), '/menu', {
+  '/menu': Menu,
+  '/fill-in-bulk': FillInBulk,
+  '/extract-in-bulk-for-docs': ExtractInBulkForDocs,
+  '/extract-in-bulk-for-forms': ExtractInBulkForForms,
+  '/get-editor-access-links': GetEditorAccessLinks
 });

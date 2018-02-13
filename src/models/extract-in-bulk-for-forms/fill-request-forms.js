@@ -1,5 +1,5 @@
-import MultipageRequest from '../lib/multipage-request';
-import errors from './errors';
+import MultipageRequest from '../../lib/multipage-request';
+import errors from '../common/errors';
 
 class FillRequestForms {
   constructor() {

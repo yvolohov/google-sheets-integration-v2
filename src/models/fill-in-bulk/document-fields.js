@@ -1,4 +1,4 @@
-import errors from './errors';
+import errors from '../common/errors';
 
 class DocumentFields {
   constructor() {

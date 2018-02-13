@@ -2,9 +2,9 @@ import m from 'mithril';
 import PageLoading from './page-loading';
 import RowHeader from './common/row-header';
 import labels from '../labels';
-import modelsLoader from '../models/models-loader';
+import modelsLoader from '../models/common/models-loader';
 
-class PageGetDocumentFields {
+class GetEditorAccessLinks {
   constructor() {
     this.models = ['documents'];
   }
@@ -25,9 +25,9 @@ class PageGetDocumentFields {
     }
 
     return m('div', {class: 'container'}, [
-      m(RowHeader, {pageLabel: labels.l_2})
+      m(RowHeader, {pageLabel: labels.l_4})
     ]);
   }
 }
 
-export default PageGetDocumentFields;
+export default GetEditorAccessLinks;
