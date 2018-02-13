@@ -1,6 +1,6 @@
 import m from 'mithril';
 import PageLoading from './page-loading';
-import RowHeader from './common/row-header';
+import PageHeader from './common/page-header';
 import DocumentSelector from './fill-in-bulk/document-selector';
 import FieldsList from './fill-in-bulk/fields-list';
 import DataHeaderSection from './fill-in-bulk/data-header-section';
@@ -30,7 +30,7 @@ class FillInBulk {
     }
 
     return m('div', {class: 'container'}, [
-      m(RowHeader, {pageLabel: labels.l_1}),
+      m(PageHeader, {pageLabel: labels.l_1}),
       m(DocumentSelector),
       m(FieldsList),
       m(DataHeaderSection),

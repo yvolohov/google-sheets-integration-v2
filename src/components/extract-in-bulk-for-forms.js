@@ -1,6 +1,6 @@
 import m from 'mithril';
 import PageLoading from './page-loading';
-import RowHeader from './common/row-header';
+import PageHeader from './common/page-header';
 
 /*
 import RowFillRequestSelector from './get-form-fields/row-fill-request-selector';
@@ -31,7 +31,7 @@ class ExtractInBulkForForms {
     }
 
     return m('div', {class: 'container'}, [
-      m(RowHeader, {pageLabel: labels.l_3}),
+      m(PageHeader, {pageLabel: labels.l_3}),
       //m(RowFillRequestSelector),
       //m(RowFilledFormsList)
     ]);

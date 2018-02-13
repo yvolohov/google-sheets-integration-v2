@@ -1,7 +1,7 @@
 import m from 'mithril';
 import labels from '../../labels';
 
-class RowHeader {
+class PageHeader {
   view(vnode) {
     return m('div', {class: 'row'}, [
       m('div', {class: 'col-12-sm'}, [
@@ -13,4 +13,4 @@ class RowHeader {
   }
 }
 
-export default RowHeader;
+export default PageHeader;
