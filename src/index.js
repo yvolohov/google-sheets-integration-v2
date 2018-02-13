@@ -1,5 +1,4 @@
 import m from 'mithril';
-import PageLoading from './components/page-loading';
 import Menu from './components/menu';
 import FillInBulk from './components/fill-in-bulk';
 import ExtractInBulkForDocs from './components/extract-in-bulk-for-docs';

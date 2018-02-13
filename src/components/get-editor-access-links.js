@@ -1,27 +1,20 @@
 import m from 'mithril';
-import PageLoading from './page-loading';
+import BasePage from './base-page';
 import PageHeader from './common/page-header';
 import labels from '../labels';
-import modelsLoader from '../models/common/models-loader';
 
-class GetEditorAccessLinks {
+class GetEditorAccessLinks extends BasePage {
   constructor() {
-    this.models = ['documents'];
+    super(['documents']);
   }
 
   oninit() {
-    let notLoaded = modelsLoader.getNotLoadedModels(this.models);
-
-    if (notLoaded.length > 0) {
-      modelsLoader.loadModels(notLoaded, () => {m.redraw();});
-    }
+    this.loadModels();
   }
 
   view() {
-    let notLoaded = modelsLoader.getNotLoadedModels(this.models);
-
-    if (notLoaded.length > 0) {
-      return m(PageLoading);
+    if (!this.areModelsLoaded()) {
+      return this.getLoadingScreen();
     }
 
     return m('div', {class: 'container'}, [
