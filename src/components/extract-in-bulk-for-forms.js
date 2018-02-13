@@ -1,12 +1,8 @@
 import m from 'mithril';
 import PageLoading from './page-loading';
 import PageHeader from './common/page-header';
-
-/*
-import RowFillRequestSelector from './get-form-fields/row-fill-request-selector';
-import RowFilledFormsList from './get-form-fields/row-filled-forms-list';
-*/
-
+import FillRequestSelector from './extract-in-bulk-for-forms/fill-request-selector';
+import FilledFormsList from './extract-in-bulk-for-forms/filled-forms-list';
 import labels from '../labels';
 import modelsLoader from '../models/common/models-loader';
 
@@ -32,8 +28,8 @@ class ExtractInBulkForForms {
 
     return m('div', {class: 'container'}, [
       m(PageHeader, {pageLabel: labels.l_3}),
-      //m(RowFillRequestSelector),
-      //m(RowFilledFormsList)
+      m(FillRequestSelector),
+      m(FilledFormsList)
     ]);
   }
 }
