@@ -1,56 +1,18 @@
 class Documents {
   constructor() {
     this.tree = [];
-    this.documents = {};
+    this.set = {};
     this.selectedDocumentId = 0;
   }
 
-  load(results) {
-    let tree = [];
-    let documents = {};
-    let addedFolders = {};
-
-    for (let documentId in results) {
-      let currentDocument = results[documentId];
-
-      if (!currentDocument.fillable) {
-        continue;
-      }
-      let folderId = currentDocument.folder.folder_id;
-      let folderName = currentDocument.folder.name;
-      documents[currentDocument.id] = currentDocument;
-
-      if (!(folderId in addedFolders)) {
-        tree.push({
-          id: folderId,
-          name: folderName,
-          documents: []
-        });
-        addedFolders[folderId] = tree.length - 1;
-      }
-
-      let folderIndex = addedFolders[folderId];
-      let folder = tree[folderIndex];
-
-      folder.documents.push({
-        id: currentDocument.id,
-        name: currentDocument.name,
-        folderName: folderName
-      });
-    }
-
-    for (let folderId in tree) {
-      let currentFolder = tree[folderId];
-      currentFolder.documents.sort(this._sortDocumentsCallback.bind(this));
-    }
-    tree.sort(this._sortFoldersCallback.bind(this));
-    this.documents = documents;
+  load(tree, set) {
+    this.set = set;
     this.tree = tree;
   }
 
   getSelectedDocument() {
-    return (this.selectedDocumentId in this.documents)
-      ? this.documents[this.selectedDocumentId] : null;
+    return (this.selectedDocumentId in this.set)
+      ? this.set[this.selectedDocumentId] : null;
   }
 
   getSelectedDocumentId() {
@@ -63,14 +25,6 @@ class Documents {
 
   getFoldersTree() {
     return this.tree;
-  }
-
-  _sortFoldersCallback(a, b) {
-    return (a.id === 0) ? -1 : ((b.id === 0) ? 1 : this._sortDocumentsCallback(a, b));
-  }
-
-  _sortDocumentsCallback(a, b) {
-    return (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : -1;
   }
 }
 

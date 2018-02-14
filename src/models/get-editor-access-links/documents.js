@@ -1,5 +1,5 @@
 class Documents {
-  load(documents) {
+  load(tree, set) {
 
   }
 }
