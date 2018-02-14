@@ -9,7 +9,7 @@ class FilledFormsList {
   view(vnode) {
     return m('div', {class: 'row'}, [
       m('div', {class: 'col-12-sm'}, [
-        m('label', {class: 'gray', for: 'template-fields-div'}, `${labels.l_23}:`),
+        m('label', {class: 'gray'}, `${labels.l_23}:`),
         m('div', {style: SCROLL_BOX_STYLES}, [
           m('div', this._makeList())
         ])

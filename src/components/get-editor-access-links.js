@@ -1,6 +1,7 @@
 import m from 'mithril';
 import BasePage from './base-page';
 import PageHeader from './common/page-header';
+import DocumentsList from './get-editor-access-links/documents-list';
 import labels from '../labels';
 
 class GetEditorAccessLinks extends BasePage {
@@ -18,7 +19,8 @@ class GetEditorAccessLinks extends BasePage {
     }
 
     return m('div', {class: 'container'}, [
-      m(PageHeader, {pageLabel: labels.l_4})
+      m(PageHeader, {pageLabel: labels.l_4}),
+      m(DocumentsList)
     ]);
   }
 }

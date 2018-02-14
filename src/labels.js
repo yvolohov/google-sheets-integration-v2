@@ -24,5 +24,6 @@ export default {
   l_22: 'Fill request ID',
   l_23: '2. Select and order filled forms',
   l_24: 'Fill forms from selected area',
-  l_25: 'Unknown user'
+  l_25: 'Unknown user',
+  l_26: '1. Select documents'
 };

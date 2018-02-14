@@ -1,6 +1,7 @@
 import m from 'mithril';
 import BasePage from './base-page';
 import PageHeader from './common/page-header';
+import DocumentsList from './extract-in-bulk-for-docs/documents-list';
 import labels from '../labels';
 
 class ExtractInBulkForDocs extends BasePage {
@@ -18,7 +19,8 @@ class ExtractInBulkForDocs extends BasePage {
     }
 
     return m('div', {class: 'container'}, [
-      m(PageHeader, {pageLabel: labels.l_2})
+      m(PageHeader, {pageLabel: labels.l_2}),
+      m(DocumentsList)
     ]);
   }
 }
