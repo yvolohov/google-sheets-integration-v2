@@ -1,7 +1,5 @@
 import m from 'mithril';
 
-const CHECK_BOX_STYLES = `display: inline-block; width: 30px; vertical-align: top; text-align: center;`;
-
 class ListItemOne {
   view(vnode) {
     let checkboxSettings = {
@@ -11,7 +9,7 @@ class ListItemOne {
     };
 
     return m('div', [
-      m('div', {style: CHECK_BOX_STYLES}, [
+      m('div', {class: 'check-box'}, [
         m('input', checkboxSettings)
       ]),
       m('div', {style: 'display: inline-block;'}, [

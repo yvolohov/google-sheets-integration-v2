@@ -3,14 +3,12 @@ import ListItemOne from '../common/list-item-one';
 import fillRequestForms from '../../models/extract-in-bulk-for-forms/fill-request-forms';
 import labels from '../../labels';
 
-const SCROLL_BOX_STYLES = `width: 100%; height: 300px; border: 1px solid silver; border-radius: 2px; overflow-x: hidden; overflow-y: scroll;`;
-
 class FilledFormsList {
   view(vnode) {
     return m('div', {class: 'row'}, [
       m('div', {class: 'col-12-sm'}, [
         m('label', {class: 'gray'}, `${labels.l_23}:`),
-        m('div', {style: SCROLL_BOX_STYLES}, [
+        m('div', {class: 'scroll-box'}, [
           m('div', this._makeList())
         ])
       ])
