@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
+    <?!= include('grid'); ?>
+  </head>
+  <body>
+    <script type="text/javascript">
+      function authorize()
+      {
+        var authPage = window.open('<?= data.authorizationUrl ?>', '_blank');
+
+        if (authPage) {
+          authPage.focus();
+        }
+        google.script.host.close();
+      }
+    </script>
+    <div class="container">
+      <div class="row">
+        <div class="col-6-sm">
+          <button class="action" style="width: 100%" onclick="authorize()">Authorize at PDFfiller</button>
+        </div>
+        <div class="col-6-sm">
+          <button style="width: 100%" onclick="google.script.host.close()">Close</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
