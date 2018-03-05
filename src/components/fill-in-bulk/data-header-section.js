@@ -23,6 +23,7 @@ class DataHeaderSection {
             type: 'radio',
             name: 'insert-types',
             value: INSERT_IN_ROW_ON_CURRENT_SHEET,
+            onclick: this._radioClickHandler.bind(this, model),
             checked: checkedOne
           }),
           m('label', {class: 'mgl', for: 'rb-1'}, labels.l_13)
@@ -33,6 +34,7 @@ class DataHeaderSection {
             type: 'radio',
             name: 'insert-types',
             value: INSERT_IN_COLUMN_ON_CURRENT_SHEET,
+            onclick: this._radioClickHandler.bind(this, model),
             checked: checkedTwo
           }),
           m('label', {class: 'mgl', for: 'rb-2'}, labels.l_14)
@@ -43,6 +45,7 @@ class DataHeaderSection {
             type: 'radio',
             name: 'insert-types',
             value: INSERT_IN_ROW_ON_NEW_SHEET,
+            onclick: this._radioClickHandler.bind(this, model),
             checked: checkedThree
           }),
           m('label', {class: 'mgl', for: 'rb-3'}, labels.l_15)
@@ -53,6 +56,7 @@ class DataHeaderSection {
             type: 'radio',
             name: 'insert-types',
             value: INSERT_IN_COLUMN_ON_NEW_SHEET,
+            onclick: this._radioClickHandler.bind(this, model),
             checked: checkedFour
           }),
           m('label', {class: 'mgl', for: 'rb-4'}, labels.l_27)
@@ -69,7 +73,12 @@ class DataHeaderSection {
 
   _buttonClickHandler(model, event) {
     event.redraw = false;
-    model.createDataHeader(INSERT_IN_ROW_ON_CURRENT_SHEET);
+    model.createDataHeader();
+  }
+
+  _radioClickHandler(model, event) {
+    event.redraw = false;
+    model.setInsertType(event.target.value);
   }
 }
 

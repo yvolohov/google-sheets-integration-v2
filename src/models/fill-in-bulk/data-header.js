@@ -10,10 +10,10 @@ class DataHeader {
   }
 
   setInsertType(insertType) {
-    this.insertType = insertType;
+    this.insertType = parseInt(insertType);
   }
 
-  createDataHeader(insertType) {
+  createDataHeader() {
     let documentId = documentFields.getDocumentId();
     let selectedDocumentFields = documentFields.getDocumentFields();
     let selectedFields = [];
@@ -29,7 +29,7 @@ class DataHeader {
     if (selectedFields.length === 0) {
       return;
     }
-    google.script.run.ccCreateDataHeader(documentId, selectedFields, insertType);
+    google.script.run.ccCreateDataHeader(documentId, selectedFields, this.insertType);
   }
 }
 
