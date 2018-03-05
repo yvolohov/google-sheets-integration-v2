@@ -9,7 +9,7 @@ class FillRequestSelector extends BaseSelector {
     return m('div', {class: 'row'}, [
       m('div', {class: 'col-12-sm'}, [
         m('div', {class: 'block form-group'}, [
-          m('label', {class: 'gray', for: 'fill-request-select'}, `${labels.l_21}:`),
+          m('label', {class: 'bgl', for: 'fill-request-select'}, `${labels.l_21}:`),
           m('select', {
             id: 'fill-request-select',
             style: 'width: 100%; text-align: left;',
@@ -19,8 +19,8 @@ class FillRequestSelector extends BaseSelector {
         ])
       ]),
       m('div', {class: 'col-12-sm'}, [
-        m('div', {class: 'gray'}, `${labels.l_22}:`),
-        m('div', {style: 'height: 25px;'}, this._prepareId())
+        m('div', {class: 'mgl'}, `${labels.l_22}:`),
+        m('div', this._prepareId())
       ])
     ]);
   }
@@ -42,9 +42,16 @@ class FillRequestSelector extends BaseSelector {
   _prepareId() {
     let selectedFillRequest = fillRequests.getSelectedFillRequest();
 
-    return (selectedFillRequest !== null)
-      ? m('a', {href: selectedFillRequest.url, target: '_blank'}, selectedFillRequest.fillable_form_id)
-      : '...';
+    if (selectedFillRequest === null) {
+      return m('div', {class: 'ml'}, '...');
+    }
+
+    let properties = {
+      href: selectedFillRequest.url,
+      class: 'ml',
+      target: '_blank'
+    };
+    return m('a', properties, selectedFillRequest.fillable_form_id);
   }
 
   _changeHandler(event) {

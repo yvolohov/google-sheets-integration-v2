@@ -6,7 +6,7 @@ class DocumentsList {
   view(vnode) {
     return m('div', {class: 'row'}, [
       m('div', {class: 'col-12-sm'}, [
-        m('label', {class: 'gray'}, `${labels.l_26}:`),
+        m('label', {class: 'bgl'}, `${labels.l_26}:`),
         m('div', {class: 'scroll-box'}, [
           m('div', this._makeList())
         ])
