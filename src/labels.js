@@ -12,9 +12,9 @@ export default {
   l_10: 'Unsorted',
   l_11: 'Create a header for data table',
   l_12: 'Type',
-  l_13: 'Insert to new sheet',
-  l_14: 'Insert in row',
-  l_15: 'Insert in column',
+  l_13: 'Insert to current sheet horizontally',
+  l_14: 'Insert to current sheet vertically',
+  l_15: 'Insert to new sheet horizontally',
   l_16: 'Form',
   l_17: 'From',
   l_18: 'New folder name',
@@ -25,5 +25,7 @@ export default {
   l_23: 'Select and order filled forms',
   l_24: 'Fill forms from selected area',
   l_25: 'Unknown user',
-  l_26: 'Select documents'
+  l_26: 'Select documents',
+  l_27: 'Insert to new sheet vertically',
+  l_28: 'Insert header'
 };

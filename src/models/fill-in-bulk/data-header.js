@@ -2,18 +2,18 @@ import documentFields from './document-fields';
 
 class DataHeader {
   constructor() {
-    this.createNewSheet = false;
+    this.insertType = 0;
   }
 
-  getNewSheetFlag() {
-    return this.createNewSheet;
+  getInsertType() {
+    return this.insertType;
   }
 
-  setNewSheetFlag(flag) {
-    this.createNewSheet = flag;
+  setInsertType(insertType) {
+    this.insertType = insertType;
   }
 
-  createDataHeader(headerType) {
+  createDataHeader(insertType) {
     let documentId = documentFields.getDocumentId();
     let selectedDocumentFields = documentFields.getDocumentFields();
     let selectedFields = [];
@@ -29,7 +29,7 @@ class DataHeader {
     if (selectedFields.length === 0) {
       return;
     }
-    google.script.run.ccCreateDataHeader(documentId, selectedFields, headerType);
+    google.script.run.ccCreateDataHeader(documentId, selectedFields, insertType);
   }
 }
 

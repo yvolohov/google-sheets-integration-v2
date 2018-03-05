@@ -11,60 +11,55 @@ class DataHeaderSection {
   view(vnode) {
     return m('div', {class: 'row'}, [
       m('div', {class: 'col-12-sm'}, [
-        m('input', this._setChecked({
-          id: 'new-sheet-checkbox',
-          type: 'checkbox',
-          onclick: this._checkboxClickHandler.bind(this)
-        })),
-        m('label', {for: 'new-sheet-checkbox', class: 'mgl'}, labels.l_13)
+        m('div', [
+          m('input', {
+            id: 'rb-1',
+            type: 'radio',
+            name: 'insert-types',
+            value: INSERT_IN_ROW_ON_CURRENT_SHEET
+          }),
+          m('label', {class: 'mgl', for: 'rb-1'}, labels.l_13)
+        ]),
+        m('div', [
+          m('input', {
+            id: 'rb-2',
+            type: 'radio',
+            name: 'insert-types',
+            value: INSERT_IN_COLUMN_ON_CURRENT_SHEET
+          }),
+          m('label', {class: 'mgl', for: 'rb-2'}, labels.l_14)
+        ]),
+        m('div', [
+          m('input', {
+            id: 'rb-3',
+            type: 'radio',
+            name: 'insert-types',
+            value: INSERT_IN_ROW_ON_NEW_SHEET
+          }),
+          m('label', {class: 'mgl', for: 'rb-3'}, labels.l_15)
+        ]),
+        m('div', [
+          m('input', {
+            id: 'rb-4',
+            type: 'radio',
+            name: 'insert-types',
+            value: INSERT_IN_COLUMN_ON_NEW_SHEET
+          }),
+          m('label', {class: 'mgl', for: 'rb-4'}, labels.l_27)
+        ])
       ]),
-      m('div', {class: 'col-6-sm'}, [
+      m('div', {class: 'col-12-sm'}, [
         m('button', {
           style: 'width: 100%;',
-          onclick: this._rowButtonClickHandler.bind(this)
-        }, labels.l_14)
-      ]),
-      m('div', {class: 'col-6-sm'}, [
-        m('button', {
-          style: 'width: 100%;',
-          onclick: this._columnButtonClickHandler.bind(this)
-        }, labels.l_15)
+          onclick: this._buttonClickHandler.bind(this)
+        }, labels.l_28)
       ])
     ]);
   }
 
-  _setChecked(checkboxSettings) {
-    if (dataHeader.getNewSheetFlag()) {
-      checkboxSettings['checked'] = 'checked';
-    }
-    return checkboxSettings;
-  }
-
-  _checkboxClickHandler(event) {
+  _buttonClickHandler(event) {
     event.redraw = false;
-    dataHeader.setNewSheetFlag(event.target.checked);
-  }
-
-  _rowButtonClickHandler(event) {
-    event.redraw = false;
-
-    if (dataHeader.getNewSheetFlag()) {
-      dataHeader.createDataHeader(INSERT_IN_ROW_ON_NEW_SHEET);
-    }
-    else {
-      dataHeader.createDataHeader(INSERT_IN_ROW_ON_CURRENT_SHEET);
-    }
-  }
-
-  _columnButtonClickHandler(event) {
-    event.redraw = false;
-
-    if (dataHeader.getNewSheetFlag()) {
-      dataHeader.createDataHeader(INSERT_IN_COLUMN_ON_NEW_SHEET);
-    }
-    else {
-      dataHeader.createDataHeader(INSERT_IN_COLUMN_ON_CURRENT_SHEET);
-    }
+    dataHeader.createDataHeader(INSERT_IN_ROW_ON_CURRENT_SHEET);
   }
 }
 
