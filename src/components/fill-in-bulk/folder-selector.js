@@ -7,7 +7,7 @@ class FolderSelector extends BaseSelector {
   view(vnode) {
     return m('div', {class: 'row'}, [
       m('div', {class: 'col-12-sm'}, [
-        m('label', {class: 'gray', for: 'folder-select'}, `${labels.l_9}:`),
+        m('label', {class: 'bgl', for: 'folder-select'}, `${labels.l_9}:`),
         m('select', {
           id: 'folder-select',
           style: 'width: 100%; text-align: left;',
@@ -16,7 +16,7 @@ class FolderSelector extends BaseSelector {
         this._makeList())
       ]),
       m('div', this._setVisibility({class: 'col-12-sm'}), [
-        m('label', {class: 'gray', for: 'folder-name-input'}, `${labels.l_18}:`),
+        m('label', {class: 'bgl', for: 'folder-name-input'}, `${labels.l_18}:`),
         m('input', {
           id: 'folder-name-input',
           type: 'text',

@@ -16,7 +16,7 @@ class DataHeaderSection {
           type: 'checkbox',
           onclick: this._checkboxClickHandler.bind(this)
         })),
-        m('label', {for: 'new-sheet-checkbox', class: 'gray'}, labels.l_13)
+        m('label', {for: 'new-sheet-checkbox', class: 'mgl'}, labels.l_13)
       ]),
       m('div', {class: 'col-6-sm'}, [
         m('button', {

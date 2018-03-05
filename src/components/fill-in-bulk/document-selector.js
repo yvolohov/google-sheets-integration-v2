@@ -10,7 +10,7 @@ class DocumentSelector extends BaseSelector {
     return m('div', {class: 'row'}, [
       m('div', {class: 'col-12-sm'}, [
         m('div', {class: 'block form-group'}, [
-          m('label', {class: 'gray', for: 'document-select'}, `${labels.l_5}:`),
+          m('label', {class: 'bgl', for: 'document-select'}, `${labels.l_5}:`),
           m('select', {
             id: 'document-select',
             style: 'width: 100%; text-align: left;',
@@ -20,12 +20,12 @@ class DocumentSelector extends BaseSelector {
         ])
       ]),
       m('div', {class: 'col-12-sm'}, [
-        m('div', {class: 'gray'}, `${labels.l_7}:`),
-        m('div', {style: 'height: 25px;'}, this._prepareId())
+        m('div', {class: 'mgl'}, `${labels.l_7}:`),
+        m('div', this._prepareId())
       ]),
       m('div', {class: 'col-12-sm'}, [
-        m('div', {class: 'gray'}, `${labels.l_8}:`),
-        m('div', {style: 'height: 25px;'}, this._prepareFolder())
+        m('div', {class: 'mgl'}, `${labels.l_8}:`),
+        m('div', this._prepareFolder())
       ])
     ]);
   }
@@ -54,14 +54,22 @@ class DocumentSelector extends BaseSelector {
   _prepareId() {
     let selectedDocument = documents.getSelectedDocument();
 
-    return (selectedDocument !== null)
-      ? m('a', {href: '#', onclick: this._clickHandler.bind(this, selectedDocument.id)}, selectedDocument.id)
-      : '...';
+    if (selectedDocument === null) {
+      return m('div', {class: 'ml'}, '...');
+    }
+
+    let properties = {
+      href: '#',
+      class: 'ml',
+      onclick: this._clickHandler.bind(this, selectedDocument.id)
+    };
+    return m('a', properties, selectedDocument.id);
   }
 
   _prepareFolder() {
     let selectedDocument = documents.getSelectedDocument();
-    return (selectedDocument !== null) ? selectedDocument.folder.name : '...';
+    let label = (selectedDocument !== null) ? selectedDocument.folder.name : '...';
+    return m('div', {class: 'ml'}, label);
   }
 
   _changeHandler(event) {

@@ -13,8 +13,8 @@ class ListItemOne {
         m('input', checkboxSettings)
       ]),
       m('div', {style: 'display: inline-block;'}, [
-        m('div', vnode.attrs.bigHeader),
-        m('div', {class: 'secondary'}, vnode.attrs.smallHeader)
+        m('div', {class: 'ml'}, vnode.attrs.bigHeader),
+        m('div', {class: 'sgl'}, vnode.attrs.smallHeader)
       ])
     ]);
   }
