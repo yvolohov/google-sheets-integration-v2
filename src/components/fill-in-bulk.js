@@ -6,6 +6,7 @@ import FieldsList from './fill-in-bulk/fields-list';
 import DataHeaderSection from './fill-in-bulk/data-header-section';
 import FolderSelector from './fill-in-bulk/folder-selector';
 import FillFormsButton from './fill-in-bulk/fill-forms-button';
+import dataHeader from '../models/fill-in-bulk/data-header';
 import labels from '../labels';
 
 class FillInBulk extends BasePage {
@@ -26,7 +27,7 @@ class FillInBulk extends BasePage {
       m(PageHeader, {pageLabel: labels.l_1}),
       m(DocumentSelector),
       m(FieldsList),
-      m(DataHeaderSection),
+      m(DataHeaderSection, {model: dataHeader}),
       m(FolderSelector),
       m(FillFormsButton)
     ]);

@@ -1,5 +1,4 @@
 import m from 'mithril';
-import dataHeader from '../../models/fill-in-bulk/data-header';
 import labels from '../../labels';
 
 const INSERT_IN_ROW_ON_CURRENT_SHEET = 0;
@@ -9,6 +8,13 @@ const INSERT_IN_COLUMN_ON_NEW_SHEET = 3;
 
 class DataHeaderSection {
   view(vnode) {
+    let model = vnode.attrs.model;
+    let insertType = model.getInsertType();
+    let checkedOne = (insertType === INSERT_IN_ROW_ON_CURRENT_SHEET) ? true : null;
+    let checkedTwo = (insertType === INSERT_IN_COLUMN_ON_CURRENT_SHEET) ? true : null;
+    let checkedThree = (insertType === INSERT_IN_ROW_ON_NEW_SHEET) ? true : null;
+    let checkedFour = (insertType === INSERT_IN_COLUMN_ON_NEW_SHEET) ? true : null;
+
     return m('div', {class: 'row'}, [
       m('div', {class: 'col-12-sm'}, [
         m('div', [
@@ -16,7 +22,8 @@ class DataHeaderSection {
             id: 'rb-1',
             type: 'radio',
             name: 'insert-types',
-            value: INSERT_IN_ROW_ON_CURRENT_SHEET
+            value: INSERT_IN_ROW_ON_CURRENT_SHEET,
+            checked: checkedOne
           }),
           m('label', {class: 'mgl', for: 'rb-1'}, labels.l_13)
         ]),
@@ -25,7 +32,8 @@ class DataHeaderSection {
             id: 'rb-2',
             type: 'radio',
             name: 'insert-types',
-            value: INSERT_IN_COLUMN_ON_CURRENT_SHEET
+            value: INSERT_IN_COLUMN_ON_CURRENT_SHEET,
+            checked: checkedTwo
           }),
           m('label', {class: 'mgl', for: 'rb-2'}, labels.l_14)
         ]),
@@ -34,7 +42,8 @@ class DataHeaderSection {
             id: 'rb-3',
             type: 'radio',
             name: 'insert-types',
-            value: INSERT_IN_ROW_ON_NEW_SHEET
+            value: INSERT_IN_ROW_ON_NEW_SHEET,
+            checked: checkedThree
           }),
           m('label', {class: 'mgl', for: 'rb-3'}, labels.l_15)
         ]),
@@ -43,7 +52,8 @@ class DataHeaderSection {
             id: 'rb-4',
             type: 'radio',
             name: 'insert-types',
-            value: INSERT_IN_COLUMN_ON_NEW_SHEET
+            value: INSERT_IN_COLUMN_ON_NEW_SHEET,
+            checked: checkedFour
           }),
           m('label', {class: 'mgl', for: 'rb-4'}, labels.l_27)
         ])
@@ -51,15 +61,15 @@ class DataHeaderSection {
       m('div', {class: 'col-12-sm'}, [
         m('button', {
           style: 'width: 100%;',
-          onclick: this._buttonClickHandler.bind(this)
+          onclick: this._buttonClickHandler.bind(this, model)
         }, labels.l_28)
       ])
     ]);
   }
 
-  _buttonClickHandler(event) {
+  _buttonClickHandler(model, event) {
     event.redraw = false;
-    dataHeader.createDataHeader(INSERT_IN_ROW_ON_CURRENT_SHEET);
+    model.createDataHeader(INSERT_IN_ROW_ON_CURRENT_SHEET);
   }
 }
 
