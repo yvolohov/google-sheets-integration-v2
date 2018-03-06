@@ -32,7 +32,11 @@ class Documents {
   }
 
   _postCallback(results, errors) {
-    this.documents = results;
+    this.documents = results.map((currentDocument) => {
+      currentDocument['flagOne'] = false;
+      currentDocument['flagTwo'] = false;
+      return currentDocument;
+    });
 
     let allDocuments = this.documents;
     let fillableDocuments = this.documents.filter(
@@ -79,12 +83,7 @@ class Documents {
 
       let folderIndex = addedFolders[folderId];
       let folder = tree[folderIndex];
-
-      folder.documents.push({
-        id: currentDocument.id,
-        name: currentDocument.name,
-        folderName: folderName
-      });
+      folder.documents.push(currentDocument);
     }
 
     for (let folderId in tree) {

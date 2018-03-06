@@ -16,7 +16,7 @@ class DocumentFields {
     return this.selectedDocumentId;
   }
 
-  selectField(fieldName, checkboxChecked) {
+  selectField(fieldName, flag) {
     if (!(this.selectedDocumentId in this.fieldsByName)) {
       return;
     }
@@ -25,7 +25,7 @@ class DocumentFields {
 
     if (fieldName in currentDocumentFieldsByName) {
       let currentField = currentDocumentFieldsByName[fieldName];
-      currentField.checkboxChecked = checkboxChecked;
+      currentField.flag = flag;
     }
   }
 
@@ -79,7 +79,7 @@ class DocumentFields {
       if (!currentField.fillable) {
         continue;
       }
-      currentField['checkboxChecked'] = true;
+      currentField['flag'] = true;
       fields.push(currentField);
     }
     return fields;

@@ -29,7 +29,8 @@ class DocumentsList {
         let currentDocument = documents[documentIndex];
         tree.push(m(ListItemOne, {
           bigHeader: currentDocument.name,
-          smallHeader: currentDocument.id
+          smallHeader: currentDocument.id,
+          checked: (currentDocument.flagOne) ? true : null
         }));
       }
     }

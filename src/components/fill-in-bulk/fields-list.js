@@ -26,7 +26,7 @@ class FieldsList {
         bigHeader: currentField.name,
         smallHeader: `${labels.l_12}: ${currentField.type}`,
         clickHandler: this._clickHandler.bind(this, currentField.name),
-        checked: (currentField.checkboxChecked) ? true : null
+        checked: (currentField.flag) ? true : null
       }));
     }
     return list;
