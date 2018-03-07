@@ -1,7 +1,7 @@
 import m from 'mithril';
 import BasePage from './base-page';
 import PageHeader from './common/page-header';
-import DocumentsList from './extract-in-bulk-for-docs/documents-list';
+import DocumentsList from './common/documents-list';
 import documents from '../models/extract-in-bulk-for-docs/documents';
 import labels from '../labels';
 
