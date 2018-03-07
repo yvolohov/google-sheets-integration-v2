@@ -3,8 +3,8 @@ import m from 'mithril';
 class ListItemFolder {
   view(vnode) {
     let properties = {
-      class: 'ml',
-      style: 'font-weight: bold; margin-left: 5px; margin-top: 5px; margin-bottom: 5px; max-width: 200px;'
+      class: 'ml list-item-folder',
+      style: 'font-weight: bold;'
     };
     return m('div', properties, vnode.attrs.header);
   }
