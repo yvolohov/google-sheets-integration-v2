@@ -12,6 +12,12 @@ class Documents {
   getFoldersTree() {
     return this.tree;
   }
+
+  selectDocument(documentId, flag) {
+    if (documentId in this.set) {
+      this.set[documentId].flagOne = flag;
+    }
+  }
 }
 
 export default new Documents();
