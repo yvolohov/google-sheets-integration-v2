@@ -31,18 +31,22 @@ class Documents {
     }
   }
 
-  _refreshSelectedDocumentsList(selectedDocument, flag) {
-    if (!flag) {
-      let idx = this.selectedDocumentsList.findIndex((item) => {
-        return (item.id === selectedDocument.id);
-      });
+  moveSelectedDocument(idx, up) {
 
-      if (idx > -1) {
-        this.selectedDocumentsList.splice(idx, 1);
-      }
-    }
-    else {
+  }
+
+  _refreshSelectedDocumentsList(selectedDocument, flag) {
+    if (flag) {
       this.selectedDocumentsList.push(selectedDocument);
+      return;
+    }
+
+    let idx = this.selectedDocumentsList.findIndex((item) => {
+      return (item.id === selectedDocument.id);
+    });
+
+    if (idx > -1) {
+      this.selectedDocumentsList.splice(idx, 1);
     }
   }
 }

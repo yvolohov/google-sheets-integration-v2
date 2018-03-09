@@ -9,7 +9,7 @@ class ListItemOne {
     };
 
     return m('div', [
-      m('div', {class: 'check-box'}, [
+      m('div', {class: 'flag-box'}, [
         m('input', checkboxSettings)
       ]),
       m('div', {style: 'display: inline-block; max-width: 200px;'}, [
