@@ -32,7 +32,7 @@ class Documents {
   }
 
   moveSelectedDocument(idx, up) {
-
+    console.log(idx, up);
   }
 
   _refreshSelectedDocumentsList(selectedDocument, flag) {

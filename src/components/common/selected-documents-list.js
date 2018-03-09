@@ -20,15 +20,26 @@ class SelectedDocumentsList {
     let list = [];
     let selectedDocuments = model.getSelectedDocumentsList();
 
-    for (let documentIndex in selectedDocuments) {
-      let currentDocument = selectedDocuments[documentIndex];
+    for (var idx = 0; idx < selectedDocuments.length; idx++) {
+      let currentDocument = selectedDocuments[idx];
+      let upCallback = (idx > 0)
+        ? this._clickArrowHandler.bind(this, idx, true, model) : null;
+      let downCallback = (idx < (selectedDocuments.length - 1))
+        ? this._clickArrowHandler.bind(this, idx, false, model) : null;
 
       list.push(m(ListItemTwo, {
         bigHeader: currentDocument.name,
-        smallHeader: currentDocument.id,        
+        smallHeader: currentDocument.id,
+        upCallback: upCallback,
+        downCallback: downCallback
       }));
     }
     return list;
+  }
+
+  _clickArrowHandler(idx, up, model, event) {
+    event.preventDefault();
+    model.moveSelectedDocument(idx, up);
   }
 }
 
