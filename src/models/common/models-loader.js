@@ -1,4 +1,4 @@
-import documents from './documents';
+import documentsLoader from './documents-loader';
 import folders from '../fill-in-bulk/folders';
 import fillRequests from '../extract-in-bulk-for-forms/fill-requests';
 import errors from './errors';
@@ -60,7 +60,7 @@ class ModelsLoader {
 }
 
 let modelsLoader = new ModelsLoader();
-modelsLoader.registerModel('documents', documents);
+modelsLoader.registerModel('documents', documentsLoader);
 modelsLoader.registerModel('folders', folders);
 modelsLoader.registerModel('fillRequests', fillRequests);
 

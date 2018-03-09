@@ -3,7 +3,7 @@ import firstDocuments from '../fill-in-bulk/documents';
 import secondDocuments from '../extract-in-bulk-for-docs/documents';
 import thirdDocuments from '../get-editor-access-links/documents';
 
-class Documents {
+class DocumentsLoader {
   constructor() {
     this.documents = [];
   }
@@ -104,4 +104,4 @@ class Documents {
   }
 }
 
-export default new Documents();
+export default new DocumentsLoader();
