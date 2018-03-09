@@ -17,7 +17,18 @@ class SelectedDocumentsList {
   }
 
   _makeList(model) {
-    return [];
+    let list = [];
+    let selectedDocuments = model.getSelectedDocumentsList();
+
+    for (let documentIndex in selectedDocuments) {
+      let currentDocument = selectedDocuments[documentIndex];
+
+      list.push(m(ListItemTwo, {
+        bigHeader: currentDocument.name,
+        smallHeader: currentDocument.id,        
+      }));
+    }
+    return list;
   }
 }
 

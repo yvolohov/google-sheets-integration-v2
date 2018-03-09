@@ -29,7 +29,7 @@ class DocumentsList {
 
       for (let documentIndex in documents) {
         let currentDocument = documents[documentIndex];
-        
+
         tree.push(m(ListItemOne, {
           bigHeader: currentDocument.name,
           smallHeader: currentDocument.id,
@@ -42,7 +42,6 @@ class DocumentsList {
   }
 
   _clickHandler(documentId, model, event) {
-    event.redraw = false;
     model.selectDocument(documentId, event.target.checked);
   }
 }
