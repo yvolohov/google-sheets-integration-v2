@@ -12,7 +12,7 @@ class ListItemOne {
       m('div', {class: 'flag-box'}, [
         m('input', checkboxSettings)
       ]),
-      m('div', {style: 'display: inline-block; max-width: 200px;'}, [
+      m('div', {class: 'list-column', style: 'max-width: 200px;'}, [
         m('div', {class: 'ml'}, vnode.attrs.bigHeader),
         m('div', {class: 'sgl'}, vnode.attrs.smallHeader)
       ])
