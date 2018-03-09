@@ -27,5 +27,6 @@ export default {
   l_25: 'Unknown user',
   l_26: 'Select documents',
   l_27: 'Insert to new sheet vertically',
-  l_28: 'Insert header'
+  l_28: 'Insert header',
+  l_29: 'Sort selected documents'
 };
