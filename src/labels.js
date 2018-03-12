@@ -28,5 +28,6 @@ export default {
   l_26: 'Select documents',
   l_27: 'Insert to new sheet vertically',
   l_28: 'Insert header',
-  l_29: 'Sort selected documents'
+  l_29: 'Sort selected documents',
+  l_30: 'Create and insert links'
 };

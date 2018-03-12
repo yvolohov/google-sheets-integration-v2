@@ -6,21 +6,15 @@ class FillFormsButton {
   view(vnode) {
     return m('div', {class: 'row'}, [
       m('div', {class: 'col-12-sm'}, [
-        m('button', this._setAvailability({
+        m('button', {
           id: 'fill-forms-button',
           class: 'action',
           style: 'width: 100%',
+          disabled: (documents.getSelectedDocumentId() === 0) ? true : null,
           onclick: this._clickHandler.bind(this)
-        }), labels.l_24)
+        }, labels.l_24)
       ])
     ]);
-  }
-
-  _setAvailability(buttonSettings) {
-    if (documents.getSelectedDocumentId() === 0) {
-      buttonSettings['disabled'] = 'disabled';
-    }
-    return buttonSettings;
   }
 
   _clickHandler(event) {

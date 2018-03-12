@@ -1,38 +1,43 @@
 import m from 'mithril';
 import InsertTypesRadiogroup from '../common/insert-types-radiogroup';
-import dataHeader from '../../models/fill-in-bulk/data-header';
+import documents from '../../models/get-editor-access-links/documents';
+import linkMaker from '../../models/get-editor-access-links/link-maker';
 import labels from '../../labels';
 
-class DataHeaderSection {
+class LinkMakerSection {
   view(vnode) {
-    let insertType = dataHeader.getInsertType();
+    let insertType = linkMaker.getInsertType();
+    let lifetime = linkMaker.getLifetime();
+    let selectedDocuments = documents.getSelectedDocumentsList();
 
     return m('div', {class: 'row'}, [
       m('div', {class: 'col-12-sm'},
         m(InsertTypesRadiogroup, {
           currentValue: insertType,
           callback: this._radioClickHandler.bind(this),
-          simplifiedView: false
+          simplifiedView: true
         })
       ),
       m('div', {class: 'col-12-sm'}, [
         m('button', {
+          class: 'action',
           style: 'width: 100%;',
+          disabled: (selectedDocuments.length === 0) ? true : null,
           onclick: this._buttonClickHandler.bind(this)
-        }, labels.l_28)
+        }, labels.l_30)
       ])
     ]);
   }
 
   _buttonClickHandler(event) {
     event.redraw = false;
-    dataHeader.createDataHeader();
+    console.log(linkMaker.getInsertType());
   }
 
   _radioClickHandler(event) {
     event.redraw = false;
-    dataHeader.setInsertType(event.target.value);
+    linkMaker.setInsertType(event.target.value);
   }
 }
 
-export default DataHeaderSection;
+export default LinkMakerSection;
