@@ -111,7 +111,7 @@ function ccGetFolders(perPage, page)
 
 // -= INSERT LINKS TO SHEET =-
 
-function ccInsertLinks(links, insertType)
+function ccInsertLinks(linksList, insertType)
 {
-  Logger.log(JSON.stringify(links));
+  documentsModel.insertEditorAccessLinks(linksList, insertType);
 }

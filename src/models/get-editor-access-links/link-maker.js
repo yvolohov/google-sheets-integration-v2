@@ -38,6 +38,8 @@ class LinkMaker {
           erroredResponses.push(currentResponse);
           continue;
         }
+        currentResponse.responseContent.id = currentResponse.info.id;
+        currentResponse.responseContent.name = currentResponse.info.name;
         createdLinks.push(currentResponse.responseContent);
       }
 
@@ -61,9 +63,15 @@ class LinkMaker {
     for (let documentIdx in selectedDocuments) {
       let currentDocument = selectedDocuments[documentIdx];
       promises.push(new Promise((resolve) => {
+        let id = currentDocument.id;
+        let name = currentDocument.name;
+
         google.script.run
-          .withSuccessHandler((response) => {resolve(response);})
-          .ccGetEditorAccessLink(currentDocument.id, this.lifetime, this.lifetime * 2);
+          .withSuccessHandler((response) => {
+            response['info'] = {id: id, name: name};
+            resolve(response);
+          })
+          .ccGetEditorAccessLink(id, this.lifetime, this.lifetime * 2);
       }));
     }
     return Promise.all(promises);
