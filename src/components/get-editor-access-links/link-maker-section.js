@@ -42,7 +42,7 @@ class LinkMakerSection {
 
   _buttonClickHandler(event) {
     event.redraw = false;
-    console.log(linkMaker.getInsertType());
+    linkMaker.insertLinks();
   }
 
   _radioClickHandler(event) {
