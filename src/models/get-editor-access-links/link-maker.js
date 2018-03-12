@@ -23,7 +23,7 @@ class LinkMaker {
     this.lifetime = parseInt(lifetime);
   }
 
-  insertLinks(callback=null) {
+  insertLinks(unlockScreenCallback) {
     let selectedDocuments = documents.getSelectedDocumentsList();
     let linksPromise = this._loadLinks(selectedDocuments);
 
@@ -42,11 +42,16 @@ class LinkMaker {
       }
 
       errors.send(erroredResponses);
-      google.script.run.ccInsertLinks(createdLinks, this.insertType);
 
-      if (callback !== null) {
-        callback();
+      if (createdLinks.length === 0) {
+        unlockScreenCallback();
+        return;
       }
+
+      google.script.run
+        .withSuccessHandler(unlockScreenCallback)
+        .withFailureHandler(unlockScreenCallback)
+        .ccInsertLinks(createdLinks, this.insertType);
     });
   }
 
