@@ -11,6 +11,17 @@ class LinkMakerSection {
     let selectedDocuments = documents.getSelectedDocumentsList();
 
     return m('div', {class: 'row'}, [
+      m('div', {class: 'col-12-sm'}, [
+        m('label', {class: 'bgl'}, `${labels.l_31}:`),
+        m('input', {
+          type: 'number',
+          style: 'width: 100%; text-align: right;',
+          value: lifetime,
+          onchange: this._fieldChangeHandler.bind(this),
+          min: 1,
+          max: 999
+        })
+      ]),
       m('div', {class: 'col-12-sm'},
         m(InsertTypesRadiogroup, {
           currentValue: insertType,
@@ -37,6 +48,11 @@ class LinkMakerSection {
   _radioClickHandler(event) {
     event.redraw = false;
     linkMaker.setInsertType(event.target.value);
+  }
+
+  _fieldChangeHandler(event) {
+    event.redraw = false;
+    linkMaker.setLifetime(event.target.value);
   }
 }
 

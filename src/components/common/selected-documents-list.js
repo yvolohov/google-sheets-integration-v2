@@ -9,7 +9,7 @@ class SelectedDocumentsList {
     return m('div', {class: 'row'}, [
       m('div', {class: 'col-12-sm'}, [
         m('label', {class: 'bgl'}, `${labels.l_29}:`),
-        m('div', {class: 'scroll-box'}, [
+        m('div', {class: 'small-scroll-box'}, [
           m('div', this._makeList(model))
         ])
       ])
