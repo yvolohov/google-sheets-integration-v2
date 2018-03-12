@@ -108,3 +108,10 @@ function ccGetFolders(perPage, page)
   var apiRoot = authorizationModel.PDFFILLER_API_ROOT;
   return foldersModel.getFolders(apiRoot, accessToken, perPage, page);
 }
+
+// -= INSERT LINKS TO SHEET =-
+
+function ccInsertLinks(links, insertType)
+{
+  Logger.log(JSON.stringify(links));
+}

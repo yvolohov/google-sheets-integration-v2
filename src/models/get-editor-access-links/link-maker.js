@@ -23,13 +23,14 @@ class LinkMaker {
     this.lifetime = parseInt(lifetime);
   }
 
-  insertLinks() {
+  insertLinks(callback=null) {
     let selectedDocuments = documents.getSelectedDocumentsList();
     let linksPromise = this._loadLinks(selectedDocuments);
-    let createdLinks = [];
-    let erroredResponses = [];
 
     linksPromise.then((responses) => {
+      let createdLinks = [];
+      let erroredResponses = [];
+
       for (let responseIdx in responses) {
         let currentResponse = responses[responseIdx];
 
@@ -39,10 +40,14 @@ class LinkMaker {
         }
         createdLinks.push(currentResponse.responseContent);
       }
-    });
 
-    errors.send(erroredResponses);
-    console.log(createdLinks);
+      errors.send(erroredResponses);
+      google.script.run.ccInsertLinks(createdLinks, this.insertType);
+
+      if (callback !== null) {
+        callback();
+      }
+    });
   }
 
   _loadLinks(selectedDocuments) {

@@ -41,8 +41,11 @@ class LinkMakerSection {
   }
 
   _buttonClickHandler(event) {
+    m.route.set('/loading');
     event.redraw = false;
-    linkMaker.insertLinks();
+    linkMaker.insertLinks(() => {
+      m.route.set('/get-editor-access-links');
+    });
   }
 
   _radioClickHandler(event) {
