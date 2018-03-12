@@ -21,7 +21,7 @@ class DataHeader {
     for (let fieldIndex in selectedDocumentFields) {
       let currentField = selectedDocumentFields[fieldIndex];
 
-      if (currentField.checkboxChecked) {
+      if (currentField.flag) {
         selectedFields.push(currentField);
       }
     }
