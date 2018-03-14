@@ -30,5 +30,6 @@ export default {
   l_28: 'Insert header',
   l_29: 'Sort selected documents',
   l_30: 'Create and insert links',
-  l_31: 'Set lifetime of links, in days'
+  l_31: 'Set lifetime of links, in days',
+  l_32: 'Get and insert documents fields'
 };
