@@ -1,5 +1,4 @@
 import fieldsLoader from '../common/fields-loader';
-import errors from '../common/errors';
 
 class DocumentFields {
   constructor() {

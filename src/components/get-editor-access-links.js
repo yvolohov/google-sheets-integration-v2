@@ -23,7 +23,11 @@ class GetEditorAccessLinks extends BasePage {
 
     return m('div', {class: 'container'}, [
       m(PageHeader, {pageLabel: labels.l_4}),
-      m(DocumentsList, {model: documents, flagName: 'flagTwo'}),
+      m(DocumentsList, {
+        documents: documents,
+        documentsFields: null,
+        flagName: 'flagTwo'
+      }),
       m(SelectedDocumentsList, {model: documents}),
       m(LinkMakerSection)
     ]);
