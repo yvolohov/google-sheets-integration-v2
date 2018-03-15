@@ -34,7 +34,7 @@ class FieldsList {
 
   _clickHandler(fieldName, event) {
     event.redraw = false;
-    documentFields.selectField(fieldName, event.target.checked);
+    documentFields.selectDocumentField(fieldName, event.target.checked);
   }
 }
 
