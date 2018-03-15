@@ -43,10 +43,11 @@ class DocumentsList {
   }
 
   _clickHandler(documentId, documents, documentsFields, event) {
-    documents.selectDocument(documentId, event.target.checked);
+    let flag = event.target.checked;
+    documents.selectDocument(documentId, flag);
 
     if (documentsFields) {
-      console.log("refreshed fields " + documentId);
+      documentsFields.refresh(documentId, flag);
     }
   }
 }
