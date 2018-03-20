@@ -31,11 +31,45 @@ class DocumentsFields {
   }
 
   _addFieldsToList(documentId, list, set) {
-    console.log('add fields:' + documentId);
+    for (let currentFieldIdx in list) {
+      let currentField = list[currentFieldIdx];
+      let fieldIdx = this.fieldsList.findIndex((item) => {
+        return (item.name === currentField.name);
+      });
+
+      if (fieldIdx > -1) {
+        this.fieldsList[fieldIdx].count++;
+      }
+      else {
+        this.fieldsList.push({name: currentField.name, count: 1});
+      }
+    }
+    console.log(this.fieldsList);
   }
 
   _removeFieldsFromList(documentId) {
-    console.log('remove fields:' + documentId);
+    let list = fieldsLoader.getFields(documentId);
+
+    for (let currentFieldIdx in list) {
+      let currentField = list[currentFieldIdx];
+
+      let fieldIdx = this.fieldsList.findIndex((item) => {
+        return (item.name === currentField.name);
+      });
+
+      if (fieldIdx === -1) {
+        continue;
+      }
+
+      let field = this.fieldsList[fieldIdx];
+
+      if (field.count > 1) {
+        field.count--;
+        continue;
+      }
+      this.fieldsList.splice(fieldIdx, 1);
+    }
+    console.log(this.fieldsList);
   }
 }
 
