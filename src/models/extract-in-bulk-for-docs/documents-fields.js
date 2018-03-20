@@ -6,31 +6,36 @@ class DocumentsFields {
     this.fieldsList = [];
   }
 
-  refreshFields(documentId, flag, callback) {
+  refreshFields(documentId, flag, onSuccess, onError) {
     this.loading = true;
 
-    if (flag) {
-      fieldsLoader.loadFields(documentId, (list, set) => {
-        this._addFieldsToList(callback);
-      });
+    if (!flag) {
+      this._removeFieldsFromList(documentId);
+      this.loading = false;
+      onSuccess();
+      return;
     }
-    else {
-      this._removeFieldsFromList(callback);
-    }
+
+    let localOnSuccess = (list, set) => {
+      this._addFieldsToList(documentId, list, set);
+      this.loading = false;
+      onSuccess();
+    };
+
+    let localOnError = (response) => {
+      this.loading = false;
+      onError();
+    };
+
+    fieldsLoader.loadFields(documentId, localOnSuccess, localOnError);
   }
 
-  _addFieldsToList(list, set, callback) {
-    // adding
-    console.log('add fields');
-    this.loading = false;
-    callback();
+  _addFieldsToList(documentId, list, set) {
+    console.log('add fields:' + documentId);
   }
 
-  _removeFieldsFromList(callback) {
-    //removing
-    console.log('remove fields');
-    this.loading = false;
-    callback();
+  _removeFieldsFromList(documentId) {
+    console.log('remove fields:' + documentId);
   }
 }
 

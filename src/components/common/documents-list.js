@@ -50,12 +50,24 @@ class DocumentsList {
       return;
     }
 
-    /* Система сборки почему-то не принимает здесь обычный колбек
-     * поэтому пришлось передавать метод */
-    documentsFields.refreshFields(documentId, flag, this._redrawScreen.bind(this));
+    /* Если поля загрузились успешно, то просто перерисовываем экран,
+     * При ошибке вызываем колбек, который снимает выделение с документа
+     * и перерисовываем экран */
+    documentsFields.refreshFields(
+      documentId,
+      flag,
+      this._afterRefreshing.bind(this),
+      this._afterRefreshing.bind(
+        this,
+        documents.selectDocument.bind(documents, documentId, false)
+      )
+    );
   }
 
-  _redrawScreen() {
+  _afterRefreshing(callback) {
+    if (callback) {
+      callback();
+    }
     m.redraw();
   }
 }

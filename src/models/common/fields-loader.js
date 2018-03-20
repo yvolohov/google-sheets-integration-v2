@@ -6,9 +6,9 @@ class FieldsLoader {
     this.lists = {};
   }
 
-  loadFields(documentId, callback) {
+  loadFields(documentId, onSuccess, onError=null) {
     if (documentId in this.lists) {
-      callback(this.lists[documentId], this.sets[documentId]);
+      onSuccess(this.lists[documentId], this.sets[documentId]);
       return;
     }
 
@@ -20,6 +20,9 @@ class FieldsLoader {
 
     fields.then((response) => {
       if (response.responseCode !== 200) {
+        if (onError) {
+          onError(response);
+        }
         errors.addPortion([response]);
         errors.send();
         return;
@@ -28,7 +31,7 @@ class FieldsLoader {
       let fieldsList = this._prepareList(response.responseContent);
       this.lists[documentId] = fieldsList;
       this.sets[documentId] = this._prepareSet(fieldsList);
-      callback(this.lists[documentId], this.sets[documentId]);
+      onSuccess(this.lists[documentId], this.sets[documentId]);
     });
   }
 
