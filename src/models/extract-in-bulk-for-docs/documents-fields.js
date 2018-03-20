@@ -6,6 +6,20 @@ class DocumentsFields {
     this.fieldsList = [];
   }
 
+  getFields() {
+    return this.fieldsList;
+  }
+
+  selectField(fieldName, flag) {
+    let fieldIdx = this.fieldsList.findIndex((item) => {
+      return (item.name === fieldName);
+    });
+
+    if (fieldIdx > -1) {
+      this.fieldsList[fieldName].flag = flag;
+    }
+  }
+
   refreshFields(documentId, flag, onSuccess, onError) {
     this.loading = true;
 
@@ -41,10 +55,9 @@ class DocumentsFields {
         this.fieldsList[fieldIdx].count++;
       }
       else {
-        this.fieldsList.push({name: currentField.name, count: 1});
+        this.fieldsList.push({name: currentField.name, flag: true, count: 1});
       }
     }
-    console.log(this.fieldsList);
   }
 
   _removeFieldsFromList(documentId) {
@@ -69,7 +82,6 @@ class DocumentsFields {
       }
       this.fieldsList.splice(fieldIdx, 1);
     }
-    console.log(this.fieldsList);
   }
 }
 
