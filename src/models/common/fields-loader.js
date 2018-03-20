@@ -28,7 +28,6 @@ class FieldsLoader {
       let fieldsList = this._prepareList(response.responseContent);
       this.lists[documentId] = fieldsList;
       this.sets[documentId] = this._prepareSet(fieldsList);
-
       callback(this.lists[documentId], this.sets[documentId]);
     });
   }
