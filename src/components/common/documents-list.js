@@ -46,9 +46,17 @@ class DocumentsList {
     let flag = event.target.checked;
     documents.selectDocument(documentId, flag);
 
-    if (documentsFields) {
-      documentsFields.refresh(documentId, flag);
+    if (!documentsFields) {
+      return;
     }
+
+    /* Система сборки почему-то не принимает здесь обычный колбек
+     * поэтому пришлось передавать метод */
+    documentsFields.refreshFields(documentId, flag, this._redrawScreen.bind(this));
+  }
+
+  _redrawScreen() {
+    m.redraw();
   }
 }
 

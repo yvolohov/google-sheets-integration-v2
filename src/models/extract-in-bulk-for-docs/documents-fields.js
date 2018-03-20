@@ -2,11 +2,12 @@ import fieldsLoader from '../common/fields-loader';
 
 class DocumentsFields {
   constructor() {
-
+    this.selectedFieldsList = [];
   }
 
-  refresh(documentId, flag) {
+  refreshFields(documentId, flag, callback) {
     console.log(documentId, flag);
+    callback();
   }
 }
 
