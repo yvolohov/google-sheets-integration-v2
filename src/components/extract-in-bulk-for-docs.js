@@ -31,7 +31,7 @@ class ExtractInBulkForDocs extends BasePage {
         flagName: 'flagOne'
       }),
       m(SelectedDocumentsList, {model: documents}),
-      m(SelectedFieldsList, {model: null}),
+      m(SelectedFieldsList, {model: documentsFields}),
       m(DocsExtractorSection)
     ]);
   }

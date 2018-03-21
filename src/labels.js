@@ -32,5 +32,6 @@ export default {
   l_30: 'Create and insert links',
   l_31: 'Set lifetime of links, in days',
   l_32: 'Get and insert documents fields',
-  l_33: 'Select and order fields'
+  l_33: 'Select and order fields',
+  l_34: 'Count'
 };
