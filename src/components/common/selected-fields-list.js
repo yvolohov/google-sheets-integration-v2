@@ -1,5 +1,5 @@
 import m from 'mithril';
-import ListItemThree from '../common/list-item-three';
+import ListItem from '../common/list-item';
 import labels from '../../labels';
 
 class SelectedFieldsList {
@@ -28,7 +28,9 @@ class SelectedFieldsList {
       let downArrowHandler = (idx < (fields.length - 1))
         ? this._arrowHandler.bind(this, idx, false, model) : null;
 
-      list.push(m(ListItemThree, {
+      list.push(m(ListItem, {
+        showArrows: true,
+        showCheckbox: true,
         checkboxFlag: currentField['flag'] ? true : null,
         bigHeader: currentField.name,
         smallHeader: currentField.count,
