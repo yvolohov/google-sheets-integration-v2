@@ -1,5 +1,5 @@
 import m from 'mithril';
-import ListItemTwo from '../common/list-item-two';
+import ListItem from '../common/list-item';
 import labels from '../../labels';
 
 class SelectedDocumentsList {
@@ -27,7 +27,9 @@ class SelectedDocumentsList {
       let downArrowHandler = (idx < (selectedDocuments.length - 1))
         ? this._arrowHandler.bind(this, idx, false, model) : null;
 
-      list.push(m(ListItemTwo, {
+      list.push(m(ListItem, {
+        showArrows: true,
+        showCheckbox: false,
         bigHeader: currentDocument.name,
         smallHeader: currentDocument.id,
         upArrowHandler: upArrowHandler,
