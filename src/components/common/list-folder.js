@@ -1,9 +1,9 @@
 import m from 'mithril';
 
-class ListItemFolder {
+class ListFolder {
   view(vnode) {
     return m('div', {class: 'ml folder-box'}, vnode.attrs.header);
   }
 }
 
-export default ListItemFolder;
+export default ListFolder;

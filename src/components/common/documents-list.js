@@ -1,6 +1,6 @@
 import m from 'mithril';
-import ListItemFolder from '../common/list-item-folder';
-import ListItemOne from '../common/list-item-one';
+import ListFolder from '../common/list-folder';
+import ListItem from '../common/list-item';
 import labels from '../../labels';
 
 class DocumentsList {
@@ -26,16 +26,21 @@ class DocumentsList {
     for (let folderIndex in folders) {
       let currentFolder = folders[folderIndex];
       let folderDocuments = currentFolder.documents;
-      tree.push(m(ListItemFolder, {header: currentFolder.name}));
+
+      tree.push(m(ListFolder, {
+        header: currentFolder.name
+      }));
 
       for (let documentIndex in folderDocuments) {
         let currentDocument = folderDocuments[documentIndex];
         let checkboxHandler = this._checkboxHandler.bind(this, currentDocument.id, documents, documentsFields);
 
-        tree.push(m(ListItemOne, {
-          checkboxFlag: (currentDocument[flagName]) ? true : null,
+        tree.push(m(ListItem, {
+          showArrows: false,
+          showCheckbox: true,
           bigHeader: currentDocument.name,
           smallHeader: currentDocument.id,
+          checkboxFlag: (currentDocument[flagName]) ? true : null,
           checkboxHandler: checkboxHandler
         }));
       }
