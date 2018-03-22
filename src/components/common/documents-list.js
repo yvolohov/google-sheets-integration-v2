@@ -30,19 +30,20 @@ class DocumentsList {
 
       for (let documentIndex in folderDocuments) {
         let currentDocument = folderDocuments[documentIndex];
+        let checkboxHandler = this._checkboxHandler.bind(this, currentDocument.id, documents, documentsFields);
 
         tree.push(m(ListItemOne, {
+          checkboxFlag: (currentDocument[flagName]) ? true : null,
           bigHeader: currentDocument.name,
           smallHeader: currentDocument.id,
-          clickHandler: this._clickHandler.bind(this, currentDocument.id, documents, documentsFields),
-          checked: (currentDocument[flagName]) ? true : null
+          checkboxHandler: checkboxHandler
         }));
       }
     }
     return tree;
   }
 
-  _clickHandler(documentId, documents, documentsFields, event) {
+  _checkboxHandler(documentId, documents, documentsFields, event) {
     let flag = event.target.checked;
     documents.selectDocument(documentId, flag);
 
