@@ -16,8 +16,20 @@ class DocumentsFields {
     });
 
     if (fieldIdx > -1) {
-      this.fieldsList[fieldName].flag = flag;
+      this.fieldsList[fieldIdx].flag = flag;
     }
+  }
+
+  moveField(idx, up) {
+    let currentPosition = idx;
+    let newPosition = (up) ? idx - 1 : idx + 1;
+
+    if (newPosition < 0 || newPosition >= this.fieldsList.length) {
+      return;
+    }
+    let remembered = this.fieldsList[newPosition];
+    this.fieldsList[newPosition] = this.fieldsList[currentPosition];
+    this.fieldsList[currentPosition] = remembered;
   }
 
   refreshFields(documentId, flag, onSuccess, onError) {

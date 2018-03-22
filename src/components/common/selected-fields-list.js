@@ -20,9 +20,9 @@ class SelectedFieldsList {
     let list = [];
     let fields = model.getFields();
 
-    for (let idx in fields) {
+    for (var idx = 0; idx < fields.length; idx++) {
       let currentField = fields[idx];
-      let checkboxHandler = this._checkboxHandler.bind(this, idx, model);
+      let checkboxHandler = this._checkboxHandler.bind(this, currentField.name, model);
       let upArrowHandler = (idx > 0)
         ? this._arrowHandler.bind(this, idx, true, model) : null;
       let downArrowHandler = (idx < (fields.length - 1))
@@ -40,13 +40,14 @@ class SelectedFieldsList {
     return list;
   }
 
-  _checkboxHandler(idx, model, event) {
-    console.log(idx, event.target.value);
+  _checkboxHandler(fieldName, model, event) {
+    event.redraw = false;
+    model.selectField(fieldName, event.target.checked);
   }
 
   _arrowHandler(idx, up, model, event) {
     event.preventDefault();
-    console.log(idx, up);
+    model.moveField(idx, up);
   }
 }
 
