@@ -1,5 +1,5 @@
 import m from 'mithril';
-import ListItemOne from '../common/list-item-one';
+import ListItem from '../common/list-item';
 import fillRequestForms from '../../models/extract-in-bulk-for-forms/fill-request-forms';
 import labels from '../../labels';
 
@@ -21,18 +21,21 @@ class FilledFormsList {
 
     for (let formIdx in selectedFillRequestForms) {
       let currentForm = selectedFillRequestForms[formIdx];
+      let checkboxHandler = this._checkboxHandler.bind(this, currentForm.filled_form_id);
 
-      list.push(m(ListItemOne, {
+      list.push(m(ListItem, {
+        showArrows: false,
+        showCheckbox: true,
         bigHeader: `${labels.l_16}: #${currentForm.filled_form_id}`,
         smallHeader: this._createSmallHeader(currentForm),
-        clickHandler: this._clickHandler.bind(this, currentForm.filled_form_id),
-        checked: (currentForm.checkboxChecked) ? true : null
+        checkboxFlag: (currentForm.checkboxChecked) ? true : null,
+        checkboxHandler: checkboxHandler
       }));
     }
     return list;
   }
 
-  _clickHandler(filledFormId, event) {
+  _checkboxHandler(filledFormId, event) {
     event.redraw = false;
     fillRequestForms.selectForm(filledFormId, event.target.checked);
   }

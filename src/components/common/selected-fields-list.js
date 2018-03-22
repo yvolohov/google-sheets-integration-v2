@@ -23,6 +23,7 @@ class SelectedFieldsList {
     for (var idx = 0; idx < fields.length; idx++) {
       let currentField = fields[idx];
       let checkboxHandler = this._checkboxHandler.bind(this, currentField.name, model);
+      let smallHeader = `${labels.l_34}: ${currentField.count}`;
       let upArrowHandler = (idx > 0)
         ? this._arrowHandler.bind(this, idx, true, model) : null;
       let downArrowHandler = (idx < (fields.length - 1))
@@ -33,7 +34,7 @@ class SelectedFieldsList {
         showCheckbox: true,
         checkboxFlag: currentField['flag'] ? true : null,
         bigHeader: currentField.name,
-        smallHeader: currentField.count,
+        smallHeader: smallHeader,
         checkboxHandler: checkboxHandler,
         upArrowHandler: upArrowHandler,
         downArrowHandler: downArrowHandler

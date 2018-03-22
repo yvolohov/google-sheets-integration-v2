@@ -1,5 +1,4 @@
 import m from 'mithril';
-import labels from '../../labels';
 
 class ListItem {
   view(vnode) {
@@ -52,7 +51,7 @@ class ListItem {
   _getHeadersColumn(bigHeader, smallHeader) {
     return m('div', {class: 'list-column', style: 'max-width: 170px;'}, [
       m('div', {class: 'ml'}, bigHeader),
-      m('div', {class: 'sgl'}, `${labels.l_34}: ${smallHeader}`)
+      m('div', {class: 'sgl'}, smallHeader)
     ]);
   }
 
