@@ -22,22 +22,29 @@ class SelectedFieldsList {
 
     for (let idx in fields) {
       let currentField = fields[idx];
-      let upCallback = (idx > 0)
-        ? this._clickArrowHandler.bind(this, idx, true, model) : null;
-      let downCallback = (idx < (fields.length - 1))
-        ? this._clickArrowHandler.bind(this, idx, false, model) : null;
+      let checkboxHandler = this._checkboxHandler.bind(this, idx, model);
+      let upArrowHandler = (idx > 0)
+        ? this._arrowHandler.bind(this, idx, true, model) : null;
+      let downArrowHandler = (idx < (fields.length - 1))
+        ? this._arrowHandler.bind(this, idx, false, model) : null;
 
       list.push(m(ListItemThree, {
+        checkboxFlag: currentField['flag'] ? true : null,
         bigHeader: currentField.name,
         smallHeader: currentField.count,
-        upCallback: upCallback,
-        downCallback: downCallback
+        checkboxHandler: checkboxHandler,
+        upArrowHandler: upArrowHandler,
+        downArrowHandler: downArrowHandler
       }));
     }
     return list;
   }
 
-  _clickArrowHandler(idx, up, model, event) {
+  _checkboxHandler(idx, model, event) {
+    console.log(idx, event.target.value);
+  }
+
+  _arrowHandler(idx, up, model, event) {
     event.preventDefault();
     console.log(idx, up);
   }

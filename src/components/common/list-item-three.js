@@ -3,26 +3,32 @@ import labels from '../../labels';
 
 class ListItemThree {
   view(vnode) {
-    let checkboxSettings = {
-      type: 'checkbox'
-    };
+    let upArrow = String.fromCharCode(0x02C4);
+    let downArrow = String.fromCharCode(0x02C5);
+    let checkboxFlag = vnode.attrs.checkboxFlag;
+    let bigHeader = vnode.attrs.bigHeader;
+    let smallHeader = vnode.attrs.smallHeader;
+    let checkboxHandler = vnode.attrs.checkboxHandler;
+    let upArrowHandler = vnode.attrs.upArrowHandler;
+    let downArrowHandler = vnode.attrs.downArrowHandler;
 
-    let arrowUp = String.fromCharCode(0x02C4);
-    let arrowDown = String.fromCharCode(0x02C5);
-    let upCallback = vnode.attrs.upCallback;
-    let downCallback = vnode.attrs.downCallback;
+    let checkboxSettings = {
+      type: 'checkbox',
+      checked: checkboxFlag,
+      onclick: checkboxHandler
+    };
 
     return m('div', [
       m('div', {class: 'list-column'}, [
-        m('div', {class: 'arrow-box'}, this._makeLink(arrowUp, upCallback)),
-        m('div', {class: 'arrow-box'}, this._makeLink(arrowDown, downCallback))
+        m('div', {class: 'arrow-box'}, this._makeLink(upArrow, upArrowHandler)),
+        m('div', {class: 'arrow-box'}, this._makeLink(downArrow, downArrowHandler))
       ]),
       m('div', {class: 'flag-box'}, [
         m('input', checkboxSettings)
       ]),
       m('div', {class: 'list-column', style: 'max-width: 170px;'}, [
-        m('div', {class: 'ml'}, vnode.attrs.bigHeader),
-        m('div', {class: 'sgl'}, `${labels.l_34}: ${vnode.attrs.smallHeader}`)
+        m('div', {class: 'ml'}, bigHeader),
+        m('div', {class: 'sgl'}, `${labels.l_34}: ${smallHeader}`)
       ])
     ]);
   }
