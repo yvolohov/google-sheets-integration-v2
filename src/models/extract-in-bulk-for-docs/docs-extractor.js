@@ -52,7 +52,7 @@ class DocsExtractor {
 
   _getSelectedFields() {
     let fields = documentsFields.getFields();
-    let selectedFields = ['__document_id', '__document_name'];
+    let selectedFields = ['__ID', '__NAME'];
 
     for (let idx in fields) {
       let currentField = fields[idx];

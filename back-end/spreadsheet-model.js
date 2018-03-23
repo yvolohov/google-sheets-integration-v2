@@ -26,7 +26,27 @@ function SpreadsheetModel()
     var firstRow = selectedCell.getLastRow();
     var firstColumn = selectedCell.getLastColumn();
 
-    // ===
+    var position = this._getHeaderPosition(insertType);
+    var docIdx = 0;
+
+    while (docIdx < documentsData.length) {
+      var documentFields = documentsData[docIdx];
+      var fieldIdx = 0;
+
+      while (fieldIdx < documentFields.length) {
+        var rowNumber = (position === this.HORIZONTAL) ? firstRow + docIdx : firstRow + fieldIdx;
+        var columnNumber = (position === this.HORIZONTAL) ? firstColumn + fieldIdx : firstColumn + docIdx;
+        var cell = sheet.getRange(rowNumber, columnNumber);
+        var value = documentsData[docIdx][fieldIdx];
+
+        if (docIdx === 0) {
+          cell.setFontWeight('bold');
+        }
+        cell.setValue(value);
+        fieldIdx++;
+      }
+      docIdx++;
+    }
   }
 
   this.insertEditorAccessLinks = function(linksList, insertType)
