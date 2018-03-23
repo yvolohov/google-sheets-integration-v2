@@ -6,6 +6,10 @@ class DocumentsFields {
     this.fieldsList = [];
   }
 
+  isLoading() {
+    return this.loading;
+  }
+
   getFields() {
     return this.fieldsList;
   }
