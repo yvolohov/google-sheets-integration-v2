@@ -17,10 +17,9 @@ class DocsExtractor {
   }
 
   insertDocumentsData(unlockScreenCallback) {
-    let selectedFields = this._getSelectedFields();
-    let documentsData = this._getDocumentsData(selectedFields);
+    let documentsData = this._getDocumentsData();
 
-    if (documentsData.length === 0) {
+    if (!(documentsData.length > 1)) {
       unlockScreenCallback();
       return;
     }
@@ -31,23 +30,20 @@ class DocsExtractor {
       .ccInsertDocumentsData(documentsData, this.insertType);
   }
 
-  _getDocumentsData(selectedFields) {
+  _getDocumentsData() {
     let selectedDocuments = documents.getSelectedDocumentsList();
-    let documentsData = [];
+    let selectedFields = this._getSelectedFields();
+    let documentsData = [selectedFields];
 
     for (let docIdx in selectedDocuments) {
       let currentDocument = selectedDocuments[docIdx];
       let currentDocumentFields = fieldsLoader.getFieldsAsSet(currentDocument.id);
-      let documentData = {
-        id: currentDocument.id,
-        name: currentDocument.name,
-        fields: []
-      };
+      let documentData = [currentDocument.id, currentDocument.name];
 
-      for (let fldIdx in selectedFields) {
+      for (var fldIdx = 2; fldIdx < selectedFields.length; fldIdx++) {
         let name = selectedFields[fldIdx];
         let value = (name in currentDocumentFields) ? currentDocumentFields[name].value : '';
-        documentData.fields.push({name: name, value: value});
+        documentData.push(value);
       }
       documentsData.push(documentData);
     }
@@ -56,7 +52,7 @@ class DocsExtractor {
 
   _getSelectedFields() {
     let fields = documentsFields.getFields();
-    let selectedFields = [];
+    let selectedFields = ['__document_id', '__document_name'];
 
     for (let idx in fields) {
       let currentField = fields[idx];
