@@ -30,7 +30,7 @@ class DocsExtractorSection {
 
   _buttonClickHandler(event) {
     event.redraw = false;
-    console.log('click !!!');
+    docsExtractor.extract();
   }
 
   _radioClickHandler(event) {

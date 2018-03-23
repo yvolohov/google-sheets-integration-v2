@@ -39,6 +39,10 @@ class FieldsLoader {
     return (documentId in this.lists) ? this.lists[documentId] : [];
   }
 
+  getFieldsAsSet(documentId) {
+    return (documentId in this.sets) ? this.sets[documentId] : {};
+  }
+
   markField(documentId, fieldName, flag) {
     if (!(documentId in this.sets)) {
       return;
