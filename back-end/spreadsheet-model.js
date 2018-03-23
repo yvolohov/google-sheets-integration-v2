@@ -16,8 +16,17 @@ function SpreadsheetModel()
 
   this.insertDocumentsData = function(documentsData, insertType)
   {
-    Logger.log(JSON.stringify(documentsData));
-    Logger.log(insertType);
+    if (this._requireNewSheet(insertType)) {
+      var newSheet = SpreadsheetApp.getActiveSpreadsheet().insertSheet();
+      SpreadsheetApp.setActiveSheet(newSheet);
+    }
+
+    var sheet = SpreadsheetApp.getActiveSheet();
+    var selectedCell = sheet.getActiveCell();
+    var firstRow = selectedCell.getLastRow();
+    var firstColumn = selectedCell.getLastColumn();
+
+    // ===
   }
 
   this.insertEditorAccessLinks = function(linksList, insertType)
@@ -40,9 +49,9 @@ function SpreadsheetModel()
     }
   }
 
-  this.insertDataHeader = function(templateId, headerData, headerType)
+  this.insertDataHeader = function(templateId, headerData, insertType)
   {
-    if (this._requireNewSheet(headerType)) {
+    if (this._requireNewSheet(insertType)) {
       var newSheet = SpreadsheetApp.getActiveSpreadsheet().insertSheet();
       SpreadsheetApp.setActiveSheet(newSheet);
     }
@@ -51,8 +60,8 @@ function SpreadsheetModel()
     var selectedCell = sheet.getActiveCell();
     var firstRow = selectedCell.getLastRow();
     var firstColumn = selectedCell.getLastColumn();
-    var lastRow = (this._getHeaderPosition(headerType) === this.VERTICAL) ? firstRow + headerData.length - 1 : firstRow;
-    var lastColumn = (this._getHeaderPosition(headerType) === this.HORIZONTAL) ? firstColumn + headerData.length - 1 : firstColumn;
+    var lastRow = (this._getHeaderPosition(insertType) === this.VERTICAL) ? firstRow + headerData.length - 1 : firstRow;
+    var lastColumn = (this._getHeaderPosition(insertType) === this.HORIZONTAL) ? firstColumn + headerData.length - 1 : firstColumn;
     var fieldIndex = 0;
 
     for (var rowNumber = firstRow; rowNumber <= lastRow; rowNumber++) {
@@ -67,14 +76,14 @@ function SpreadsheetModel()
     }
   }
 
-  this._requireNewSheet = function(headerType)
+  this._requireNewSheet = function(insertType)
   {
-    return (headerType === this.INSERT_IN_ROW_ON_NEW_SHEET || headerType === this.INSERT_IN_COLUMN_ON_NEW_SHEET);
+    return (insertType === this.INSERT_IN_ROW_ON_NEW_SHEET || insertType === this.INSERT_IN_COLUMN_ON_NEW_SHEET);
   }
 
-  this._getHeaderPosition = function(headerType)
+  this._getHeaderPosition = function(insertType)
   {
-    return (headerType === this.INSERT_IN_ROW_ON_CURRENT_SHEET || headerType === this.INSERT_IN_ROW_ON_NEW_SHEET)
+    return (insertType === this.INSERT_IN_ROW_ON_CURRENT_SHEET || insertType === this.INSERT_IN_ROW_ON_NEW_SHEET)
       ? this.HORIZONTAL : this.VERTICAL;
   }
 
