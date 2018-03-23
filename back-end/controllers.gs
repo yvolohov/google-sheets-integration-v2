@@ -70,20 +70,6 @@ function ccGetEditorAccessLink(documentId, expireForExisting, expireForNew)
   return documentsModel.getEditorAccessLink(apiRoot, accessToken, documentId, expireForExisting, expireForNew);
 }
 
-// -= DATA HEADER =-
-
-function ccCreateDataHeader(templateId, headerData, headerType)
-{
-  return dataHeaderModel.createDataHeader(templateId, headerData, headerType);
-}
-
-// -= CREATE DOCUMENTS FROM TEMPLATE =-
-
-function ccReadSelectedCells()
-{
-  return formCreatorModel.readSelectedCells();
-}
-
 // -= FILL REQUESTS =-
 
 function ccGetFillRequests(perPage, page)
@@ -109,12 +95,21 @@ function ccGetFolders(perPage, page)
   return foldersModel.getFolders(apiRoot, accessToken, perPage, page);
 }
 
-// -= INSERT DOCUMENTS, FORMS AND LINKS TO SHEET =-
+// -= OPERATIONS WITH SPREADSHEET =-
+
+function ccCreateDataHeader(templateId, headerData, headerType)
+{
+  return dataHeaderModel.createDataHeader(templateId, headerData, headerType);
+}
+
+function ccReadSelectedCells()
+{
+  return formCreatorModel.readSelectedCells();
+}
 
 function ccInsertDocumentsData(documentsData, insertType)
 {
-  Logger.log(JSON.stringify(documentsData));
-  Logger.log(insertType);
+  documentsModel.insertDocumentsData(documentsData, insertType);
 }
 
 function ccInsertLinks(linksList, insertType)

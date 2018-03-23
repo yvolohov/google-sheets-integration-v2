@@ -3,6 +3,12 @@ function DocumentsModel()
   this.INSERT_IN_ROW_ON_CURRENT_SHEET = 0;
   this.INSERT_IN_COLUMN_ON_CURRENT_SHEET = 1;
 
+  this.insertDocumentsData = function(documentsData, insertType)
+  {
+    Logger.log(JSON.stringify(documentsData));
+    Logger.log(insertType);    
+  }
+
   this.insertEditorAccessLinks = function(linksList, insertType)
   {
     var sheet = SpreadsheetApp.getActiveSheet();
