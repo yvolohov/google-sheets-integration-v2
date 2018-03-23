@@ -29,8 +29,11 @@ class DocsExtractorSection {
   }
 
   _buttonClickHandler(event) {
+    m.route.set('/loading');
     event.redraw = false;
-    docsExtractor.extract();
+    docsExtractor.insertDocumentsData(() => {
+      m.route.set('/extract-in-bulk-for-docs');
+    });
   }
 
   _radioClickHandler(event) {

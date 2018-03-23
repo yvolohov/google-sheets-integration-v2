@@ -16,11 +16,19 @@ class DocsExtractor {
     this.insertType = parseInt(insertType);
   }
 
-  extract() {
+  insertDocumentsData(unlockScreenCallback) {
     let selectedFields = this._getSelectedFields();
     let documentsData = this._getDocumentsData(selectedFields);
 
-    console.log(documentsData);
+    if (documentsData.length === 0) {
+      unlockScreenCallback();
+      return;
+    }
+
+    google.script.run
+      .withSuccessHandler(unlockScreenCallback)
+      .withFailureHandler(unlockScreenCallback)
+      .ccInsertDocumentsData(documentsData, this.insertType);
   }
 
   _getDocumentsData(selectedFields) {

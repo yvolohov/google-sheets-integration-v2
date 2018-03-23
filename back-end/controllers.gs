@@ -109,7 +109,13 @@ function ccGetFolders(perPage, page)
   return foldersModel.getFolders(apiRoot, accessToken, perPage, page);
 }
 
-// -= INSERT LINKS TO SHEET =-
+// -= INSERT DOCUMENTS, FORMS AND LINKS TO SHEET =-
+
+function ccInsertDocumentsData(documentsData, insertType)
+{
+  Logger.log(JSON.stringify(documentsData));
+  Logger.log(insertType);
+}
 
 function ccInsertLinks(linksList, insertType)
 {
