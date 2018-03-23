@@ -3,7 +3,7 @@ import BasePage from './base-page';
 import PageHeader from './common/page-header';
 import DocumentsList from './common/documents-list';
 import SelectedDocumentsList from './common/selected-documents-list.js';
-import SelectedFieldsList from './common/selected-fields-list';
+import SelectedFieldsList from './extract-in-bulk-for-docs/selected-fields-list';
 import DocsExtractorSection from './extract-in-bulk-for-docs/docs-extractor-section';
 import documents from '../models/extract-in-bulk-for-docs/documents';
 import documentsFields from '../models/extract-in-bulk-for-docs/documents-fields';
@@ -31,7 +31,7 @@ class ExtractInBulkForDocs extends BasePage {
         flagName: 'flagOne'
       }),
       m(SelectedDocumentsList, {model: documents}),
-      m(SelectedFieldsList, {model: documentsFields}),
+      m(SelectedFieldsList),
       m(DocsExtractorSection)
     ]);
   }
