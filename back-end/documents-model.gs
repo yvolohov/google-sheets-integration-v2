@@ -1,34 +1,5 @@
 function DocumentsModel()
 {
-  this.INSERT_IN_ROW_ON_CURRENT_SHEET = 0;
-  this.INSERT_IN_COLUMN_ON_CURRENT_SHEET = 1;
-
-  this.insertDocumentsData = function(documentsData, insertType)
-  {
-    Logger.log(JSON.stringify(documentsData));
-    Logger.log(insertType);    
-  }
-
-  this.insertEditorAccessLinks = function(linksList, insertType)
-  {
-    var sheet = SpreadsheetApp.getActiveSheet();
-    var selectedCell = sheet.getActiveCell();
-    var firstRow = selectedCell.getLastRow();
-    var firstColumn = selectedCell.getLastColumn();
-    var lastRow = (insertType === this.INSERT_IN_COLUMN_ON_CURRENT_SHEET) ? firstRow + linksList.length - 1 : firstRow;
-    var lastColumn = (insertType === this.INSERT_IN_ROW_ON_CURRENT_SHEET) ? firstColumn + linksList.length - 1 : firstColumn;
-    var linkIndex = 0;
-
-    for (var rowNumber = firstRow; rowNumber <= lastRow; rowNumber++) {
-      for (var columnNumber = firstColumn; columnNumber <= lastColumn; columnNumber++) {
-        var cell = sheet.getRange(rowNumber, columnNumber);
-        var link = linksList[linkIndex];
-        cell.setFormula('=HYPERLINK("' + link.url + '", "' + link.name + '")');
-        linkIndex++;
-      }
-    }
-  }
-
   this.getDocuments = function(apiRoot, accessToken, perPage, page)
   {
     var route = apiRoot + '/v2/templates?page=' + page + '&per_page=' + perPage + '&order_by=name&order=asc';

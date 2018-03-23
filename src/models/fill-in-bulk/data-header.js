@@ -29,7 +29,7 @@ class DataHeader {
     if (selectedFields.length === 0) {
       return;
     }
-    google.script.run.ccCreateDataHeader(documentId, selectedFields, this.insertType);
+    google.script.run.ccInsertDataHeader(documentId, selectedFields, this.insertType);
   }
 }
 

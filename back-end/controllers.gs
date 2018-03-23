@@ -97,22 +97,22 @@ function ccGetFolders(perPage, page)
 
 // -= OPERATIONS WITH SPREADSHEET =-
 
-function ccCreateDataHeader(templateId, headerData, headerType)
+function ccInsertDataHeader(templateId, headerData, headerType)
 {
-  return dataHeaderModel.createDataHeader(templateId, headerData, headerType);
-}
-
-function ccReadSelectedCells()
-{
-  return formCreatorModel.readSelectedCells();
+  spreadsheetModel.insertDataHeader(templateId, headerData, headerType);
 }
 
 function ccInsertDocumentsData(documentsData, insertType)
 {
-  documentsModel.insertDocumentsData(documentsData, insertType);
+  spreadsheetModel.insertDocumentsData(documentsData, insertType);
 }
 
 function ccInsertLinks(linksList, insertType)
 {
-  documentsModel.insertEditorAccessLinks(linksList, insertType);
+  spreadsheetModel.insertEditorAccessLinks(linksList, insertType);
+}
+
+function ccReadSelectedCells()
+{
+  return spreadsheetModel.readSelectedCells();
 }
