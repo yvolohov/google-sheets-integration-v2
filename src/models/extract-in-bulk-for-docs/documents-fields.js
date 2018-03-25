@@ -1,7 +1,7 @@
 import fieldsLoader from '../common/fields-loader';
 
-const DOCUMENT_ID = '_ID_';
-const DOCUMENT_NAME = '_NAME_';
+export const DOCUMENT_ID = '_ID_';
+export const DOCUMENT_NAME = '_NAME_';
 
 class DocumentsFields {
   constructor() {
@@ -17,9 +17,9 @@ class DocumentsFields {
     return this.fieldsList;
   }
 
-  selectField(fieldName, flag) {
+  selectField(fieldName, isService, flag) {
     let fieldIdx = this.fieldsList.findIndex((item) => {
-      return (item.name === fieldName);
+      return (item.name === fieldName && item.service === isService);
     });
 
     if (fieldIdx > -1) {

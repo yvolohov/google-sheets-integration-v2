@@ -2,6 +2,7 @@ import documents from './documents';
 import documentsFields from './documents-fields';
 import fieldsLoader from '../common/fields-loader';
 import errors from '../common/errors';
+import { DOCUMENT_ID, DOCUMENT_NAME } from './documents-fields';
 
 class DocsExtractor {
   constructor() {
@@ -32,17 +33,30 @@ class DocsExtractor {
 
   _getDocumentsData() {
     let selectedDocuments = documents.getSelectedDocumentsList();
-    let selectedFields = this._getSelectedFields();
-    let documentsData = [selectedFields];
+    let fields = documentsFields.getFields();
+    let documentsHeader = this._getDocumentsHeader();
+    let documentsData = [documentsHeader];
 
     for (let docIdx in selectedDocuments) {
       let currentDocument = selectedDocuments[docIdx];
       let currentDocumentFields = fieldsLoader.getFieldsAsSet(currentDocument.id);
-      let documentData = [currentDocument.id, currentDocument.name];
+      let documentData = [];
 
-      for (var fldIdx = 2; fldIdx < selectedFields.length; fldIdx++) {
-        let name = selectedFields[fldIdx];
-        let value = (name in currentDocumentFields) ? currentDocumentFields[name].value : '';
+      for (let fldIdx in fields) {
+        let currentField = fields[fldIdx];
+        let name = currentField.name;
+        let value = '';
+
+        if (!currentField.flag) {
+          continue;
+        }
+
+        if (currentField.service) {
+          value = this._getValueForServiceField(name, currentDocument);
+        }
+        else {
+          value = (name in currentDocumentFields) ? currentDocumentFields[name].value : '';
+        }
         documentData.push(value);
       }
       documentsData.push(documentData);
@@ -50,18 +64,30 @@ class DocsExtractor {
     return documentsData;
   }
 
-  _getSelectedFields() {
+  _getValueForServiceField(fieldName, currentDocument) {
+    let value = '';
+
+    if (fieldName === DOCUMENT_ID) {
+      value = currentDocument.id;
+    }
+    else if (fieldName === DOCUMENT_NAME) {
+      value = currentDocument.name;
+    }
+    return value;
+  }
+
+  _getDocumentsHeader() {
     let fields = documentsFields.getFields();
-    let selectedFields = ['__ID', '__NAME'];
+    let header = [];
 
     for (let idx in fields) {
       let currentField = fields[idx];
 
       if (currentField.flag) {
-        selectedFields.push(currentField.name);
+        header.push(currentField.name);
       }
     }
-    return selectedFields;
+    return header;
   }
 }
 

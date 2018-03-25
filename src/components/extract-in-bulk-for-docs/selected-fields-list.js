@@ -25,7 +25,7 @@ class SelectedFieldsList {
 
     for (var idx = 0; idx < fields.length; idx++) {
       let currentField = fields[idx];
-      let checkboxHandler = this._checkboxHandler.bind(this, currentField.name);
+      let checkboxHandler = this._checkboxHandler.bind(this, currentField.name, currentField.service);
       let smallHeader = `${labels.l_34}: ${currentField.count}`;
       let upArrowHandler = (idx > 0)
         ? this._arrowHandler.bind(this, idx, true) : null;
@@ -53,9 +53,9 @@ class SelectedFieldsList {
     }, labels.l_6);
   }
 
-  _checkboxHandler(fieldName, event) {
+  _checkboxHandler(fieldName, isService, event) {
     event.redraw = false;
-    documentsFields.selectField(fieldName, event.target.checked);
+    documentsFields.selectField(fieldName, isService, event.target.checked);
   }
 
   _arrowHandler(idx, up, event) {
