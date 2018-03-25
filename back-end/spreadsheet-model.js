@@ -16,6 +16,42 @@ function SpreadsheetModel()
 
   this.insertDocumentsData = function(documentsData, insertType)
   {
+    var callback = function(cell, value, docIdx, fieldIdx)
+    {
+      if (docIdx === 0) {
+        cell.setFontWeight('bold');
+      }
+      cell.setValue(value);
+    };
+
+    this._insertDataToCells(callback, documentsData, true, insertType);
+  }
+
+  this.insertEditorAccessLinks = function(linksList, insertType)
+  {
+    var callback = function(cell, link, firstIdx, secondIdx)
+    {
+      cell.setFormula('=HYPERLINK("' + link.url + '", "' + link.name + '")');
+      cell.setNote('document ID: ' + link.id + '\n' + 'document name: ' + link.name + '\n');
+    };
+
+    this._insertDataToCells(callback, linksList, false, insertType);
+  }
+
+  this.insertDataHeader = function(templateId, headerData, insertType)
+  {
+    var callback = function(templateId, cell, fieldData, firstIdx, secondIdx)
+    {
+      cell.setValue(fieldData.name);
+      cell.setFontWeight('bold');
+      cell.setNote(this._makeFieldNote(fieldData, templateId));
+    };
+
+    this._insertDataToCells(callback.bind(this, templateId), headerData, false, insertType);
+  }
+
+  this._insertDataToCells = function(callback, collection, is2d, insertType)
+  {
     if (this._requireNewSheet(insertType)) {
       var newSheet = SpreadsheetApp.getActiveSpreadsheet().insertSheet();
       SpreadsheetApp.setActiveSheet(newSheet);
@@ -27,72 +63,23 @@ function SpreadsheetModel()
     var firstColumn = selectedCell.getLastColumn();
 
     var position = this._getHeaderPosition(insertType);
-    var docIdx = 0;
+    var firstIdx = 0;
+    var collection = (is2d) ? collection : [collection];
 
-    while (docIdx < documentsData.length) {
-      var documentFields = documentsData[docIdx];
-      var fieldIdx = 0;
+    while (firstIdx < collection.length) {
+      var subCollection = collection[firstIdx];
+      var secondIdx = 0;
 
-      while (fieldIdx < documentFields.length) {
-        var rowNumber = (position === this.HORIZONTAL) ? firstRow + docIdx : firstRow + fieldIdx;
-        var columnNumber = (position === this.HORIZONTAL) ? firstColumn + fieldIdx : firstColumn + docIdx;
+      while (secondIdx < subCollection.length) {
+        var rowNumber = (position === this.HORIZONTAL) ? firstRow + firstIdx : firstRow + secondIdx;
+        var columnNumber = (position === this.HORIZONTAL) ? firstColumn + secondIdx : firstColumn + firstIdx;
         var cell = sheet.getRange(rowNumber, columnNumber);
-        var value = documentsData[docIdx][fieldIdx];
+        var value = subCollection[secondIdx];
 
-        if (docIdx === 0) {
-          cell.setFontWeight('bold');
-        }
-        cell.setValue(value);
-        fieldIdx++;
+        callback(cell, value, firstIdx, secondIdx);
+        secondIdx++;
       }
-      docIdx++;
-    }
-  }
-
-  this.insertEditorAccessLinks = function(linksList, insertType)
-  {
-    var sheet = SpreadsheetApp.getActiveSheet();
-    var selectedCell = sheet.getActiveCell();
-    var firstRow = selectedCell.getLastRow();
-    var firstColumn = selectedCell.getLastColumn();
-    var lastRow = (insertType === this.INSERT_IN_COLUMN_ON_CURRENT_SHEET) ? firstRow + linksList.length - 1 : firstRow;
-    var lastColumn = (insertType === this.INSERT_IN_ROW_ON_CURRENT_SHEET) ? firstColumn + linksList.length - 1 : firstColumn;
-    var linkIndex = 0;
-
-    for (var rowNumber = firstRow; rowNumber <= lastRow; rowNumber++) {
-      for (var columnNumber = firstColumn; columnNumber <= lastColumn; columnNumber++) {
-        var cell = sheet.getRange(rowNumber, columnNumber);
-        var link = linksList[linkIndex];
-        cell.setFormula('=HYPERLINK("' + link.url + '", "' + link.name + '")');
-        linkIndex++;
-      }
-    }
-  }
-
-  this.insertDataHeader = function(templateId, headerData, insertType)
-  {
-    if (this._requireNewSheet(insertType)) {
-      var newSheet = SpreadsheetApp.getActiveSpreadsheet().insertSheet();
-      SpreadsheetApp.setActiveSheet(newSheet);
-    }
-
-    var sheet = SpreadsheetApp.getActiveSheet();
-    var selectedCell = sheet.getActiveCell();
-    var firstRow = selectedCell.getLastRow();
-    var firstColumn = selectedCell.getLastColumn();
-    var lastRow = (this._getHeaderPosition(insertType) === this.VERTICAL) ? firstRow + headerData.length - 1 : firstRow;
-    var lastColumn = (this._getHeaderPosition(insertType) === this.HORIZONTAL) ? firstColumn + headerData.length - 1 : firstColumn;
-    var fieldIndex = 0;
-
-    for (var rowNumber = firstRow; rowNumber <= lastRow; rowNumber++) {
-      for (var columnNumber = firstColumn; columnNumber <= lastColumn; columnNumber++) {
-        var cell = sheet.getRange(rowNumber, columnNumber);
-        var fieldName = headerData[fieldIndex].name;
-        cell.setValue(fieldName);
-        cell.setFontWeight('bold');
-        cell.setNote(this._makeFieldNote(headerData[fieldIndex], templateId));
-        fieldIndex++;
-      }
+      firstIdx++;
     }
   }
 
