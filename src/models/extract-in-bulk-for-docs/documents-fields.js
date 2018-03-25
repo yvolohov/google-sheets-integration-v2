@@ -1,5 +1,8 @@
 import fieldsLoader from '../common/fields-loader';
 
+const DOCUMENT_ID = '_ID_';
+const DOCUMENT_NAME = '_NAME_';
+
 class DocumentsFields {
   constructor() {
     this.loading = false;
@@ -61,43 +64,58 @@ class DocumentsFields {
   }
 
   _addFieldsToList(documentId, list, set) {
-    for (let currentFieldIdx in list) {
-      let currentField = list[currentFieldIdx];
-      let fieldIdx = this.fieldsList.findIndex((item) => {
-        return (item.name === currentField.name);
-      });
+    this._addFieldToList(DOCUMENT_ID, true);
+    this._addFieldToList(DOCUMENT_NAME, true);
 
-      if (fieldIdx > -1) {
-        this.fieldsList[fieldIdx].count++;
-      }
-      else {
-        this.fieldsList.push({name: currentField.name, flag: true, count: 1});
-      }
+    for (let currentFieldIdx in list) {
+      this._addFieldToList(list[currentFieldIdx].name, false);
     }
+  }
+
+  _addFieldToList(fieldName, isService) {
+    let fieldIdx = this.fieldsList.findIndex((item) => {
+      return (item.name === fieldName && item.service === isService);
+    });
+
+    if (fieldIdx > -1) {
+      this.fieldsList[fieldIdx].count++;
+      return;
+    }
+
+    this.fieldsList.push({
+      name: fieldName,
+      flag: !isService,
+      count: 1,
+      service: isService
+    });
   }
 
   _removeFieldsFromList(documentId) {
     let list = fieldsLoader.getFields(documentId);
+    this._removeFieldFromList(DOCUMENT_ID, true);
+    this._removeFieldFromList(DOCUMENT_NAME, true);
 
     for (let currentFieldIdx in list) {
-      let currentField = list[currentFieldIdx];
-
-      let fieldIdx = this.fieldsList.findIndex((item) => {
-        return (item.name === currentField.name);
-      });
-
-      if (fieldIdx === -1) {
-        continue;
-      }
-
-      let field = this.fieldsList[fieldIdx];
-
-      if (field.count > 1) {
-        field.count--;
-        continue;
-      }
-      this.fieldsList.splice(fieldIdx, 1);
+      this._removeFieldFromList(list[currentFieldIdx].name, false);
     }
+  }
+
+  _removeFieldFromList(fieldName, isService) {
+    let fieldIdx = this.fieldsList.findIndex((item) => {
+      return (item.name === fieldName && item.service === isService);
+    });
+
+    if (fieldIdx === -1) {
+      return;
+    }
+
+    let foundField = this.fieldsList[fieldIdx];
+
+    if (foundField.count > 1) {
+      foundField.count--;
+      return;
+    }
+    this.fieldsList.splice(fieldIdx, 1);
   }
 }
 
