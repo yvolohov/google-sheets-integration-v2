@@ -1,4 +1,6 @@
+import documents from './documents';
 import documentFields from './document-fields';
+import fieldsLoader from '../common/fields-loader';
 
 class DataHeader {
   constructor() {
@@ -14,22 +16,25 @@ class DataHeader {
   }
 
   createDataHeader() {
-    let documentId = documentFields.getDocumentId();
-    let selectedDocumentFields = documentFields.getDocumentFields();
+    let documentId = documents.getSelectedDocumentId();
+    let compactFields = documentFields.getFields();
+    let fields = fieldsLoader.getFieldsAsSet(documentId);
     let selectedFields = [];
 
-    for (let fieldIndex in selectedDocumentFields) {
-      let currentField = selectedDocumentFields[fieldIndex];
+    for (let idx in compactFields) {
+      let compactField = compactFields[idx];
 
-      if (currentField.flag) {
-        selectedFields.push(currentField);
+      if (compactField.flag) {
+        selectedFields.push(fields[compactField.name]);
       }
     }
 
     if (selectedFields.length === 0) {
       return;
     }
-    google.script.run.ccInsertDataHeader(documentId, selectedFields, this.insertType);
+
+    google.script.run
+      .ccInsertDataHeader(documentId, selectedFields, this.insertType);
   }
 }
 
