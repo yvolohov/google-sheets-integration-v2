@@ -75,7 +75,7 @@ class DocumentSelector extends BaseSelector {
   _changeHandler(event) {
     let documentId = event.target.value;
     documents.setSelectedDocumentId(documentId);
-    documentFields.loadDocumentFields(documentId, () => {m.redraw();});
+    documentFields.refreshFields(documentId, () => {m.redraw();});
   }
 
   _clickHandler(documentId, event) {

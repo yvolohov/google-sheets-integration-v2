@@ -17,19 +17,26 @@ class FieldsList {
 
   _makeList() {
     let list = [];
-    let selectedDocumentFields = documentFields.getDocumentFields();
+    let fields = documentFields.getFields();
 
-    for (let fieldIndex in selectedDocumentFields) {
-      let currentField = selectedDocumentFields[fieldIndex];
+    for (var idx = 0; idx < fields.length; idx++) {
+      let currentField = fields[idx];
       let checkboxHandler = this._checkboxHandler.bind(this, currentField.name);
+      let smallHeader = `${labels.l_12}: ${currentField.type}`;
+      let upArrowHandler = (idx > 0)
+        ? this._arrowHandler.bind(this, idx, true) : null;
+      let downArrowHandler = (idx < (fields.length - 1))
+        ? this._arrowHandler.bind(this, idx, false) : null;
 
       list.push(m(ListItem, {
-        showArrows: false,
+        showArrows: true,
         showCheckbox: true,
-        bigHeader: currentField.name,
-        smallHeader: `${labels.l_12}: ${currentField.type}`,
         checkboxFlag: (currentField.flag) ? true : null,
-        checkboxHandler: checkboxHandler
+        bigHeader: currentField.name,
+        smallHeader: smallHeader,
+        checkboxHandler: checkboxHandler,
+        upArrowHandler: upArrowHandler,
+        downArrowHandler: downArrowHandler
       }));
     }
     return list;
@@ -37,7 +44,12 @@ class FieldsList {
 
   _checkboxHandler(fieldName, event) {
     event.redraw = false;
-    documentFields.selectDocumentField(fieldName, event.target.checked);
+    documentFields.selectField(fieldName, event.target.checked);
+  }
+
+  _arrowHandler(idx, up, event) {
+    event.preventDefault();
+    documentFields.moveField(idx, up);
   }
 }
 
