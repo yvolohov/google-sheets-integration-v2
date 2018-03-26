@@ -26,7 +26,8 @@ class SelectedFieldsList {
     for (var idx = 0; idx < fields.length; idx++) {
       let currentField = fields[idx];
       let checkboxHandler = this._checkboxHandler.bind(this, currentField.name, currentField.service);
-      let smallHeader = `${labels.l_34}: ${currentField.count}`;
+      let smallHeader = (!currentField.service)
+        ? `${labels.l_34}: ${currentField.count}` : labels.l_35;
       let upArrowHandler = (idx > 0)
         ? this._arrowHandler.bind(this, idx, true) : null;
       let downArrowHandler = (idx < (fields.length - 1))
