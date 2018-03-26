@@ -69,7 +69,6 @@ class FieldsLoader {
       if (!currentField.fillable) {
         continue;
       }
-      currentField['flag'] = true;
       fields.push(currentField);
     }
     return fields;

@@ -5,11 +5,15 @@ import labels from '../../labels';
 
 class FieldsList {
   view(vnode) {
+    let content = (!documentFields.isLoading())
+      ? this._makeList()
+      : this._makeLoader();
+
     return m('div', {class: 'row'}, [
       m('div', {class: 'col-12-sm'}, [
         m('label', {class: 'bgl'}, `${labels.l_11}:`),
         m('div', {class: 'scroll-box'}, [
-          m('div', this._makeList())
+          m('div', content)
         ])
       ])
     ]);
@@ -40,6 +44,13 @@ class FieldsList {
       }));
     }
     return list;
+  }
+
+  _makeLoader() {
+    return m('div', {
+      class: 'mgl',
+      style: 'text-align: center; margin-top: 5px;'
+    }, labels.l_6);
   }
 
   _checkboxHandler(fieldName, event) {

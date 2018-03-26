@@ -37,26 +37,39 @@ class DocumentFields {
   }
 
   refreshFields(documentId, onSuccess, onError) {
-    // метод-заглушка
     this.fieldsList = [];
 
-    this.fieldsList.push({
-      name: 'FieldOne',
-      type: 'text',
-      flag: false
-    });
-    this.fieldsList.push({
-      name: 'FieldTwo',
-      type: 'text',
-      flag: false
-    });
-    this.fieldsList.push({
-      name: 'FieldThree',
-      type: 'text',
-      flag: false
-    });
+    if (parseInt(documentId) === 0) {
+      onSuccess();
+      return;
+    }
 
-    onSuccess();
+    this.loading = true;
+
+    let localOnSuccess = (list, set) => {
+      this._addFieldsToList(documentId, list, set);
+      this.loading = false;
+      onSuccess();
+    };
+
+    let localOnError = (response) => {
+      this.loading = false;
+      onError();
+    };
+
+    fieldsLoader.loadFields(documentId, localOnSuccess, localOnError);
+  }
+
+  _addFieldsToList(documentId, list, set) {
+    for (let currentFieldIdx in list) {
+      let currentField = list[currentFieldIdx];
+
+      this.fieldsList.push({
+        name: currentField.name,
+        type: currentField.type,
+        flag: true
+      });
+    }
   }
 }
 
