@@ -57,6 +57,11 @@ class LinkMaker {
     });
   }
 
+  isButtonDisabled() {
+    let selectedDocuments = documents.getSelectedDocumentsList();
+    return (selectedDocuments.length === 0) ? true : null;
+  }
+
   _loadLinks(selectedDocuments) {
     let promises = [];
 

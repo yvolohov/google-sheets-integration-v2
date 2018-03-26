@@ -19,16 +19,17 @@ class DocsExtractor {
 
   insertDocumentsData(unlockScreenCallback) {
     let documentsData = this._getDocumentsData();
-
-    if (!(documentsData.length > 1)) {
-      unlockScreenCallback();
-      return;
-    }
-
+    
     google.script.run
       .withSuccessHandler(unlockScreenCallback)
       .withFailureHandler(unlockScreenCallback)
       .ccInsertDocumentsData(documentsData, this.insertType);
+  }
+
+  isButtonDisabled() {
+    let fields = documentsFields.getFields();
+    let areFields = (fields.findIndex((item) => {return item.flag;}) > -1);
+    return (!areFields) ? true : null;
   }
 
   _getDocumentsData() {

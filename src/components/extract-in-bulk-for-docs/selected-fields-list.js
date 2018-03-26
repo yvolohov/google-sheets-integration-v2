@@ -54,7 +54,6 @@ class SelectedFieldsList {
   }
 
   _checkboxHandler(fieldName, isService, event) {
-    event.redraw = false;
     documentsFields.selectField(fieldName, isService, event.target.checked);
   }
 
