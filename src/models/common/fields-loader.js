@@ -35,25 +35,12 @@ class FieldsLoader {
     });
   }
 
-  getFields(documentId) {
+  getFieldsAsList(documentId) {
     return (documentId in this.lists) ? this.lists[documentId] : [];
   }
 
   getFieldsAsSet(documentId) {
     return (documentId in this.sets) ? this.sets[documentId] : {};
-  }
-
-  markField(documentId, fieldName, flag) {
-    if (!(documentId in this.sets)) {
-      return;
-    }
-
-    let selectedDocumentFields = this.sets[documentId];
-
-    if (fieldName in selectedDocumentFields) {
-      let currentField = selectedDocumentFields[fieldName];
-      currentField.flag = flag;
-    }
   }
 
   _prepareList(rawContent) {

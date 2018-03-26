@@ -91,7 +91,7 @@ class DocumentsFields {
   }
 
   _removeFieldsFromList(documentId) {
-    let list = fieldsLoader.getFields(documentId);
+    let list = fieldsLoader.getFieldsAsList(documentId);
     this._removeFieldFromList(DOCUMENT_ID, true);
     this._removeFieldFromList(DOCUMENT_NAME, true);
 
