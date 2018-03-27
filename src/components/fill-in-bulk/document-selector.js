@@ -1,11 +1,10 @@
 import m from 'mithril';
-import BaseSelector from '../common/base-selector';
 import documents from '../../models/fill-in-bulk/documents';
 import documentLinks from '../../models/fill-in-bulk/document-links';
 import documentFields from '../../models/fill-in-bulk/document-fields';
 import labels from '../../labels';
 
-class DocumentSelector extends BaseSelector {
+class DocumentSelector {
   view(vnode) {
     return m('div', {class: 'row'}, [
       m('div', {class: 'col-12-sm'}, [
@@ -31,20 +30,23 @@ class DocumentSelector extends BaseSelector {
   }
 
   _makeTree() {
-    let selectedDocumentId = documents.getSelectedDocumentId();
-    let settings = this._makeOptionSettings(0, selectedDocumentId);
-    let tree = [m('option', settings, '...')];
+    let selectionState = documents.getSelectionState(0);
+    let tree = [m('option', {value: 0, selected: selectionState}, '...')];
     let folders = documents.getFoldersTree();
 
     for (let folderIndex in folders) {
       let currentFolder = folders[folderIndex];
-      let documents = currentFolder.documents;
+      let folderDocuments = currentFolder.documents;
       let options = [];
 
-      for (let documentIndex in documents) {
-        let currentDocument = documents[documentIndex];
-        let settings = this._makeOptionSettings(currentDocument.id, selectedDocumentId);
-        options.push(m('option', settings, currentDocument.name));
+      for (let documentIndex in folderDocuments) {
+        let currentDocument = folderDocuments[documentIndex];
+        let selectionState = documents.getSelectionState(currentDocument.id);
+
+        options.push(m('option', {
+          value: currentDocument.id,
+          selected: selectionState
+        }, currentDocument.name));
       }
       tree.push(m('optgroup', {label: currentFolder.name}, options));
     }

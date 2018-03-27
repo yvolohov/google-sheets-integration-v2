@@ -38,7 +38,6 @@ class FolderSelector {
   }
 
   _makeFoldersList() {
-    let selectedFolderId = folders.getSelectedFolderId();
     let selectionState = folders.getSelectionState(0);
     let foldersData = folders.getFoldersList();
     let list = [m('option', {value: 0, selected: selectionState}, labels.l_10)];

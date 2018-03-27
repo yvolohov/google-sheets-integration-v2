@@ -26,6 +26,10 @@ class Documents {
   getFoldersTree() {
     return this.tree;
   }
+
+  getSelectionState(documentId) {
+    return (parseInt(documentId) === this.selectedDocumentId) ? 'selected' : null;
+  }
 }
 
 export default new Documents();
