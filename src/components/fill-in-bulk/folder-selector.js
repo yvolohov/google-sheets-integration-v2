@@ -8,8 +8,8 @@ const CREATE_NEW_FOLDER = 1;
 
 class FolderSelector extends BaseSelector {
   view(vnode) {
-    let callback = () => {};
-    let currentValue = 0;
+    let callback = this._radioClickHandler.bind(this);
+    let currentValue = folders.getFolderAction();
 
     let radioButtons = [
       this._makeRadioButton(USE_EXISTING_FOLDER, callback, currentValue, labels.l_18),
@@ -40,6 +40,10 @@ class FolderSelector extends BaseSelector {
     ]);
   }
 
+  _radioClickHandler(event) {
+    folders.setFolderAction(event.target.value);
+  }  
+
   /*
   view(vnode) {
     let selectSettings = {
@@ -65,7 +69,6 @@ class FolderSelector extends BaseSelector {
       ])
     ]);
   }
-  */
 
   _makeList() {
     let selectedFolderId = folders.getSelectedFolderId();
@@ -87,6 +90,7 @@ class FolderSelector extends BaseSelector {
   _changeHandler(event) {
     folders.setSelectedFolderId(event.target.value);
   }
+  */
 }
 
 export default FolderSelector;

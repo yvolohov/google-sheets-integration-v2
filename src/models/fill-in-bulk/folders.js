@@ -3,8 +3,9 @@ import MultipageRequest from '../../lib/multipage-request';
 class Folders {
   constructor() {
     this.list = [];
-    this.folders = {};
+    this.set = {};
     this.selectedFolderId = 0;
+    this.folderAction = 0;
   }
 
   load() {
@@ -18,8 +19,8 @@ class Folders {
   }
 
   getSelectedFolder() {
-    return (this.selectedFolderId in this.folders)
-      ? this.folders[this.selectedFolderId] : null;
+    return (this.selectedFolderId in this.set)
+      ? this.set[this.selectedFolderId] : null;
   }
 
   getSelectedFolderId() {
@@ -33,6 +34,14 @@ class Folders {
   getFoldersList() {
     return this.list;
   }
+
+  getFolderAction() {
+    return this.folderAction;
+  }
+
+  setFolderAction(folderAction) {
+    this.folderAction = parseInt(folderAction);
+  }  
 
   _pageCallback(response, results, errors) {
     if (response.responseCode !== 200) {
@@ -55,7 +64,7 @@ class Folders {
       let currentFolder = results[folderId];
       folders[currentFolder.folder_id] = currentFolder;
     }
-    this.folders = folders;
+    this.set = folders;
     this.list = results;
   }
 }
