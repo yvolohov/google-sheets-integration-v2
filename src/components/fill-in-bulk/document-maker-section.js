@@ -1,16 +1,17 @@
 import m from 'mithril';
-import documents from '../../models/fill-in-bulk/documents';
+import documentMaker from '../../models/fill-in-bulk/document-maker';
 import labels from '../../labels';
 
-class FillFormsButton {
+class DocumentMakerSection {
   view(vnode) {
+    let isButtonDisabled = documentMaker.isButtonDisabled();
+
     return m('div', {class: 'row'}, [
       m('div', {class: 'col-12-sm'}, [
         m('button', {
-          id: 'fill-forms-button',
           class: 'action',
           style: 'width: 100%',
-          disabled: (documents.getSelectedDocumentId() === 0) ? true : null,
+          disabled: isButtonDisabled,
           onclick: this._clickHandler.bind(this)
         }, labels.l_24)
       ])
@@ -22,4 +23,4 @@ class FillFormsButton {
   }
 }
 
-export default FillFormsButton;
+export default DocumentMakerSection;
