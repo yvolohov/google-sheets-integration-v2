@@ -35,5 +35,6 @@ export default {
   l_33: 'Select and order fields',
   l_34: 'Documents',
   l_35: 'Service field',
-  l_36: 'New folder name'
+  l_36: 'New folder name',
+  l_37: 'Select folder'
 };

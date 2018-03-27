@@ -16,25 +16,36 @@ class FolderSelector extends BaseSelector {
       this._makeRadioButton(CREATE_NEW_FOLDER, callback, currentValue, labels.l_20)
     ];
 
+    let component = (currentValue === USE_EXISTING_FOLDER)
+      ? this._makeFolderSelect() : this._makeFolderInput();
+
     return m('div', {class: 'row'}, [
       m('div', {class: 'col-12-sm'}, [
         m('label', {class: 'bgl'}, `${labels.l_9}:`),
         m('div', radioButtons)
       ]),
-      this._makeTextInput()
+      component
     ]);
   }
 
-  _makeTextInput() {
-    let inputSettings = {
-      type: 'text',
-      placeholder: labels.l_19,
-      style: 'width: 100%;'
-    };
+  _makeFolderSelect() {
+    return m('div', {class: 'col-12-sm'}, [
+      m('label', {class: 'mgl'}, `${labels.l_37}:`),
+      m('select', {
+        style: 'width: 100%; text-align: left;',
+        onchange: this._selectChangeHandler.bind(this)
+      }, [])
+    ]);
+  }
 
+  _makeFolderInput() {
     return m('div', {class: 'col-12-sm'}, [
       m('label', {class: 'mgl'}, `${labels.l_36}:`),
-      m('input', inputSettings)
+      m('input', {
+        type: 'text',
+        placeholder: labels.l_19,
+        style: 'width: 100%;'
+      })
     ]);
   }
 
@@ -56,6 +67,10 @@ class FolderSelector extends BaseSelector {
 
   _radioClickHandler(event) {
     folders.setFolderAction(event.target.value);
+  }
+
+  _selectChangeHandler(event) {
+    folders.setSelectedFolderId(event.target.value);
   }
 
   /*
@@ -99,10 +114,6 @@ class FolderSelector extends BaseSelector {
     settings = this._makeOptionSettings(1, selectedFolderId);
     list.push(m('option', settings, `--- ${labels.l_20} ---`));
     return list;
-  }
-
-  _changeHandler(event) {
-    folders.setSelectedFolderId(event.target.value);
   }
   */
 }
