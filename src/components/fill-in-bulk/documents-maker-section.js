@@ -12,14 +12,18 @@ class DocumentsMakerSection {
           class: 'action',
           style: 'width: 100%',
           disabled: isButtonDisabled,
-          onclick: this._clickHandler.bind(this)
+          onclick: this._buttonClickHandler.bind(this)
         }, labels.l_24)
       ])
     ]);
   }
 
-  _clickHandler(event) {
-    console.log('click !!!');
+  _buttonClickHandler(event) {
+    m.route.set('/loading');
+    event.redraw = false;
+    documentsMaker.makeDocuments(() => {
+      m.route.set('/fill-in-bulk');
+    });
   }
 }
 
