@@ -1,10 +1,10 @@
 import m from 'mithril';
-import documentMaker from '../../models/fill-in-bulk/document-maker';
+import documentsMaker from '../../models/fill-in-bulk/documents-maker';
 import labels from '../../labels';
 
-class DocumentMakerSection {
+class DocumentsMakerSection {
   view(vnode) {
-    let isButtonDisabled = documentMaker.isButtonDisabled();
+    let isButtonDisabled = documentsMaker.isButtonDisabled();
 
     return m('div', {class: 'row'}, [
       m('div', {class: 'col-12-sm'}, [
@@ -23,4 +23,4 @@ class DocumentMakerSection {
   }
 }
 
-export default DocumentMakerSection;
+export default DocumentsMakerSection;

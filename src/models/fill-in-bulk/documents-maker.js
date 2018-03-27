@@ -1,7 +1,7 @@
 import documents from './documents';
 import errors from '../common/errors';
 
-class DocumentMaker {
+class DocumentsMaker {
   constructor() {
 
   }
@@ -11,4 +11,4 @@ class DocumentMaker {
   }
 }
 
-export default new DocumentMaker();
+export default new DocumentsMaker();

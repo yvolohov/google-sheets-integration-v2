@@ -5,7 +5,7 @@ import DocumentSelector from './fill-in-bulk/document-selector';
 import FieldsList from './fill-in-bulk/fields-list';
 import DataHeaderSection from './fill-in-bulk/data-header-section';
 import FolderSelector from './fill-in-bulk/folder-selector';
-import DocumentMakerSection from './fill-in-bulk/document-maker-section';
+import DocumentsMakerSection from './fill-in-bulk/documents-maker-section';
 import labels from '../labels';
 
 class FillInBulk extends BasePage {
@@ -28,7 +28,7 @@ class FillInBulk extends BasePage {
       m(FieldsList),
       m(DataHeaderSection),
       m(FolderSelector),
-      m(DocumentMakerSection)
+      m(DocumentsMakerSection)
     ]);
   }
 }
