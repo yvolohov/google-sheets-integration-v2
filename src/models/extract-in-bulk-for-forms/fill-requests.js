@@ -34,6 +34,10 @@ class FillRequests {
     return this.list;
   }
 
+  getSelectionState(fillRequestId) {
+    return (parseInt(fillRequestId) === this.selectedFillRequestId) ? 'selected' : null;
+  }
+
   _pageCallback(response, results, errors) {
     if (response.responseCode !== 200) {
       errors.push(response);

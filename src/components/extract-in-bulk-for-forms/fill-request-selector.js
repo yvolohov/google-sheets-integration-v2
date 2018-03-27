@@ -1,10 +1,9 @@
 import m from 'mithril';
-import BaseSelector from '../common/base-selector';
 import fillRequests from '../../models/extract-in-bulk-for-forms/fill-requests';
 import fillRequestForms from '../../models/extract-in-bulk-for-forms/fill-request-forms';
 import labels from '../../labels';
 
-class FillRequestSelector extends BaseSelector {
+class FillRequestSelector {
   view(vnode) {
     return m('div', {class: 'row'}, [
       m('div', {class: 'col-12-sm'}, [
@@ -26,15 +25,18 @@ class FillRequestSelector extends BaseSelector {
   }
 
   _makeList() {
-    let selectedFillRequestId = fillRequests.getSelectedFillRequestId();
-    let settings = this._makeOptionSettings(0, selectedFillRequestId);
-    let list = [m('option', settings, '...')];
+    let selectionState = fillRequests.getSelectionState(0);
+    let list = [m('option', {value: 0, selected: selectionState}, '...')];
     let fillRequestsData = fillRequests.getFillRequestsList();
 
     for (let fillRequestIndex in fillRequestsData) {
       let currentFillRequest = fillRequestsData[fillRequestIndex];
-      let settings = this._makeOptionSettings(currentFillRequest.fillable_form_id, selectedFillRequestId);
-      list.push(m('option', settings, currentFillRequest.document_name));
+      let selectionState = fillRequests.getSelectionState(currentFillRequest.fillable_form_id);
+
+      list.push(m('option', {
+        value: currentFillRequest.fillable_form_id,
+        selected: selectionState
+      }, currentFillRequest.document_name));
     }
     return list;
   }
