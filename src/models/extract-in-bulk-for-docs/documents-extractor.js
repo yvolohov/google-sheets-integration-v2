@@ -4,7 +4,7 @@ import fieldsLoader from '../common/fields-loader';
 import errors from '../common/errors';
 import { DOCUMENT_ID, DOCUMENT_NAME } from './documents-fields';
 
-class DocsExtractor {
+class DocumentsExtractor {
   constructor() {
     this.insertType = 0;
   }
@@ -19,7 +19,7 @@ class DocsExtractor {
 
   insertDocumentsData(unlockScreenCallback) {
     let documentsData = this._getDocumentsData();
-    
+
     google.script.run
       .withSuccessHandler(unlockScreenCallback)
       .withFailureHandler(unlockScreenCallback)
@@ -92,4 +92,4 @@ class DocsExtractor {
   }
 }
 
-export default new DocsExtractor();
+export default new DocumentsExtractor();

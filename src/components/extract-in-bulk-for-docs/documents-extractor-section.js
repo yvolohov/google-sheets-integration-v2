@@ -1,12 +1,12 @@
 import m from 'mithril';
 import InsertTypesRadiogroup from '../common/insert-types-radiogroup';
-import docsExtractor from '../../models/extract-in-bulk-for-docs/docs-extractor';
+import documentsExtractor from '../../models/extract-in-bulk-for-docs/documents-extractor';
 import labels from '../../labels';
 
-class DocsExtractorSection {
+class DocumentsExtractorSection {
   view(vnode) {
-    let insertType = docsExtractor.getInsertType();
-    let isButtonDisabled = docsExtractor.isButtonDisabled();
+    let insertType = documentsExtractor.getInsertType();
+    let isButtonDisabled = documentsExtractor.isButtonDisabled();
 
     return m('div', {class: 'row'}, [
       m('div', {class: 'col-12-sm'}, [
@@ -30,15 +30,15 @@ class DocsExtractorSection {
   _buttonClickHandler(event) {
     m.route.set('/loading');
     event.redraw = false;
-    docsExtractor.insertDocumentsData(() => {
+    documentsExtractor.insertDocumentsData(() => {
       m.route.set('/extract-in-bulk-for-docs');
     });
   }
 
   _radioClickHandler(event) {
     event.redraw = false;
-    docsExtractor.setInsertType(event.target.value);
+    documentsExtractor.setInsertType(event.target.value);
   }
 }
 
-export default DocsExtractorSection;
+export default DocumentsExtractorSection;
