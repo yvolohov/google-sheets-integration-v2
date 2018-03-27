@@ -20,7 +20,21 @@ class FolderSelector extends BaseSelector {
       m('div', {class: 'col-12-sm'}, [
         m('label', {class: 'bgl'}, `${labels.l_9}:`),
         m('div', radioButtons)
-      ])
+      ]),
+      this._makeTextInput()
+    ]);
+  }
+
+  _makeTextInput() {
+    let inputSettings = {
+      type: 'text',
+      placeholder: labels.l_19,
+      style: 'width: 100%;'
+    };
+
+    return m('div', {class: 'col-12-sm'}, [
+      m('label', {class: 'mgl'}, `${labels.l_36}:`),
+      m('input', inputSettings)
     ]);
   }
 
@@ -42,7 +56,7 @@ class FolderSelector extends BaseSelector {
 
   _radioClickHandler(event) {
     folders.setFolderAction(event.target.value);
-  }  
+  }
 
   /*
   view(vnode) {
