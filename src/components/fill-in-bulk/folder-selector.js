@@ -1,12 +1,9 @@
 import m from 'mithril';
-import BaseSelector from '../common/base-selector';
 import folders from '../../models/fill-in-bulk/folders';
 import labels from '../../labels';
+import { USE_EXISTING_FOLDER, CREATE_NEW_FOLDER } from '../../models/fill-in-bulk/folders';
 
-const USE_EXISTING_FOLDER = 0;
-const CREATE_NEW_FOLDER = 1;
-
-class FolderSelector extends BaseSelector {
+class FolderSelector {
   view(vnode) {
     let callback = this._radioClickHandler.bind(this);
     let currentValue = folders.getFolderAction();
@@ -29,13 +26,33 @@ class FolderSelector extends BaseSelector {
   }
 
   _makeFolderSelect() {
+    let foldersList = this._makeFoldersList();
+
     return m('div', {class: 'col-12-sm'}, [
       m('label', {class: 'mgl'}, `${labels.l_37}:`),
       m('select', {
         style: 'width: 100%; text-align: left;',
         onchange: this._selectChangeHandler.bind(this)
-      }, [])
+      }, foldersList)
     ]);
+  }
+
+  _makeFoldersList() {
+    let selectedFolderId = folders.getSelectedFolderId();
+    let selectionState = folders.getSelectionState(0);
+    let foldersData = folders.getFoldersList();
+    let list = [m('option', {value: 0, selected: selectionState}, labels.l_10)];
+
+    for (let idx in foldersData) {
+      let currentFolder = foldersData[idx];
+      let selectionState = folders.getSelectionState(currentFolder.folder_id);
+
+      list.push(m('option', {
+        value: currentFolder.folder_id,
+        selected: selectionState
+      }, currentFolder.name));
+    }
+    return list;
   }
 
   _makeFolderInput() {
@@ -70,52 +87,9 @@ class FolderSelector extends BaseSelector {
   }
 
   _selectChangeHandler(event) {
+    event.redraw = false;
     folders.setSelectedFolderId(event.target.value);
   }
-
-  /*
-  view(vnode) {
-    let selectSettings = {
-      style: 'width: 100%; text-align: left;',
-      onchange: this._changeHandler.bind(this)
-    };
-
-    let inputSettings = {
-      type: 'text',
-      placeholder: labels.l_19,
-      disabled: (folders.getSelectedFolderId() !== 1) ? true : null,
-      style: 'width: 100%;'
-    };
-
-    return m('div', {class: 'row'}, [
-      m('div', {class: 'col-12-sm'}, [
-        m('label', {class: 'bgl'}, `${labels.l_9}:`),
-        m('select', selectSettings, this._makeList())
-      ]),
-      m('div', {class: 'col-12-sm'}, [
-        m('label', {class: 'mgl'}, `${labels.l_18}:`),
-        m('input', inputSettings)
-      ])
-    ]);
-  }
-
-  _makeList() {
-    let selectedFolderId = folders.getSelectedFolderId();
-    let settings = this._makeOptionSettings(0, selectedFolderId);
-    let list = [m('option', settings, labels.l_10)];
-    let foldersData = folders.getFoldersList();
-
-    for (let folderIndex in foldersData) {
-      let currentFolder = foldersData[folderIndex];
-      let settings = this._makeOptionSettings(currentFolder.folder_id, selectedFolderId);
-      list.push(m('option', settings, currentFolder.name));
-    }
-
-    settings = this._makeOptionSettings(1, selectedFolderId);
-    list.push(m('option', settings, `--- ${labels.l_20} ---`));
-    return list;
-  }
-  */
 }
 
 export default FolderSelector;

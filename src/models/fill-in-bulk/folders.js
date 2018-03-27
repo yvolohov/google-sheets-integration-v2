@@ -1,5 +1,8 @@
 import MultipageRequest from '../../lib/multipage-request';
 
+export const USE_EXISTING_FOLDER = 0;
+export const CREATE_NEW_FOLDER = 1;
+
 class Folders {
   constructor() {
     this.list = [];
@@ -41,7 +44,11 @@ class Folders {
 
   setFolderAction(folderAction) {
     this.folderAction = parseInt(folderAction);
-  }  
+  }
+
+  getSelectionState(folderId) {
+    return (parseInt(folderId) === this.selectedFolderId) ? 'selected' : null;
+  }
 
   _pageCallback(response, results, errors) {
     if (response.responseCode !== 200) {
