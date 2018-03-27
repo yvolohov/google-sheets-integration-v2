@@ -3,7 +3,7 @@ import BasePage from './base-page';
 import PageHeader from './common/page-header';
 import DocumentsList from './common/documents-list';
 import SelectedDocumentsList from './common/selected-documents-list.js';
-import LinkMakerSection from './get-editor-access-links/link-maker-section';
+import LinksMakerSection from './get-editor-access-links/links-maker-section';
 import documents from '../models/get-editor-access-links/documents';
 import labels from '../labels';
 
@@ -29,7 +29,7 @@ class GetEditorAccessLinks extends BasePage {
         flagName: 'flagTwo'
       }),
       m(SelectedDocumentsList, {model: documents}),
-      m(LinkMakerSection)
+      m(LinksMakerSection)
     ]);
   }
 }

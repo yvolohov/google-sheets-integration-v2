@@ -1,7 +1,7 @@
 import documents from './documents';
 import errors from '../common/errors';
 
-class LinkMaker {
+class LinksMaker {
   constructor() {
     this.lifetime = 180;
     this.insertType = 0;
@@ -83,4 +83,4 @@ class LinkMaker {
   }
 }
 
-export default new LinkMaker();
+export default new LinksMaker();

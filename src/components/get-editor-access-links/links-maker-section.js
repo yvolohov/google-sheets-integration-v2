@@ -1,13 +1,13 @@
 import m from 'mithril';
 import InsertTypesRadiogroup from '../common/insert-types-radiogroup';
-import linkMaker from '../../models/get-editor-access-links/link-maker';
+import linksMaker from '../../models/get-editor-access-links/links-maker';
 import labels from '../../labels';
 
-class LinkMakerSection {
+class LinksMakerSection {
   view(vnode) {
-    let insertType = linkMaker.getInsertType();
-    let lifetime = linkMaker.getLifetime();
-    let isButtonDisabled = linkMaker.isButtonDisabled();
+    let insertType = linksMaker.getInsertType();
+    let lifetime = linksMaker.getLifetime();
+    let isButtonDisabled = linksMaker.isButtonDisabled();
 
     return m('div', {class: 'row'}, [
       m('div', {class: 'col-12-sm'}, [
@@ -42,20 +42,20 @@ class LinkMakerSection {
   _buttonClickHandler(event) {
     m.route.set('/loading');
     event.redraw = false;
-    linkMaker.insertLinks(() => {
+    linksMaker.insertLinks(() => {
       m.route.set('/get-editor-access-links');
     });
   }
 
   _radioClickHandler(event) {
     event.redraw = false;
-    linkMaker.setInsertType(event.target.value);
+    linksMaker.setInsertType(event.target.value);
   }
 
   _fieldChangeHandler(event) {
     event.redraw = false;
-    linkMaker.setLifetime(event.target.value);
+    linksMaker.setLifetime(event.target.value);
   }
 }
 
-export default LinkMakerSection;
+export default LinksMakerSection;
