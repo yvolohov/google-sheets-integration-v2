@@ -1,4 +1,5 @@
 import MultipageRequest from '../../lib/multipage-request';
+import { srvGetSelectionState } from '../../lib/service-functions';
 
 class FillRequests {
   constructor() {
@@ -35,7 +36,7 @@ class FillRequests {
   }
 
   getSelectionState(fillRequestId) {
-    return (parseInt(fillRequestId) === this.selectedFillRequestId) ? 'selected' : null;
+    return srvGetSelectionState(fillRequestId, this.selectedFillRequestId);
   }
 
   _pageCallback(response, results, errors) {

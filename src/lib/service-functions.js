@@ -10,3 +10,7 @@ export function srvMoveField(collection, idx, up) {
   collection[newPosition] = collection[currentPosition];
   collection[currentPosition] = remembered;
 }
+
+export function srvGetSelectionState(currentItemId, selectedItemId) {
+  return (parseInt(currentItemId) === selectedItemId) ? 'selected' : null;
+}

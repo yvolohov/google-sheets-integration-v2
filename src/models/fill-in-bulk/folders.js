@@ -1,4 +1,5 @@
 import MultipageRequest from '../../lib/multipage-request';
+import { srvGetSelectionState } from '../../lib/service-functions';
 
 export const USE_EXISTING_FOLDER = 0;
 export const CREATE_NEW_FOLDER = 1;
@@ -47,7 +48,7 @@ class Folders {
   }
 
   getSelectionState(folderId) {
-    return (parseInt(folderId) === this.selectedFolderId) ? 'selected' : null;
+    return srvGetSelectionState(folderId, this.selectedFolderId);
   }
 
   _pageCallback(response, results, errors) {

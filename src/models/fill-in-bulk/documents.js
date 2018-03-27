@@ -1,3 +1,5 @@
+import { srvGetSelectionState } from '../../lib/service-functions';
+
 class Documents {
   constructor() {
     this.tree = [];
@@ -28,7 +30,7 @@ class Documents {
   }
 
   getSelectionState(documentId) {
-    return (parseInt(documentId) === this.selectedDocumentId) ? 'selected' : null;
+    return srvGetSelectionState(documentId, this.selectedDocumentId);
   }
 }
 
