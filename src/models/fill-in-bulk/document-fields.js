@@ -1,4 +1,5 @@
 import fieldsLoader from '../common/fields-loader';
+import { srvMoveField } from '../../lib/service-functions';
 
 class DocumentFields {
   constructor() {
@@ -25,15 +26,7 @@ class DocumentFields {
   }
 
   moveField(idx, up) {
-    let currentPosition = idx;
-    let newPosition = (up) ? idx - 1 : idx + 1;
-
-    if (newPosition < 0 || newPosition >= this.fieldsList.length) {
-      return;
-    }
-    let remembered = this.fieldsList[newPosition];
-    this.fieldsList[newPosition] = this.fieldsList[currentPosition];
-    this.fieldsList[currentPosition] = remembered;
+    srvMoveField(this.fieldsList, idx, up);
   }
 
   refreshFields(documentId, onSuccess, onError) {

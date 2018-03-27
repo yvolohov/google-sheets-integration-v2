@@ -1,3 +1,5 @@
+import { srvMoveField } from '../../lib/service-functions';
+
 class Documents {
   constructor() {
     this.tree = [];
@@ -32,15 +34,7 @@ class Documents {
   }
 
   moveSelectedDocument(idx, up) {
-    let currentPosition = idx;
-    let newPosition = (up) ? idx - 1 : idx + 1;
-
-    if (newPosition < 0 || newPosition >= this.selectedDocumentsList.length) {
-      return;
-    }
-    let remembered = this.selectedDocumentsList[newPosition];
-    this.selectedDocumentsList[newPosition] = this.selectedDocumentsList[currentPosition];
-    this.selectedDocumentsList[currentPosition] = remembered;
+    srvMoveField(this.selectedDocumentsList, idx, up);
   }
 
   _refreshSelectedDocumentsList(selectedDocument, flag) {
