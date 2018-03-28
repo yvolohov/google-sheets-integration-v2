@@ -34,10 +34,65 @@ class DocumentsMaker {
   }
 
   _createDataBundles(cells) {
-    var selectedFields = this._getSelectedFieldsSet();
-    var headerType = this._recognizeRangeHeader(selectedFields, cells);
+    let selectedFields = this._getSelectedFieldsSet();
+    let headerType = this._recognizeRangeHeader(selectedFields, cells);
+    let dataBundles = [];
 
-    return cells;
+    if (headerType === HORIZONTAL) {
+      dataBundles = this._readFromHorizontalTable(cells, selectedFields);
+    }
+    else if (headerType === VERTICAL) {
+      dataBundles = this._readFromVerticalTable(cells, selectedFields);
+    }
+    return dataBundles;
+  }
+
+  _readFromHorizontalTable(cells, selectedFields) {
+    let list = [];
+    let rowsCount = cells.length;
+    let columnsCount = cells[0].length;
+
+    for (var rowIndex = 1; rowIndex < rowsCount; rowIndex++) {
+      let bundle = {};
+
+      for (var columnIndex = 0; columnIndex < columnsCount; columnIndex++) {
+        let header = cells[0][columnIndex];
+        let value = cells[rowIndex][columnIndex];
+
+        if (header in selectedFields) {
+          bundle[header] = value;
+        }
+      }
+
+      if (Object.keys(bundle).length > 0) {
+        list.push(bundle);
+      }
+    }
+    return list;
+  }
+
+  _readFromVerticalTable(cells, selectedFields) {
+    let list = [];
+    let columnsCount = cells[0].length;
+    let rowsCount = cells.length;
+
+    for (var columnIndex = 1; columnIndex < columnsCount; columnIndex++) {
+      let bundle = {};
+
+      for (var rowIndex = 0; rowIndex < rowsCount; rowIndex++) {
+        let header = cells[rowIndex][0];
+        let value = cells[rowIndex][columnIndex];
+
+        if (header in selectedFields) {
+          bundle[header] = value;
+        }
+      }
+
+      if (Object.keys(bundle).length > 0) {
+        list.push(bundle);
+      }
+    }
+    return list;
   }
 
   _recognizeRangeHeader(selectedFields, cells) {
