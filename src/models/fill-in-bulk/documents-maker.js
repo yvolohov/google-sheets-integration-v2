@@ -1,5 +1,9 @@
 import documents from './documents';
+import documentFields from './document-fields';
 import errors from '../common/errors';
+
+const HORIZONTAL = 'horizontal';
+const VERTICAL = 'vertical';
 
 class DocumentsMaker {
   constructor() {
@@ -16,7 +20,11 @@ class DocumentsMaker {
     });
 
     promise.then((response) => {
-      this._recognizeRangeHeader(response);
+      let headerType = this._recognizeRangeHeader(response);
+
+      // 
+      console.log(headerType);
+
       unlockScreenCallback();
     });
   }
@@ -26,16 +34,46 @@ class DocumentsMaker {
   }
 
   _recognizeRangeHeader(cells) {
+    let headerType = null;
+    let selectedFields = this._getSelectedFieldsSet();
     let firstRow = cells[0];
     let firstColumn = cells.map((row) => {return row[0];});
+    let matchesInRow = 0;
+    let matchesInColumn = 0;
 
     firstRow.forEach((item) => {
-      console.log(item);
+      matchesInRow = (item in selectedFields) ? matchesInRow + 1 : matchesInRow;
     });
 
     firstColumn.forEach((item) => {
-      console.log(item);
+      matchesInColumn = (item in selectedFields) ? matchesInColumn + 1 : matchesInColumn;
     });
+
+    let rowPercent = matchesInRow / firstRow.length;
+    let columnPercent = matchesInColumn / firstColumn.length;
+
+    if (columnPercent > rowPercent) {
+      headerType = VERTICAL;
+    }
+    else if (rowPercent > columnPercent) {
+      headerType = HORIZONTAL;
+    }
+    else {
+      headerType = (firstRow.length > firstColumn.length) ? HORIZONTAL : VERTICAL;
+    }
+    return headerType;
+  }
+
+  _getSelectedFieldsSet() {
+    let selectedFields = {};
+    let fields = documentFields.getFields();
+
+    fields.forEach((item) => {
+      if (item.flag) {
+        selectedFields[item.name] = item.name;
+      }
+    });
+    return selectedFields;
   }
 }
 
