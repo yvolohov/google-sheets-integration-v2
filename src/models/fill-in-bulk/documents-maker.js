@@ -20,10 +20,10 @@ class DocumentsMaker {
     });
 
     promise.then((response) => {
-      let headerType = this._recognizeRangeHeader(response);
+      let dataBundles = this._createDataBundles(response);
 
-      // 
-      console.log(headerType);
+      //
+      console.log(dataBundles);
 
       unlockScreenCallback();
     });
@@ -33,9 +33,15 @@ class DocumentsMaker {
     return (documents.getSelectedDocumentId() === 0) ? true : null;
   }
 
-  _recognizeRangeHeader(cells) {
+  _createDataBundles(cells) {
+    var selectedFields = this._getSelectedFieldsSet();
+    var headerType = this._recognizeRangeHeader(selectedFields, cells);
+
+    return cells;
+  }
+
+  _recognizeRangeHeader(selectedFields, cells) {
     let headerType = null;
-    let selectedFields = this._getSelectedFieldsSet();
     let firstRow = cells[0];
     let firstColumn = cells.map((row) => {return row[0];});
     let matchesInRow = 0;
