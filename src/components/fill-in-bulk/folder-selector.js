@@ -55,11 +55,15 @@ class FolderSelector {
   }
 
   _makeFolderInput() {
+    let folderName = folders.getFolderName();
+
     return m('div', {class: 'col-12-sm'}, [
       m('label', {class: 'mgl'}, `${labels.l_36}:`),
       m('input', {
         type: 'text',
         placeholder: labels.l_19,
+        value: folderName,
+        onchange: this._fieldChangeHandler.bind(this),
         style: 'width: 100%;'
       })
     ]);
@@ -88,6 +92,11 @@ class FolderSelector {
   _selectChangeHandler(event) {
     event.redraw = false;
     folders.setSelectedFolderId(event.target.value);
+  }
+
+  _fieldChangeHandler(event) {
+    event.redraw = false;
+    folders.setFolderName(event.target.value);
   }
 }
 

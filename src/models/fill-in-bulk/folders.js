@@ -9,6 +9,7 @@ class Folders {
     this.list = [];
     this.set = {};
     this.selectedFolderId = 0;
+    this.folderName = '';
     this.folderAction = 0;
   }
 
@@ -37,6 +38,14 @@ class Folders {
 
   getFoldersList() {
     return this.list;
+  }
+
+  getFolderName() {
+    return this.folderName;
+  }
+
+  setFolderName(folderName) {
+    this.folderName = folderName;
   }
 
   getFolderAction() {
