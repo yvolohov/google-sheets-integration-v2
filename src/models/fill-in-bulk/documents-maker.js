@@ -10,10 +10,10 @@ const VERTICAL = 'vertical';
 
 class DocumentsMaker {
   constructor() {
-
+    this.createdDocuments = [];
   }
 
-  makeDocuments(unlockScreenCallback) {
+  makeDocuments(onSuccess, onError) {
     let bundlesPromise = this._getBundlesPromise();
 
     let foldersPromise = bundlesPromise.then((response) => {
@@ -34,8 +34,31 @@ class DocumentsMaker {
     });
 
     documentsPromise.then((responses) => {
-      console.log(responses);
-      unlockScreenCallback();
+      let addedDocuments = 0;
+
+      if (responses === null) {
+        onError();
+        return;
+      }
+
+      for (let idx in responses) {
+        let response = responses[idx];
+
+        if (response.responseCode !== 200) {
+          errors.addPortion(response);
+          continue;
+        }
+
+        addedDocuments++;
+        this.createdDocuments.push(response.responseContent);
+      }
+      errors.send();
+
+      if (addedDocuments === 0) {
+        onError();
+        return;
+      }
+      onSuccess();
     });
   }
 

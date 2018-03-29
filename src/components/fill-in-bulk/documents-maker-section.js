@@ -21,7 +21,10 @@ class DocumentsMakerSection {
   _buttonClickHandler(event) {
     m.route.set('/loading');
     event.redraw = false;
+
     documentsMaker.makeDocuments(() => {
+      m.route.set('/created-documents');
+    }, () => {
       m.route.set('/fill-in-bulk');
     });
   }
