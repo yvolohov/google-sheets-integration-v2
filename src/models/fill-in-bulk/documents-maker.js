@@ -16,21 +16,17 @@ class DocumentsMaker {
   makeDocuments(unlockScreenCallback) {
     let bundlesPromise = this._getBundlesPromise();
 
-    if (bundlesPromise === null) {
-      unlockScreenCallback();
-      return;
-    }
+    let foldersPromise = bundlesPromise.then((response) => {
+      if (response === null) {
+        return Promise.resolve(null);
+      }
 
-    let foldersPromise = (folders.getFolderAction() === USE_EXISTING_FOLDER)
-      ? this._getExistingFolderPromise()
-      : this._getNewFolderPromise();
+      return (folders.getFolderAction() === USE_EXISTING_FOLDER)
+        ? this._getExistingFolderPromise()
+        : this._getNewFolderPromise();
+    });
 
-    if (foldersPromise === null) {
-      unlockScreenCallback();
-      return;
-    }
-
-    foldersPromise.then((response) => {
+    let documentsPromise = foldersPromise.then((response) => {
       console.log(response);
       unlockScreenCallback();
     });
@@ -55,7 +51,7 @@ class DocumentsMaker {
       if (dataBundles.length === 0) {
         errors.addPortion([labels.l_38]);
         errors.send();
-        return null;
+        return Promise.resolve(null);
       }
       return Promise.resolve(dataBundles);
     });
@@ -78,7 +74,7 @@ class DocumentsMaker {
       if (response.responseCode !== 200) {
         errors.addPortion([response]);
         errors.send();
-        return null;
+        return Promise.resolve(null);
       }
       return Promise.resolve({folderId: response.responseContent.folder_id});
     });
