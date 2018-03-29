@@ -22,12 +22,19 @@ class DocumentsMaker {
       }
 
       return (folders.getFolderAction() === USE_EXISTING_FOLDER)
-        ? this._getExistingFolderPromise()
-        : this._getNewFolderPromise();
+        ? this._getExistingFolderPromise(response)
+        : this._getNewFolderPromise(response);
     });
 
     let documentsPromise = foldersPromise.then((response) => {
-      console.log(response);
+      if (response === null) {
+        return Promise.resolve(null);
+      }
+      return Promise.all(this._getDocumentsPromises(response));
+    });
+
+    documentsPromise.then((responses) => {
+      console.log(responses);
       unlockScreenCallback();
     });
   }
@@ -58,11 +65,14 @@ class DocumentsMaker {
     });
   }
 
-  _getExistingFolderPromise(bundlesPromise) {
-    return Promise.resolve({folderId: folders.getSelectedFolderId()});
+  _getExistingFolderPromise(dataBundles) {
+    return Promise.resolve({
+      folderId: folders.getSelectedFolderId(),
+      dataBundles: dataBundles
+    });
   }
 
-  _getNewFolderPromise(bundlesPromise) {
+  _getNewFolderPromise(dataBundles) {
     let promise = new Promise((resolve) => {
       google.script.run
         .withSuccessHandler((response) => {
@@ -77,8 +87,35 @@ class DocumentsMaker {
         errors.send();
         return Promise.resolve(null);
       }
-      return Promise.resolve({folderId: response.responseContent.folder_id});
+      return Promise.resolve({
+        folderId: response.responseContent.folder_id,
+        dataBundles: dataBundles
+      });
     });
+  }
+
+  _getDocumentsPromises(data) {
+    let list = [];
+    let template = documents.getSelectedDocument();
+
+    for (var idx = 0; idx < data.dataBundles.length; idx++) {
+      let currentBundle = data.dataBundles[idx];
+
+      list.push(new Promise((resolve) => {
+        google.script.run
+          .withSuccessHandler((response) => {
+            resolve(response);
+          })
+          .ccCreateNewDocument(
+            template.id,
+            template.name,
+            data.folderId,
+            currentBundle,
+            idx + 1
+          );
+      }));
+    }
+    return list;
   }
 
   _createDataBundles(cells) {
