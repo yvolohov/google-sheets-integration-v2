@@ -15,6 +15,11 @@ class DataHeader {
     this.insertType = parseInt(insertType);
   }
 
+  isButtonDisabled() {
+    return (documents.getSelectedDocumentId() === 0
+      || documentFields.isLoading()) ? true : null;
+  }
+
   createDataHeader() {
     let documentId = documents.getSelectedDocumentId();
     let compactFields = documentFields.getFields();

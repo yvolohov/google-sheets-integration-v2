@@ -6,6 +6,7 @@ import labels from '../../labels';
 class DataHeaderSection {
   view(vnode) {
     let insertType = dataHeader.getInsertType();
+    let isButtonDisabled = dataHeader.isButtonDisabled();
 
     return m('div', {class: 'row'}, [
       m('div', {class: 'col-12-sm'},
@@ -18,6 +19,7 @@ class DataHeaderSection {
       m('div', {class: 'col-12-sm'}, [
         m('button', {
           style: 'width: 100%;',
+          disabled: isButtonDisabled,
           onclick: this._buttonClickHandler.bind(this)
         }, labels.l_28)
       ])

@@ -33,7 +33,8 @@ class DocumentsMaker {
   }
 
   isButtonDisabled() {
-    return (documents.getSelectedDocumentId() === 0) ? true : null;
+    return (documents.getSelectedDocumentId() === 0
+      || documentFields.isLoading()) ? true : null;
   }
 
   _getBundlesPromise() {
