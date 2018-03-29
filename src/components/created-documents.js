@@ -1,5 +1,7 @@
 import m from 'mithril';
 import BasePage from './base-page';
+import PageHeader from './common/page-header';
+import labels from '../labels';
 
 class CreatedDocuments extends BasePage {
   constructor() {
@@ -8,11 +10,7 @@ class CreatedDocuments extends BasePage {
 
   view() {
     return m('div', {class: 'container'}, [
-      m('div', {class: 'row'}, [
-        m('div', {class: 'col-12-sm', style: 'text-align: center;'}, [
-          m('b', {class: 'bgl'}, 'CREATED DOCUMENTS')
-        ])
-      ])
+      m(PageHeader, {pageLabel: labels.l_39})
     ]);
   }
 }
