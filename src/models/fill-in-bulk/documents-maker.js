@@ -1,6 +1,9 @@
 import documents from './documents';
 import documentFields from './document-fields';
+import folders from './folders';
+import { USE_EXISTING_FOLDER, CREATE_NEW_FOLDER } from './folders';
 import errors from '../common/errors';
+import labels from '../../labels';
 
 const HORIZONTAL = 'horizontal';
 const VERTICAL = 'vertical';
@@ -11,7 +14,24 @@ class DocumentsMaker {
   }
 
   makeDocuments(unlockScreenCallback) {
-    let bundlesPromise = new Promise((resolve) => {
+    let bundlesPromise = this._getBundlesPromise();
+
+    if (bundlesPromise === null) {
+      unlockScreenCallback();
+      return;
+    }
+
+    bundlesPromise.then((response) => {
+      console.log(response);
+    });
+  }
+
+  isButtonDisabled() {
+    return (documents.getSelectedDocumentId() === 0) ? true : null;
+  }
+
+  _getBundlesPromise() {
+    let promise = new Promise((resolve) => {
       google.script.run
         .withSuccessHandler((response) => {
           resolve(response);
@@ -19,19 +39,16 @@ class DocumentsMaker {
         .ccReadSelectedCells();
     });
 
-    let folderPromise = bundlesPromise.then((response) => {
+    return promise.then((response) => {
       let dataBundles = this._createDataBundles(response);
+
+      if (dataBundles.length === 0) {
+        errors.addPortion([labels.l_38]);
+        errors.send();
+        return null;
+      }
       return Promise.resolve(dataBundles);
     });
-
-    folderPromise.then((response) => {
-      console.log(response);
-      unlockScreenCallback();
-    });
-  }
-
-  isButtonDisabled() {
-    return (documents.getSelectedDocumentId() === 0) ? true : null;
   }
 
   _createDataBundles(cells) {

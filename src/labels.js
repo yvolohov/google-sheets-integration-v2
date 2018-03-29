@@ -36,5 +36,6 @@ export default {
   l_34: 'Documents',
   l_35: 'Service field',
   l_36: 'New folder name',
-  l_37: 'Select folder'
+  l_37: 'Select folder',
+  l_38: 'Selected cells contain wrong data'
 };
