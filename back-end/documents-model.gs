@@ -64,6 +64,28 @@ function DocumentsModel()
     return result;
   }
 
+  this.createNewDocument = function(apiRoot, accessToken, templateId, templateName, folderId, dataBundle, orderNumber)
+  {
+    var route = apiRoot + '/v2/templates/' + templateId;
+    var documentName = (templateName.replace(/\.[^.$]+$/, '')) + '-' + orderNumber;
+
+    var response = UrlFetchApp.fetch(
+      route, {
+        method: 'post',
+        contentType : 'application/json',
+        headers: {Authorization: 'Bearer ' + accessToken},
+        payload: JSON.stringify({
+          fillable_fields: dataBundle,
+          name: documentName,
+          folder_id: folderId
+        }),
+        muteHttpExceptions: true
+      }
+    );
+
+    return createStandardResponse(route, 'POST', response.getResponseCode(), JSON.parse(response.getContentText()));
+  }
+
   this._createNewEditorAccessLink = function(accessToken, route, expire)
   {
     var response = UrlFetchApp.fetch(

@@ -70,6 +70,15 @@ function ccGetEditorAccessLink(documentId, expireForExisting, expireForNew)
   return documentsModel.getEditorAccessLink(apiRoot, accessToken, documentId, expireForExisting, expireForNew);
 }
 
+function ccCreateNewDocument(templateId, templateName, folderId, dataBundle, orderNumber)
+{
+  var accessToken = authorizationModel.getService().getAccessToken();
+  var apiRoot = authorizationModel.PDFFILLER_API_ROOT;
+  folderId = folderId || 0;
+  orderNumber = orderNumber || templateId;
+  return documentsModel.createNewDocument(apiRoot, accessToken, templateId, templateName, folderId, dataBundle, orderNumber);
+}
+
 // -= FILL REQUESTS =-
 
 function ccGetFillRequests(perPage, page)
