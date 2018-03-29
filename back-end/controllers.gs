@@ -95,6 +95,13 @@ function ccGetFolders(perPage, page)
   return foldersModel.getFolders(apiRoot, accessToken, perPage, page);
 }
 
+function ccCreateNewFolder(folderName)
+{
+  var accessToken = authorizationModel.getService().getAccessToken();
+  var apiRoot = authorizationModel.PDFFILLER_API_ROOT;
+  return foldersModel.createNewFolder(apiRoot, accessToken, folderName);
+}
+
 // -= OPERATIONS WITH SPREADSHEET =-
 
 function ccInsertDataHeader(templateId, headerData, headerType)

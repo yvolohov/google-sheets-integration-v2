@@ -13,6 +13,25 @@ function FoldersModel()
 
     return createStandardResponse(route, 'GET', response.getResponseCode(), JSON.parse(response.getContentText()));
   }
+
+  this.createNewFolder = function(apiRoot, accessToken, folderName)
+  {
+    var route = apiRoot + '/v2/folders';
+
+    var response = UrlFetchApp.fetch(
+      route, {
+        method: 'post',
+        contentType : 'application/json',
+        headers: {Authorization: 'Bearer ' + accessToken},
+        payload: JSON.stringify({
+          name: folderName
+        }),
+        muteHttpExceptions: true
+      }
+    );
+
+    return createStandardResponse(route, 'POST', response.getResponseCode(), JSON.parse(response.getContentText()));
+  }
 }
 
 var foldersModel = new FoldersModel();

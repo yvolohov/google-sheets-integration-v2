@@ -11,7 +11,7 @@ class DocumentsMaker {
   }
 
   makeDocuments(unlockScreenCallback) {
-    let promise = new Promise((resolve) => {
+    let bundlesPromise = new Promise((resolve) => {
       google.script.run
         .withSuccessHandler((response) => {
           resolve(response);
@@ -19,12 +19,13 @@ class DocumentsMaker {
         .ccReadSelectedCells();
     });
 
-    promise.then((response) => {
+    let folderPromise = bundlesPromise.then((response) => {
       let dataBundles = this._createDataBundles(response);
+      return Promise.resolve(dataBundles);
+    });
 
-      //
-      console.log(dataBundles);
-
+    folderPromise.then((response) => {
+      console.log(response);
       unlockScreenCallback();
     });
   }
