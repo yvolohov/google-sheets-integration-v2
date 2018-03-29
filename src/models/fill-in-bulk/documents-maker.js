@@ -21,8 +21,18 @@ class DocumentsMaker {
       return;
     }
 
-    bundlesPromise.then((response) => {
+    let foldersPromise = (folders.getFolderAction() === USE_EXISTING_FOLDER)
+      ? this._getExistingFolderPromise()
+      : this._getNewFolderPromise();
+
+    if (foldersPromise === null) {
+      unlockScreenCallback();
+      return;
+    }
+
+    foldersPromise.then((response) => {
       console.log(response);
+      unlockScreenCallback();
     });
   }
 
@@ -48,6 +58,29 @@ class DocumentsMaker {
         return null;
       }
       return Promise.resolve(dataBundles);
+    });
+  }
+
+  _getExistingFolderPromise(bundlesPromise) {
+    return Promise.resolve({folderId: folders.getSelectedFolderId()});
+  }
+
+  _getNewFolderPromise(bundlesPromise) {
+    let promise = new Promise((resolve) => {
+      google.script.run
+        .withSuccessHandler((response) => {
+          resolve(response);
+        })
+        .ccCreateNewFolder(folders.getFolderName());
+    });
+
+    return promise.then((response) => {
+      if (response.responseCode !== 200) {
+        errors.addPortion([response]);
+        errors.send();
+        return null;
+      }
+      return Promise.resolve({folderId: response.responseContent.folder_id});
     });
   }
 
