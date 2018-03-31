@@ -1,9 +1,9 @@
 export default {
   l_0: 'Operations',
-  l_1: 'Create filled documents from selected cells',
-  l_2: 'Extract data from filled documents to the sheet',
-  l_3: 'Extract data from filled forms to the sheet',
-  l_4: 'Get editor access links for documents',
+  l_1: 'Fill in bulk for documents',
+  l_2: 'Extract in bulk for documents',
+  l_3: 'Extract in bulk for filled forms',
+  l_4: 'Share documents',
   l_5: 'Select a template document',
   l_6: 'Loading ...',
   l_7: 'Document ID',
@@ -23,7 +23,7 @@ export default {
   l_21: 'Select a fill request',
   l_22: 'Fill request ID',
   l_23: 'Select and order filled forms',
-  l_24: 'Fill forms from selected area',
+  l_24: 'Create documents from selected cells',
   l_25: 'Unknown user',
   l_26: 'Select documents',
   l_27: 'Insert to new sheet vertically',
@@ -38,5 +38,5 @@ export default {
   l_36: 'New folder name',
   l_37: 'Select folder',
   l_38: 'Selected cells contain wrong data',
-  l_39: 'Show created documents'
+  l_39: 'Show filled in bulk documents'
 };

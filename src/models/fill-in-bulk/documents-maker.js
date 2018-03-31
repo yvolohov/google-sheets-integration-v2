@@ -13,6 +13,10 @@ class DocumentsMaker {
     this.createdDocuments = [];
   }
 
+  getDocuments() {
+    return this.createdDocuments;
+  }
+
   makeDocuments(onSuccess, onError) {
     let bundlesPromise = this._getBundlesPromise();
 
