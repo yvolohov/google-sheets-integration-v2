@@ -9,7 +9,7 @@ class Menu {
     links.push(this._insertLink(labels.l_1, '#!/fill-in-bulk'));
 
     if (createdDocuments.length > 0) {
-      links.push(this._insertLink(labels.l_39, '#!/created-documents', true));
+      links.push(this._insertLink(labels.l_39, '#!/filled-in-bulk-documents', true));
     }
 
     links.push(this._insertLink(labels.l_2, '#!/extract-in-bulk-for-docs'));

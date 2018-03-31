@@ -5,7 +5,7 @@ import FillInBulk from './components/fill-in-bulk';
 import ExtractInBulkForDocs from './components/extract-in-bulk-for-docs';
 import ExtractInBulkForForms from './components/extract-in-bulk-for-forms';
 import GetEditorAccessLinks from './components/get-editor-access-links';
-import CreatedDocuments from './components/created-documents';
+import FilledInBulkDocuments from './components/filled-in-bulk-documents';
 
 m.route(document.getElementById('content'), '/menu', {
   '/menu': Menu,
@@ -14,5 +14,5 @@ m.route(document.getElementById('content'), '/menu', {
   '/extract-in-bulk-for-docs': ExtractInBulkForDocs,
   '/extract-in-bulk-for-forms': ExtractInBulkForForms,
   '/get-editor-access-links': GetEditorAccessLinks,
-  '/created-documents': CreatedDocuments
+  '/filled-in-bulk-documents': FilledInBulkDocuments
 });

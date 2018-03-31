@@ -3,7 +3,7 @@ import BasePage from './base-page';
 import PageHeader from './common/page-header';
 import labels from '../labels';
 
-class CreatedDocuments extends BasePage {
+class FilledInBulkDocuments extends BasePage {
   constructor() {
     super([]);
   }
@@ -15,4 +15,4 @@ class CreatedDocuments extends BasePage {
   }
 }
 
-export default CreatedDocuments;
+export default FilledInBulkDocuments;
