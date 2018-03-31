@@ -23,7 +23,7 @@ class DocumentsMakerSection {
     event.redraw = false;
 
     documentsMaker.makeDocuments(() => {
-      m.route.set('/created-documents');
+      m.route.set('/filled-in-bulk-documents');
     }, () => {
       m.route.set('/fill-in-bulk');
     });

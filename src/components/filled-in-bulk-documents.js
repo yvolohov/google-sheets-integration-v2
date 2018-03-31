@@ -1,6 +1,7 @@
 import m from 'mithril';
 import BasePage from './base-page';
 import PageHeader from './common/page-header';
+import FilledDocumentsList from './filled-in-bulk-documents/filled-documents-list';
 import labels from '../labels';
 
 class FilledInBulkDocuments extends BasePage {
@@ -10,7 +11,8 @@ class FilledInBulkDocuments extends BasePage {
 
   view() {
     return m('div', {class: 'container'}, [
-      m(PageHeader, {pageLabel: labels.l_39})
+      m(PageHeader, {pageLabel: labels.l_39}),
+      m(FilledDocumentsList)
     ]);
   }
 }
