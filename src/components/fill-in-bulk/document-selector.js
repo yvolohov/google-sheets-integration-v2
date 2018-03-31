@@ -63,7 +63,7 @@ class DocumentSelector {
     let properties = {
       href: '#',
       class: 'ml',
-      onclick: this._clickHandler.bind(this, selectedDocument.id)
+      onclick: this._linkClickHandler.bind(this, selectedDocument.id)
     };
     return m('a', properties, selectedDocument.id);
   }
@@ -81,7 +81,7 @@ class DocumentSelector {
     documentFields.refreshFields(documentId, afterRefresh, afterRefresh);
   }
 
-  _clickHandler(documentId, event) {
+  _linkClickHandler(documentId, event) {
     event.preventDefault();
     documentLinks.loadLink(documentId, 1, 30, (link) => {
       window.open(link.url);
