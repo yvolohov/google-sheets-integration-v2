@@ -22,6 +22,9 @@ class DataHeaderSection {
           disabled: isButtonDisabled,
           onclick: this._buttonClickHandler.bind(this)
         }, labels.l_28)
+      ]),
+      m('div', {class: 'col-12-sm'}, [
+        m('div', {class: 'mgl', style: 'font-style: italic;'}, labels.l_40)
       ])
     ]);
   }

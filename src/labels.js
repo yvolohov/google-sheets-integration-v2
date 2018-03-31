@@ -1,3 +1,10 @@
+let l_24 = 'Create documents from selected cells';
+
+let l_40 = `After you inserted the header please fill data
+in rows under the header or in columns on the right of
+the header. Then select cells with the header and data
+in the sheet and press button "${l_24}" below.`;
+
 export default {
   l_0: 'Operations',
   l_1: 'Fill in bulk for documents',
@@ -23,11 +30,11 @@ export default {
   l_21: 'Select a fill request',
   l_22: 'Fill request ID',
   l_23: 'Select and order filled forms',
-  l_24: 'Create documents from selected cells',
+  l_24: l_24,
   l_25: 'Unknown user',
   l_26: 'Select documents',
   l_27: 'Insert to new sheet vertically',
-  l_28: 'Insert header',
+  l_28: 'Create and insert header',
   l_29: 'Order selected documents',
   l_30: 'Create and insert links',
   l_31: 'Set lifetime of links, in days',
@@ -38,5 +45,6 @@ export default {
   l_36: 'New folder name',
   l_37: 'Select folder',
   l_38: 'Selected cells contain wrong data',
-  l_39: 'Show filled in bulk documents'
+  l_39: 'Show filled in bulk documents',
+  l_40: l_40
 };
