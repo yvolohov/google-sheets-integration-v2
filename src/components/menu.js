@@ -9,19 +9,23 @@ class Menu {
     links.push(this._insertLink(labels.l_1, '#!/fill-in-bulk'));
 
     if (createdDocuments.length > 0) {
-      links.push(this._insertLink(labels.l_39, '#!/created-documents'));
+      links.push(this._insertLink(labels.l_39, '#!/created-documents', true));
     }
-    
+
     links.push(this._insertLink(labels.l_2, '#!/extract-in-bulk-for-docs'));
     links.push(this._insertLink(labels.l_3, '#!/extract-in-bulk-for-forms'));
     links.push(this._insertLink(labels.l_4, '#!/get-editor-access-links'));
     return m('div', {class: 'container'}, links);
   }
 
-  _insertLink(text, url) {
+  _insertLink(text, url, small=false) {
     return m('div', {class: 'row'}, [
       m('div', {class: 'col-12-sm'}, [
-        m('b', m('a', {href: url, target: '_self'}, text))
+        m('b', m('a', {
+          href: url,
+          target: '_self',
+          class: (small) ? 'ml' : null
+        }, text))
       ])
     ]);
   }
