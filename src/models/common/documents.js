@@ -1,4 +1,4 @@
-import { srvMoveField } from '../../lib/service-functions';
+import { srvMoveListItem } from '../../lib/service-functions';
 
 class Documents {
   constructor() {
@@ -34,7 +34,7 @@ class Documents {
   }
 
   moveSelectedDocument(idx, up) {
-    srvMoveField(this.selectedDocumentsList, idx, up);
+    srvMoveListItem(this.selectedDocumentsList, idx, up);
   }
 
   _refreshSelectedDocumentsList(selectedDocument, flag) {

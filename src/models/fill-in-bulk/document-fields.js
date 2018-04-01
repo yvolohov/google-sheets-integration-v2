@@ -1,5 +1,5 @@
 import fieldsCache from '../common/fields-cache';
-import { srvMoveField } from '../../lib/service-functions';
+import { srvSelectListItem, srvMoveListItem } from '../../lib/service-functions';
 
 class DocumentFields {
   constructor() {
@@ -16,17 +16,14 @@ class DocumentFields {
   }
 
   selectField(fieldName, flag) {
-    let fieldIdx = this.fieldsList.findIndex((item) => {
+    let callback = (item) => {
       return (item.name === fieldName);
-    });
-
-    if (fieldIdx > -1) {
-      this.fieldsList[fieldIdx].flag = flag;
-    }
+    };
+    srvSelectListItem(this.fieldsList, callback, flag);
   }
 
   moveField(idx, up) {
-    srvMoveField(this.fieldsList, idx, up);
+    srvMoveListItem(this.fieldsList, idx, up);
   }
 
   refreshFields(documentId, onSuccess, onError) {

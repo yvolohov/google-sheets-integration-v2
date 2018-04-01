@@ -1,5 +1,5 @@
 import formsCache from '../common/forms-cache';
-import { srvMoveField } from '../../lib/service-functions';
+import { srvSelectListItem, srvMoveListItem } from '../../lib/service-functions';
 
 class FillRequestForms {
   constructor() {
@@ -16,17 +16,14 @@ class FillRequestForms {
   }
 
   selectForm(filledFormId, flag) {
-    let formIdx = this.formsList.findIndex((item) => {
+    let callback = (item) => {
       return (item.filledFormId === filledFormId);
-    });
-
-    if (formIdx > -1) {
-      this.formsList[formIdx].flag = flag;
-    }
+    };
+    srvSelectListItem(this.formsList, callback, flag);
   }
 
   moveForm(idx, up) {
-    srvMoveField(this.formsList, idx, up);
+    srvMoveListItem(this.formsList, idx, up);
   }
 
   refreshForms(fillRequestId, onSuccess, onError) {

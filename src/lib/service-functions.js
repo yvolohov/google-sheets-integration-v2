@@ -1,5 +1,13 @@
 
-export function srvMoveField(collection, idx, up) {
+export function srvSelectListItem(collection, callback, flag) {
+  let idx = collection.findIndex(callback);
+
+  if (idx > -1) {
+    collection[idx].flag = flag;
+  }
+}
+
+export function srvMoveListItem(collection, idx, up) {
   let currentPosition = idx;
   let newPosition = (up) ? idx - 1 : idx + 1;
 

@@ -52,16 +52,6 @@ class FilledFormsList {
     }, labels.l_6);
   }
 
-  _checkboxHandler(filledFormId, event) {
-    event.redraw = false;
-    fillRequestForms.selectForm(filledFormId, event.target.checked);
-  }
-
-  _arrowHandler(idx, up, event) {
-    event.preventDefault();
-    fillRequestForms.moveForm(idx, up);
-  }
-
   _createSmallHeader(currentForm) {
     let smallHeader = '';
 
@@ -75,6 +65,16 @@ class FilledFormsList {
       smallHeader = `${labels.l_17}: ${labels.l_25}`;
     }
     return smallHeader;
+  }
+
+  _checkboxHandler(filledFormId, event) {
+    event.redraw = false;
+    fillRequestForms.selectForm(filledFormId, event.target.checked);
+  }
+
+  _arrowHandler(idx, up, event) {
+    event.preventDefault();
+    fillRequestForms.moveForm(idx, up);
   }
 }
 
