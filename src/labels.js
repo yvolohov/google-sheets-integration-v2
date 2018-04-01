@@ -46,5 +46,6 @@ export default {
   l_37: 'Select folder',
   l_38: 'Selected cells contain wrong data',
   l_39: 'Show filled in bulk documents',
-  l_40: l_40
+  l_40: l_40,
+  l_41: 'Get and insert forms fields'
 };
