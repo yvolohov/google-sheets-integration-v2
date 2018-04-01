@@ -1,6 +1,6 @@
 import errors from './errors';
 
-class FieldsLoader {
+class FieldsCache {
   constructor() {
     this.sets = {};
     this.lists = {};
@@ -72,4 +72,4 @@ class FieldsLoader {
   }
 }
 
-export default new FieldsLoader();
+export default new FieldsCache();

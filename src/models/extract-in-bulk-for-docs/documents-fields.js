@@ -1,4 +1,4 @@
-import fieldsLoader from '../common/fields-loader';
+import fieldsCache from '../common/fields-cache';
 import { srvMoveField } from '../../lib/service-functions';
 
 export const DOCUMENT_ID = '_ID_';
@@ -53,7 +53,7 @@ class DocumentsFields {
       onError();
     };
 
-    fieldsLoader.loadFields(documentId, localOnSuccess, localOnError);
+    fieldsCache.loadFields(documentId, localOnSuccess, localOnError);
   }
 
   _addFieldsToList(documentId, list, set) {
@@ -84,7 +84,7 @@ class DocumentsFields {
   }
 
   _removeFieldsFromList(documentId) {
-    let list = fieldsLoader.getFieldsAsList(documentId);
+    let list = fieldsCache.getFieldsAsList(documentId);
     this._removeFieldFromList(DOCUMENT_ID, true);
     this._removeFieldFromList(DOCUMENT_NAME, true);
 

@@ -1,6 +1,6 @@
 import documents from './documents';
 import documentFields from './document-fields';
-import fieldsLoader from '../common/fields-loader';
+import fieldsCache from '../common/fields-cache';
 
 class DataHeader {
   constructor() {
@@ -23,7 +23,7 @@ class DataHeader {
   createDataHeader() {
     let documentId = documents.getSelectedDocumentId();
     let compactFields = documentFields.getFields();
-    let fields = fieldsLoader.getFieldsAsSet(documentId);
+    let fields = fieldsCache.getFieldsAsSet(documentId);
     let selectedFields = [];
 
     for (let idx in compactFields) {

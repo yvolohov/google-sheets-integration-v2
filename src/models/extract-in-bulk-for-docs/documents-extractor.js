@@ -1,6 +1,6 @@
 import documents from './documents';
 import documentsFields from './documents-fields';
-import fieldsLoader from '../common/fields-loader';
+import fieldsCache from '../common/fields-cache';
 import errors from '../common/errors';
 import { DOCUMENT_ID, DOCUMENT_NAME } from './documents-fields';
 
@@ -40,7 +40,7 @@ class DocumentsExtractor {
 
     for (let docIdx in selectedDocuments) {
       let currentDocument = selectedDocuments[docIdx];
-      let currentDocumentFields = fieldsLoader.getFieldsAsSet(currentDocument.id);
+      let currentDocumentFields = fieldsCache.getFieldsAsSet(currentDocument.id);
       let documentData = [];
 
       for (let fldIdx in fields) {

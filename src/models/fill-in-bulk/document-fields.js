@@ -1,4 +1,4 @@
-import fieldsLoader from '../common/fields-loader';
+import fieldsCache from '../common/fields-cache';
 import { srvMoveField } from '../../lib/service-functions';
 
 class DocumentFields {
@@ -50,7 +50,7 @@ class DocumentFields {
       onError();
     };
 
-    fieldsLoader.loadFields(documentId, localOnSuccess, localOnError);
+    fieldsCache.loadFields(documentId, localOnSuccess, localOnError);
   }
 
   _addFieldsToList(documentId, list, set) {
