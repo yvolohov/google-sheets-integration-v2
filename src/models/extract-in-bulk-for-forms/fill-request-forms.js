@@ -1,93 +1,69 @@
-import MultipageRequest from '../../lib/multipage-request';
-import errors from '../common/errors';
+import formsCache from '../common/forms-cache';
+import { srvMoveField } from '../../lib/service-functions';
 
 class FillRequestForms {
   constructor() {
-    this.filledForms = {};
-    this.filledFormsAsList = {};
-    this.selectedFillRequestId = 0;
+    this.loading = false;
+    this.formsList = [];
   }
 
-  getSelectedFillRequestForms() {
-    return (this.selectedFillRequestId in this.filledFormsAsList)
-      ? this.filledFormsAsList[this.selectedFillRequestId] : [];
+  isLoading() {
+    return this.loading;
   }
 
-  selectForm(filledFormId, checkboxChecked) {
-    if (!(this.selectedFillRequestId in this.filledForms)) {
-      return;
-    }
-
-    let currentFillRequestForms = this.filledForms[this.selectedFillRequestId];
-
-    if (filledFormId in currentFillRequestForms) {
-      let currentForm = currentFillRequestForms[filledFormId];
-      currentForm.checkboxChecked = checkboxChecked;
-    }
+  getForms() {
+    return this.formsList;
   }
 
-  setForms(fillRequestId, callback=null) {
-    this.selectedFillRequestId = fillRequestId;
-
-    if (this.selectedFillRequestId == 0 || (this.selectedFillRequestId in this.filledForms)) {
-      if (callback !== null) {
-        callback();
-      }
-    }
-    else {
-      this._loadForms(fillRequestId, callback);
-    }
-  }
-
-  _loadForms(fillRequestId, callback) {
-    let multipageRequest = new MultipageRequest('ccGetFilledForms');
-    multipageRequest.setPerPage(100);
-    multipageRequest.setAdditionalParameters({
-      fillableFormId: this.selectedFillRequestId
+  selectForm(filledFormId, flag) {
+    let formIdx = this.formsList.findIndex((item) => {
+      return (item.filledFormId === filledFormId);
     });
 
-    return multipageRequest.get(
-      this._pageCallback.bind(this),
-      this._postCallback.bind(this, callback)
-    );
+    if (formIdx > -1) {
+      this.formsList[formIdx].flag = flag;
+    }
   }
 
-  _pageCallback(response, pagesResults, pagesErrors) {
-    if (response.responseCode !== 200) {
-      pagesErrors.push(response);
+  moveForm(idx, up) {
+    srvMoveField(this.formsList, idx, up);
+  }
+
+  refreshForms(fillRequestId, onSuccess, onError) {
+    this.formsList = [];
+
+    if (parseInt(fillRequestId) === 0) {
+      onSuccess();
       return;
     }
 
-    let filledForms = response.responseContent.items;
+    this.loading = true;
 
-    for (let filledFormIdx in filledForms) {
-      let currentFilledForm = filledForms[filledFormIdx];
-      pagesResults.push(currentFilledForm);
-    }
+    let localOnSuccess = (list, set) => {
+      this._addFormsToList(fillRequestId, list, set);
+      this.loading = false;
+      onSuccess();
+    };
+
+    let localOnError = (response) => {
+      this.loading = false;
+      onError();
+    };
+
+    formsCache.loadForms(fillRequestId, localOnSuccess, localOnError);
   }
 
-  _postCallback(redrawCallback, pagesResults, pagesErrors) {
-    errors.addPortion(pagesErrors);
-    errors.send();
+  _addFormsToList(fillRequestId, list, set) {
+    for (let idx in list) {
+      let currentForm = list[idx];
 
-    let filledForms = {};
-
-    for (let filledFormIdx in pagesResults) {
-      let currentFilledForm = pagesResults[filledFormIdx];
-      currentFilledForm['checkboxChecked'] = true;
-      filledForms[currentFilledForm.filled_form_id] = currentFilledForm;
+      this.formsList.push({
+        filledFormId: currentForm.filled_form_id,
+        name: currentForm.name,
+        email: currentForm.email,
+        flag: true
+      });
     }
-    pagesResults.sort(this._sortFilledFormsCallback.bind(this));
-    this.filledForms[this.selectedFillRequestId] = filledForms;
-    this.filledFormsAsList[this.selectedFillRequestId] = pagesResults;
-
-    if (redrawCallback !== null) {
-      redrawCallback();
-    }
-  }
-
-  _sortFilledFormsCallback(a, b) {
-    return (a.filled_form_id > b.filled_form_id) ? 1 : -1;
   }
 }
 

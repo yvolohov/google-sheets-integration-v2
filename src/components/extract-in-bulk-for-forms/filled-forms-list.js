@@ -5,11 +5,15 @@ import labels from '../../labels';
 
 class FilledFormsList {
   view(vnode) {
+    let content = (!fillRequestForms.isLoading())
+      ? this._makeList()
+      : this._makeLoader();
+
     return m('div', {class: 'row'}, [
       m('div', {class: 'col-12-sm'}, [
         m('label', {class: 'bgl'}, `${labels.l_23}:`),
         m('div', {class: 'scroll-box'}, [
-          m('div', this._makeList())
+          m('div', content)
         ])
       ])
     ]);
@@ -17,27 +21,45 @@ class FilledFormsList {
 
   _makeList() {
     let list = [];
-    let selectedFillRequestForms = fillRequestForms.getSelectedFillRequestForms();
+    let forms = fillRequestForms.getForms();
 
-    for (let formIdx in selectedFillRequestForms) {
-      let currentForm = selectedFillRequestForms[formIdx];
-      let checkboxHandler = this._checkboxHandler.bind(this, currentForm.filled_form_id);
+    for (var idx = 0; idx < forms.length; idx++) {
+      let currentForm = forms[idx];
+      let checkboxHandler = this._checkboxHandler.bind(this, currentForm.filledFormId);
+      let upArrowHandler = (idx > 0)
+        ? this._arrowHandler.bind(this, idx, true) : null;
+      let downArrowHandler = (idx < (forms.length - 1))
+        ? this._arrowHandler.bind(this, idx, false) : null;
 
       list.push(m(ListItem, {
-        showArrows: false,
+        showArrows: true,
         showCheckbox: true,
-        bigHeader: `${labels.l_16}: #${currentForm.filled_form_id}`,
+        checkboxFlag: (currentForm.flag) ? true : null,
+        bigHeader: `${labels.l_16}: #${currentForm.filledFormId}`,
         smallHeader: this._createSmallHeader(currentForm),
-        checkboxFlag: (currentForm.checkboxChecked) ? true : null,
-        checkboxHandler: checkboxHandler
+        checkboxHandler: checkboxHandler,
+        upArrowHandler: upArrowHandler,
+        downArrowHandler: downArrowHandler
       }));
     }
     return list;
   }
 
+  _makeLoader() {
+    return m('div', {
+      class: 'mgl',
+      style: 'text-align: center; margin-top: 5px;'
+    }, labels.l_6);
+  }
+
   _checkboxHandler(filledFormId, event) {
     event.redraw = false;
     fillRequestForms.selectForm(filledFormId, event.target.checked);
+  }
+
+  _arrowHandler(idx, up, event) {
+    event.preventDefault();
+    fillRequestForms.moveForm(idx, up);
   }
 
   _createSmallHeader(currentForm) {

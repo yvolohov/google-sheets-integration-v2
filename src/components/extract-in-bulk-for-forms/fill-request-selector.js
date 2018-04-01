@@ -58,8 +58,9 @@ class FillRequestSelector {
 
   _changeHandler(event) {
     let fillRequestId = event.target.value;
+    let afterRefresh = () => {m.redraw();};
     fillRequests.setSelectedFillRequestId(fillRequestId);
-    fillRequestForms.setForms(fillRequestId, () => {m.redraw();})
+    fillRequestForms.refreshForms(fillRequestId, afterRefresh, afterRefresh);
   }
 }
 
