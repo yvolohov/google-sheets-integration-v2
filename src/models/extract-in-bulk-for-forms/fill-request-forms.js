@@ -1,5 +1,5 @@
 import formsCache from '../common/forms-cache';
-import { srvSelectListItem, srvMoveListItem } from '../../lib/service-functions';
+import { srvSelectListItem } from '../../lib/service-functions';
 
 class FillRequestForms {
   constructor() {
@@ -20,10 +20,6 @@ class FillRequestForms {
       return (item.filledFormId === filledFormId);
     };
     srvSelectListItem(this.formsList, callback, flag);
-  }
-
-  moveForm(idx, up) {
-    srvMoveListItem(this.formsList, idx, up);
   }
 
   refreshForms(fillRequestId, onSuccess, onError) {
@@ -58,9 +54,14 @@ class FillRequestForms {
         filledFormId: currentForm.filled_form_id,
         name: currentForm.name,
         email: currentForm.email,
-        flag: true
+        flag: false
       });
     }
+    this.formsList.sort(this._sortFormsCallback);
+  }
+
+  _sortFormsCallback(a, b) {
+    return (parseInt(a.filledFormId) < parseInt(b.filledFormId)) ? 1 : -1;
   }
 }
 

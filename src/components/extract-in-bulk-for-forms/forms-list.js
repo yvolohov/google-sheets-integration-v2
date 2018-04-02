@@ -3,7 +3,7 @@ import ListItem from '../common/list-item';
 import fillRequestForms from '../../models/extract-in-bulk-for-forms/fill-request-forms';
 import labels from '../../labels';
 
-class FilledFormsList {
+class FormsList {
   view(vnode) {
     let content = (!fillRequestForms.isLoading())
       ? this._makeList()
@@ -26,20 +26,14 @@ class FilledFormsList {
     for (var idx = 0; idx < forms.length; idx++) {
       let currentForm = forms[idx];
       let checkboxHandler = this._checkboxHandler.bind(this, currentForm.filledFormId);
-      let upArrowHandler = (idx > 0)
-        ? this._arrowHandler.bind(this, idx, true) : null;
-      let downArrowHandler = (idx < (forms.length - 1))
-        ? this._arrowHandler.bind(this, idx, false) : null;
 
       list.push(m(ListItem, {
-        showArrows: true,
+        showArrows: false,
         showCheckbox: true,
         checkboxFlag: (currentForm.flag) ? true : null,
-        bigHeader: `${labels.l_16}: #${currentForm.filledFormId}`,
+        bigHeader: `#${currentForm.filledFormId}`,
         smallHeader: this._createSmallHeader(currentForm),
-        checkboxHandler: checkboxHandler,
-        upArrowHandler: upArrowHandler,
-        downArrowHandler: downArrowHandler
+        checkboxHandler: checkboxHandler
       }));
     }
     return list;
@@ -53,29 +47,21 @@ class FilledFormsList {
   }
 
   _createSmallHeader(currentForm) {
-    let smallHeader = '';
-
     if (currentForm.email) {
-      smallHeader = `${labels.l_17}: ${currentForm.email}`;
+      return currentForm.email;
     }
     else if (currentForm.name) {
-      smallHeader = `${labels.l_17}: ${currentForm.name}`;
+      return currentForm.name;
     }
     else {
-      smallHeader = `${labels.l_17}: ${labels.l_25}`;
+      return labels.l_25;
     }
-    return smallHeader;
   }
 
   _checkboxHandler(filledFormId, event) {
     event.redraw = false;
     fillRequestForms.selectForm(filledFormId, event.target.checked);
   }
-
-  _arrowHandler(idx, up, event) {
-    event.preventDefault();
-    fillRequestForms.moveForm(idx, up);
-  }
 }
 
-export default FilledFormsList;
+export default FormsList;
