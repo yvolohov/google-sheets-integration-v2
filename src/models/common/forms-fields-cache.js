@@ -14,7 +14,24 @@ class FormsFieldsCache {
       return;
     }
 
-    //
+    let formFields = new Promise((resolve) => {
+      google.script.run
+        .withSuccessHandler((response) => {resolve(response);})
+        .ccGetFilledFormFields(fillRequestId, filledFormId);
+    });
+
+    formFields.then((response) => {
+      if (response.responseCode !== 200) {
+        if (onError) {
+          onError(response);
+        }
+        errors.addPortion([response]);
+        errors.send();
+        return;
+      }
+
+      //      
+    });
   }
 
   _getFullId(fillRequestId, filledFormId) {
