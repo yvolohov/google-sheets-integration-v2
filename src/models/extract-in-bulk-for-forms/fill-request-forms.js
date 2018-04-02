@@ -61,7 +61,7 @@ class FillRequestForms {
   }
 
   _sortFormsCallback(a, b) {
-    return (parseInt(a.filledFormId) < parseInt(b.filledFormId)) ? 1 : -1;
+    return (parseInt(a.filledFormId) > parseInt(b.filledFormId)) ? 1 : -1;
   }
 }
 

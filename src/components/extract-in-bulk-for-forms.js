@@ -3,6 +3,7 @@ import BasePage from './base-page';
 import PageHeader from './common/page-header';
 import FillRequestSelector from './extract-in-bulk-for-forms/fill-request-selector';
 import FormsList from './extract-in-bulk-for-forms/forms-list';
+import SelectedFormsList from './extract-in-bulk-for-forms/selected-forms-list';
 import FormsExtractorSection from './extract-in-bulk-for-forms/forms-extractor-section';
 import labels from '../labels';
 
@@ -24,6 +25,7 @@ class ExtractInBulkForForms extends BasePage {
       m(PageHeader, {pageLabel: labels.l_3}),
       m(FillRequestSelector),
       m(FormsList),
+      m(SelectedFormsList),
       m(FormsExtractorSection)
     ]);
   }
