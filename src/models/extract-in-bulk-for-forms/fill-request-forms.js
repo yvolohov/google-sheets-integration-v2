@@ -1,5 +1,5 @@
 import formsCache from '../common/forms-cache';
-import { srvSelectListItem } from '../../lib/service-functions';
+import { srvSelectListItem, srvMoveListItem } from '../../lib/service-functions';
 
 class FillRequestForms {
   constructor() {
@@ -30,6 +30,10 @@ class FillRequestForms {
     if (selectedForm) {
       this._refreshSelectedFormsList(selectedForm, flag);
     }
+  }
+
+  moveSelectedForm(idx, up) {
+    srvMoveListItem(this.selectedFormsList, idx, up);
   }
 
   refreshForms(fillRequestId, onSuccess, onError) {

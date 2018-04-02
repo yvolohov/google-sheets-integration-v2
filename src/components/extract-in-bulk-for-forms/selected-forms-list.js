@@ -21,14 +21,18 @@ class SelectedFormsList {
 
     for (var idx = 0; idx < forms.length; idx++) {
       let currentForm = forms[idx];
+      let upArrowHandler = (idx > 0)
+        ? this._arrowHandler.bind(this, idx, true) : null;
+      let downArrowHandler = (idx < (forms.length - 1))
+        ? this._arrowHandler.bind(this, idx, false) : null;
 
       list.push(m(ListItem, {
         showArrows: true,
         showCheckbox: false,
         bigHeader: `#${currentForm.filledFormId}`,
         smallHeader: this._createSmallHeader(currentForm),
-        upArrowHandler: null,
-        downArrowHandler: null
+        upArrowHandler: upArrowHandler,
+        downArrowHandler: downArrowHandler
       }));
     }
     return list;
@@ -44,7 +48,12 @@ class SelectedFormsList {
     else {
       return labels.l_25;
     }
-  }  
+  }
+
+  _arrowHandler(idx, up, event) {
+    event.preventDefault();
+    fillRequestForms.moveSelectedForm(idx, up);
+  }
 }
 
 export default SelectedFormsList;
