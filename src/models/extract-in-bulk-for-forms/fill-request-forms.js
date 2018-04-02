@@ -34,6 +34,7 @@ class FillRequestForms {
 
   refreshForms(fillRequestId, onSuccess, onError) {
     this.formsList = [];
+    this.selectedFormsList = [];
 
     if (parseInt(fillRequestId) === 0) {
       onSuccess();

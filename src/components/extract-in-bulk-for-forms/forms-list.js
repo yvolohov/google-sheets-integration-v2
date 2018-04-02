@@ -59,7 +59,6 @@ class FormsList {
   }
 
   _checkboxHandler(filledFormId, event) {
-    event.redraw = false;
     fillRequestForms.selectForm(filledFormId, event.target.checked);
   }
 }
