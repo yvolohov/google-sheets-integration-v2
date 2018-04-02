@@ -4,6 +4,7 @@ import PageHeader from './common/page-header';
 import FillRequestSelector from './extract-in-bulk-for-forms/fill-request-selector';
 import FormsList from './extract-in-bulk-for-forms/forms-list';
 import SelectedFormsList from './extract-in-bulk-for-forms/selected-forms-list';
+import SelectedFieldsList from './extract-in-bulk-for-forms/selected-fields-list';
 import FormsExtractorSection from './extract-in-bulk-for-forms/forms-extractor-section';
 import labels from '../labels';
 
@@ -26,6 +27,7 @@ class ExtractInBulkForForms extends BasePage {
       m(FillRequestSelector),
       m(FormsList),
       m(SelectedFormsList),
+      m(SelectedFieldsList),
       m(FormsExtractorSection)
     ]);
   }
