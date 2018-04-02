@@ -31,8 +31,8 @@ class FormsList {
         showArrows: false,
         showCheckbox: true,
         checkboxFlag: (currentForm.flag) ? true : null,
-        bigHeader: `#${currentForm.filledFormId}`,
-        smallHeader: this._createSmallHeader(currentForm),
+        bigHeader: this._createBigHeader(currentForm),
+        smallHeader: currentForm.filledFormId,
         checkboxHandler: checkboxHandler
       }));
     }
@@ -46,7 +46,7 @@ class FormsList {
     }, labels.l_6);
   }
 
-  _createSmallHeader(currentForm) {
+  _createBigHeader(currentForm) {
     if (currentForm.email) {
       return currentForm.email;
     }

@@ -29,8 +29,8 @@ class SelectedFormsList {
       list.push(m(ListItem, {
         showArrows: true,
         showCheckbox: false,
-        bigHeader: `#${currentForm.filledFormId}`,
-        smallHeader: this._createSmallHeader(currentForm),
+        bigHeader: this._createBigHeader(currentForm),
+        smallHeader: currentForm.filledFormId,
         upArrowHandler: upArrowHandler,
         downArrowHandler: downArrowHandler
       }));
@@ -38,7 +38,7 @@ class SelectedFormsList {
     return list;
   }
 
-  _createSmallHeader(currentForm) {
+  _createBigHeader(currentForm) {
     if (currentForm.email) {
       return currentForm.email;
     }
