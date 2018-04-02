@@ -14,6 +14,10 @@ class FormsFields {
   getFields() {
     return this.fieldsList;
   }
+
+  refreshFields(fillRequestId, filledFormId, flag, onSuccess, onError) {
+    formsFieldsCache.loadFormFields(fillRequestId, filledFormId, onSuccess, onError);
+  }
 }
 
 export default new FormsFields();

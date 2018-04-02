@@ -1,6 +1,8 @@
 import m from 'mithril';
 import ListItem from '../common/list-item';
+import fillRequests from '../../models/extract-in-bulk-for-forms/fill-requests';
 import fillRequestForms from '../../models/extract-in-bulk-for-forms/fill-request-forms';
+import formsFields from '../../models/extract-in-bulk-for-forms/forms-fields';
 import labels from '../../labels';
 
 class FormsList {
@@ -59,7 +61,9 @@ class FormsList {
   }
 
   _checkboxHandler(filledFormId, event) {
+    let fillRequestId = fillRequests.getSelectedFillRequestId();
     fillRequestForms.selectForm(filledFormId, event.target.checked);
+    formsFields.refreshFields(fillRequestId, filledFormId, () => {}, () => {});
   }
 }
 
