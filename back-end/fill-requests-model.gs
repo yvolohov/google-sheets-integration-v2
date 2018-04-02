@@ -27,6 +27,20 @@ function FillRequestsModel()
 
     return createStandardResponse(route, 'GET', response.getResponseCode(), JSON.parse(response.getContentText()));
   }
+
+  this.getFilledFormFields = function(apiRoot, accessToken, fillableFormId, filledFormId)
+  {
+    var route = apiRoot + '/v2/fillable_forms/' + fillableFormId + '/filled_forms/' + filledFormId + '/export';
+
+    var response = UrlFetchApp.fetch(
+      route, {
+        headers: {Authorization: 'Bearer ' + accessToken},
+        muteHttpExceptions: true
+      }
+    );
+
+    return createStandardResponse(route, 'GET', response.getResponseCode(), JSON.parse(response.getContentText()));
+  }
 }
 
 var fillRequestsModel = new FillRequestsModel();

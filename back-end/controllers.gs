@@ -95,6 +95,13 @@ function ccGetFilledForms(perPage, page, additionalParameters)
   return fillRequestsModel.getFilledForms(apiRoot, accessToken, additionalParameters.fillableFormId, perPage, page);
 }
 
+function ccGetFilledFormFields(fillableFormId, filledFormId)
+{
+  var accessToken = authorizationModel.getService().getAccessToken();
+  var apiRoot = authorizationModel.PDFFILLER_API_ROOT;
+  return fillRequestsModel.getFilledFormFields(apiRoot, accessToken, fillableFormId, filledFormId);
+}
+
 // -= FOLDERS =-
 
 function ccGetFolders(perPage, page)
