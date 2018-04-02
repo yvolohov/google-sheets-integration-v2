@@ -5,6 +5,7 @@ class FillRequestForms {
   constructor() {
     this.loading = false;
     this.formsList = [];
+    this.selectedFormsList = [];
   }
 
   isLoading() {
@@ -15,11 +16,20 @@ class FillRequestForms {
     return this.formsList;
   }
 
+  getSelectedForms() {
+    return this.selectedFormsList;
+  }
+
   selectForm(filledFormId, flag) {
     let callback = (item) => {
       return (item.filledFormId === filledFormId);
     };
-    srvSelectListItem(this.formsList, callback, flag);
+
+    let selectedForm = srvSelectListItem(this.formsList, callback, flag);
+
+    if (selectedForm) {
+      this._refreshSelectedFormsList(selectedForm, flag);
+    }
   }
 
   refreshForms(fillRequestId, onSuccess, onError) {
@@ -58,6 +68,21 @@ class FillRequestForms {
       });
     }
     this.formsList.sort(this._sortFormsCallback);
+  }
+
+  _refreshSelectedFormsList(selectedForm, flag) {
+    if (flag) {
+      this.selectedFormsList.push(selectedForm);
+      return;
+    }
+
+    let idx = this.selectedFormsList.findIndex((item) => {
+      return (item.filledFormId === selectedForm.filledFormId);
+    });
+
+    if (idx > -1) {
+      this.selectedFormsList.splice(idx, 1);
+    }
   }
 
   _sortFormsCallback(a, b) {

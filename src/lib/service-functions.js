@@ -4,7 +4,9 @@ export function srvSelectListItem(collection, callback, flag) {
 
   if (idx > -1) {
     collection[idx].flag = flag;
+    return collection[idx];
   }
+  return null;
 }
 
 export function srvMoveListItem(collection, idx, up) {
