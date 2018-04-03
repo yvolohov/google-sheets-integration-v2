@@ -1,10 +1,6 @@
 import formsFieldsCache from '../common/forms-fields-cache';
 import { srvSelectListItem, srvMoveListItem } from '../../lib/service-functions';
-
-export const LINK_TO_FILL_ID = '_L2F_ID_';
-export const FILLED_FORM_ID = '_FORM_ID_';
-export const USER_NAME = '_USER_NAME_';
-export const USER_EMAIL = '_USER_EMAIL_';
+import { LINK_TO_FILL_ID, FILLED_FORM_ID, USER_NAME, USER_EMAIL } from '../classes/base-extractor';
 
 class FormsFields {
   constructor() {

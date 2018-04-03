@@ -1,8 +1,6 @@
 import fieldsCache from '../common/fields-cache';
 import { srvSelectListItem, srvMoveListItem } from '../../lib/service-functions';
-
-export const DOCUMENT_ID = '_DOC_ID_';
-export const DOCUMENT_NAME = '_DOC_NAME_';
+import { DOCUMENT_ID, DOCUMENT_NAME } from '../classes/base-extractor';
 
 class DocumentsFields {
   constructor() {

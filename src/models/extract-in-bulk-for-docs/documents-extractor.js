@@ -1,10 +1,12 @@
+import BaseExtractor from '../classes/base-extractor';
 import documents from './documents';
 import documentsFields from './documents-fields';
 import fieldsCache from '../common/fields-cache';
-import { DOCUMENT_ID, DOCUMENT_NAME } from './documents-fields';
+import { DOCUMENT_ID, DOCUMENT_NAME } from '../classes/base-extractor';
 
-class DocumentsExtractor {
+class DocumentsExtractor extends BaseExtractor {
   constructor() {
+    super();
     this.insertType = 0;
   }
 
@@ -63,18 +65,6 @@ class DocumentsExtractor {
       documentsData.push(documentData);
     }
     return documentsData;
-  }
-
-  _getValueForServiceField(fieldName, currentDocument) {
-    let value = '';
-
-    if (fieldName === DOCUMENT_ID) {
-      value = currentDocument.id;
-    }
-    else if (fieldName === DOCUMENT_NAME) {
-      value = currentDocument.name;
-    }
-    return value;
   }
 
   _getDocumentsHeader() {
