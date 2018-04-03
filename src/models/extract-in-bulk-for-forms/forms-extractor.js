@@ -10,7 +10,8 @@ class FormsExtractor extends BaseExtractor {
   }
 
   insertFormsData(unlockScreenCallback) {
-    let formsData = this._getFormsData();
+    let formsHeader = super._getHeader(formsFields);
+    let formsData = this._getFormsData(formsHeader);
 
     google.script.run
       .withSuccessHandler(unlockScreenCallback)
@@ -22,10 +23,9 @@ class FormsExtractor extends BaseExtractor {
     return super._isButtonDisabled(formsFields);
   }
 
-  _getFormsData() {
+  _getFormsData(formsHeader) {
     let selectedForms = fillRequestForms.getSelectedForms();
     let fields = formsFields.getFields();
-    let formsHeader = this._getFormsHeader();
     let formsData = [formsHeader];
 
     for (let formIdx in selectedForms) {
@@ -56,10 +56,6 @@ class FormsExtractor extends BaseExtractor {
       formsData.push(formData);
     }
     return formsData;
-  }
-
-  _getFormsHeader() {
-    return super._getHeader(formsFields);
   }
 }
 

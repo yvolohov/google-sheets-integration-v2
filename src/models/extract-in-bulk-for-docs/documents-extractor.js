@@ -10,7 +10,8 @@ class DocumentsExtractor extends BaseExtractor {
   }
 
   insertDocumentsData(unlockScreenCallback) {
-    let documentsData = this._getDocumentsData();
+    let documentsHeader = super._getHeader(documentsFields);
+    let documentsData = this._getDocumentsData(documentsHeader);
 
     google.script.run
       .withSuccessHandler(unlockScreenCallback)
@@ -22,10 +23,9 @@ class DocumentsExtractor extends BaseExtractor {
     return super._isButtonDisabled(documentsFields);
   }
 
-  _getDocumentsData() {
+  _getDocumentsData(documentsHeader) {
     let selectedDocuments = documents.getSelectedDocumentsList();
     let fields = documentsFields.getFields();
-    let documentsHeader = this._getDocumentsHeader();
     let documentsData = [documentsHeader];
 
     for (let docIdx in selectedDocuments) {
@@ -53,10 +53,6 @@ class DocumentsExtractor extends BaseExtractor {
       documentsData.push(documentData);
     }
     return documentsData;
-  }
-
-  _getDocumentsHeader() {
-    return super._getHeader(documentsFields);
   }
 }
 
