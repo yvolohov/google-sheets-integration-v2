@@ -66,6 +66,7 @@ class FillRequestForms {
       let currentForm = list[idx];
 
       this.formsList.push({
+        fillRequestId: fillRequestId,
         filledFormId: currentForm.filled_form_id,
         name: currentForm.name,
         email: currentForm.email,

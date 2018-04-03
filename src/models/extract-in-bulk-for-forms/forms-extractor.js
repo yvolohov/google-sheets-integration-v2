@@ -1,5 +1,6 @@
 import fillRequestForms from './fill-request-forms';
 import formsFields from './forms-fields';
+import formsFieldsCache from '../common/forms-fields-cache';
 
 class FormsExtractor {
   constructor() {
@@ -38,7 +39,30 @@ class FormsExtractor {
 
     for (let formIdx in selectedForms) {
       let currentForm = selectedForms[formIdx];
+      let currentFormFields = formsFieldsCache.getFormFieldsAsSet(
+        currentForm.fillRequestId,
+        currentForm.filledFormId
+      );
+      let formData = [];
 
+      for (let fldIdx in fields) {
+        let currentField = fields[fldIdx];
+        let name = currentField.name;
+        let value = '';
+
+        if (!currentField.flag) {
+          continue;
+        }
+
+        if (currentField.service) {
+          value = ''; //this._getValueForServiceField(name, currentDocument);
+        }
+        else {
+          value = (name in currentFormFields) ? currentFormFields[name].content : '';
+        }
+        formData.push(value);
+      }
+      formsData.push(formData);
     }
     return formsData;
   }
