@@ -28,7 +28,11 @@ class FormsExtractorSection {
   }
 
   _buttonClickHandler(event) {
-    console.log('OK !!!');
+    m.route.set('/loading');
+    event.redraw = false;
+    formsExtractor.insertFormsData(() => {
+      m.route.set('/extract-in-bulk-for-forms');
+    });
   }
 
   _radioClickHandler(event) {

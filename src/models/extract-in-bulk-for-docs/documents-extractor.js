@@ -27,9 +27,10 @@ class DocumentsExtractor {
   }
 
   isButtonDisabled() {
+    let loading = documentsFields.isLoading();
     let fields = documentsFields.getFields();
-    let areFields = (fields.findIndex((item) => {return item.flag;}) > -1);
-    return (!areFields) ? true : null;
+    let noSelectedFields = (fields.findIndex((item) => {return item.flag;}) === -1);
+    return (loading || noSelectedFields) ? true : null;
   }
 
   _getDocumentsData() {
