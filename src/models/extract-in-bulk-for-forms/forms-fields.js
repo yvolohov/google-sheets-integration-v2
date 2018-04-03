@@ -16,7 +16,20 @@ class FormsFields {
   }
 
   refreshFields(fillRequestId, filledFormId, flag, onSuccess, onError) {
-    formsFieldsCache.loadFormFields(fillRequestId, filledFormId, onSuccess, onError);
+    this.loading = true;
+
+    let localOnSuccess = (list, set) => {
+      console.log(list, set);
+      this.loading = false;
+      onSuccess();
+    };
+
+    let localOnError = (response) => {
+      this.loading = false;
+      onError();
+    };
+
+    formsFieldsCache.loadFormFields(fillRequestId, filledFormId, localOnSuccess, localOnError);
   }
 }
 

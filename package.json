@@ -19,6 +19,7 @@
     "gulp-sourcemaps": "^2.6.1"
   },
   "dependencies": {
-    "mithril": "^1.1.6"
+    "mithril": "^1.1.6",
+    "prop-extractor": "^1.0.1"
   }
 }
