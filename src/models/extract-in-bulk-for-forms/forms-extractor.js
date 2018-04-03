@@ -2,7 +2,6 @@ import BaseExtractor from '../classes/base-extractor';
 import fillRequestForms from './fill-request-forms';
 import formsFields from './forms-fields';
 import formsFieldsCache from '../common/forms-fields-cache';
-import { LINK_TO_FILL_ID, FILLED_FORM_ID, USER_NAME, USER_EMAIL } from '../classes/base-extractor';
 
 class FormsExtractor extends BaseExtractor {
   constructor() {

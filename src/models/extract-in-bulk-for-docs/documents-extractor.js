@@ -2,7 +2,6 @@ import BaseExtractor from '../classes/base-extractor';
 import documents from './documents';
 import documentsFields from './documents-fields';
 import fieldsCache from '../common/fields-cache';
-import { DOCUMENT_ID, DOCUMENT_NAME } from '../classes/base-extractor';
 
 class DocumentsExtractor extends BaseExtractor {
   constructor() {
