@@ -23,7 +23,7 @@ export default {
   l_14: 'Insert to current sheet vertically',
   l_15: 'Insert to new sheet horizontally',
   l_16: 'Order selected forms',
-  l_17: '',
+  l_17: 'Forms',
   l_18: 'Use existing folder',
   l_19: 'Current timestamp by default',
   l_20: 'Create new folder',

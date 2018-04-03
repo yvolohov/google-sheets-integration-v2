@@ -1,8 +1,8 @@
 import fieldsCache from '../common/fields-cache';
 import { srvSelectListItem, srvMoveListItem } from '../../lib/service-functions';
 
-export const DOCUMENT_ID = '_ID_';
-export const DOCUMENT_NAME = '_NAME_';
+export const DOCUMENT_ID = '_DOC_ID_';
+export const DOCUMENT_NAME = '_DOC_NAME_';
 
 class DocumentsFields {
   constructor() {

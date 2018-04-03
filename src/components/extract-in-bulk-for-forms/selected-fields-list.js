@@ -25,7 +25,24 @@ class SelectedFieldsList {
 
     for (var idx = 0; idx < fields.length; idx++) {
       let currentField = fields[idx];
-      
+      let checkboxHandler = this._checkboxHandler.bind(this, currentField.name, currentField.service);
+      let smallHeader = (!currentField.service)
+        ? `${labels.l_17}: ${currentField.count}` : labels.l_35;
+      let upArrowHandler = (idx > 0)
+        ? this._arrowHandler.bind(this, idx, true) : null;
+      let downArrowHandler = (idx < (fields.length - 1))
+        ? this._arrowHandler.bind(this, idx, false) : null;
+
+      list.push(m(ListItem, {
+        showArrows: true,
+        showCheckbox: true,
+        checkboxFlag: currentField['flag'] ? true : null,
+        bigHeader: currentField.name,
+        smallHeader: smallHeader,
+        checkboxHandler: checkboxHandler,
+        upArrowHandler: upArrowHandler,
+        downArrowHandler: downArrowHandler
+      }));
     }
     return list;
   }
@@ -35,6 +52,14 @@ class SelectedFieldsList {
       class: 'mgl',
       style: 'text-align: center; margin-top: 5px;'
     }, labels.l_6);
+  }
+
+  _checkboxHandler(fieldName, isService, event) {
+
+  }
+
+  _arrowHandler(idx, up, event) {
+
   }
 }
 
