@@ -85,7 +85,15 @@ class FormsFields {
   }
 
   _removeFieldsFromList(fillRequestId, filledFormId) {
+    let list = formsFieldsCache.getFormFieldsAsList(fillRequestId, filledFormId);
+    this._removeFieldFromList(LINK_TO_FILL_ID, true);
+    this._removeFieldFromList(FILLED_FORM_ID, true);
+    this._removeFieldFromList(USER_NAME, true);
+    this._removeFieldFromList(USER_EMAIL, true);
 
+    for (let currentFieldIdx in list) {
+      this._removeFieldFromList(list[currentFieldIdx].name, false);
+    }
   }
 
   _removeFieldFromList(fieldName, isService) {

@@ -42,6 +42,16 @@ class FormsFieldsCache {
     });
   }
 
+  getFormFieldsAsList(fillRequestId, filledFormId) {
+    let fullId = this._getFullId(fillRequestId, filledFormId);
+    return (fullId in this.lists) ? this.lists[fullId] : [];
+  }
+
+  getFormFieldsAsSet(fillRequestId, filledFormId) {
+    let fullId = this._getFullId(fillRequestId, filledFormId);
+    return (fullId in this.sets) ? this.sets[fullId] : {};
+  }
+
   _prepareList(rawData) {
     let fields = [];
 
