@@ -7,15 +7,6 @@ import { DOCUMENT_ID, DOCUMENT_NAME } from '../classes/base-extractor';
 class DocumentsExtractor extends BaseExtractor {
   constructor() {
     super();
-    this.insertType = 0;
-  }
-
-  getInsertType() {
-    return this.insertType;
-  }
-
-  setInsertType(insertType) {
-    this.insertType = parseInt(insertType);
   }
 
   insertDocumentsData(unlockScreenCallback) {
@@ -28,10 +19,7 @@ class DocumentsExtractor extends BaseExtractor {
   }
 
   isButtonDisabled() {
-    let loading = documentsFields.isLoading();
-    let fields = documentsFields.getFields();
-    let noSelectedFields = (fields.findIndex((item) => {return item.flag;}) === -1);
-    return (loading || noSelectedFields) ? true : null;
+    return super._isButtonDisabled(documentsFields);
   }
 
   _getDocumentsData() {
@@ -55,7 +43,7 @@ class DocumentsExtractor extends BaseExtractor {
         }
 
         if (currentField.service) {
-          value = this._getValueForServiceField(name, currentDocument);
+          value = super._getValueForServiceField(name, currentDocument);
         }
         else {
           value = (name in currentDocumentFields) ? currentDocumentFields[name].value : '';

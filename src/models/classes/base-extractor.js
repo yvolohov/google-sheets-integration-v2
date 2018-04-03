@@ -6,6 +6,25 @@ export const USER_NAME = '_USER_NAME_';
 export const USER_EMAIL = '_USER_EMAIL_';
 
 class BaseExtractor {
+  constructor() {
+    this.insertType = 0;
+  }
+
+  getInsertType() {
+    return this.insertType;
+  }
+
+  setInsertType(insertType) {
+    this.insertType = parseInt(insertType);
+  }
+
+  _isButtonDisabled(fieldsModel) {
+    let loading = fieldsModel.isLoading();
+    let fields = fieldsModel.getFields();
+    let noSelectedFields = (fields.findIndex((item) => {return item.flag;}) === -1);
+    return (loading || noSelectedFields) ? true : null;
+  }
+
   _getValueForServiceField(fieldName, obj) {
     let value = '';
 

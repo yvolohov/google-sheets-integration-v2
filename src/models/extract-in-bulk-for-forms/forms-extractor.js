@@ -7,15 +7,6 @@ import { LINK_TO_FILL_ID, FILLED_FORM_ID, USER_NAME, USER_EMAIL } from '../class
 class FormsExtractor extends BaseExtractor {
   constructor() {
     super();
-    this.insertType = 0;
-  }
-
-  getInsertType() {
-    return this.insertType;
-  }
-
-  setInsertType(insertType) {
-    this.insertType = parseInt(insertType);
   }
 
   insertFormsData(unlockScreenCallback) {
@@ -28,10 +19,7 @@ class FormsExtractor extends BaseExtractor {
   }
 
   isButtonDisabled() {
-    let loading = formsFields.isLoading();
-    let fields = formsFields.getFields();
-    let noSelectedFields = (fields.findIndex((item) => {return item.flag;}) === -1);
-    return (loading || noSelectedFields) ? true : null;
+    return super._isButtonDisabled(formsFields);
   }
 
   _getFormsData() {
@@ -58,7 +46,7 @@ class FormsExtractor extends BaseExtractor {
         }
 
         if (currentField.service) {
-          value = this._getValueForServiceField(name, currentForm);
+          value = super._getValueForServiceField(name, currentForm);
         }
         else {
           value = (name in currentFormFields) ? currentFormFields[name].content : '';
