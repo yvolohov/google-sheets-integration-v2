@@ -1,7 +1,6 @@
 import documents from './documents';
 import documentsFields from './documents-fields';
 import fieldsCache from '../common/fields-cache';
-import errors from '../common/errors';
 import { DOCUMENT_ID, DOCUMENT_NAME } from './documents-fields';
 
 class DocumentsExtractor {

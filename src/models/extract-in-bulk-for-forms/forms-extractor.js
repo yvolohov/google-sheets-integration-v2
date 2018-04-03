@@ -1,6 +1,7 @@
 import fillRequestForms from './fill-request-forms';
 import formsFields from './forms-fields';
 import formsFieldsCache from '../common/forms-fields-cache';
+import { LINK_TO_FILL_ID, FILLED_FORM_ID, USER_NAME, USER_EMAIL } from './forms-fields';
 
 class FormsExtractor {
   constructor() {
@@ -55,7 +56,7 @@ class FormsExtractor {
         }
 
         if (currentField.service) {
-          value = ''; //this._getValueForServiceField(name, currentDocument);
+          value = this._getValueForServiceField(name, currentForm);
         }
         else {
           value = (name in currentFormFields) ? currentFormFields[name].content : '';
@@ -65,6 +66,29 @@ class FormsExtractor {
       formsData.push(formData);
     }
     return formsData;
+  }
+
+  _getValueForServiceField(fieldName, currentForm) {
+    let value = '';
+
+    switch (fieldName) {
+      case LINK_TO_FILL_ID:
+        value = currentForm.fillRequestId;
+        break;
+
+      case FILLED_FORM_ID:
+        value = currentForm.filledFormId;
+        break;
+
+      case USER_NAME:
+        value = currentForm.name;
+        break;
+
+      case USER_EMAIL:
+        value = currentForm.email;
+        break;
+    }
+    return value;
   }
 
   _getFormsHeader() {
