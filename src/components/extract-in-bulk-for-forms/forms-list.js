@@ -62,8 +62,26 @@ class FormsList {
 
   _checkboxHandler(filledFormId, event) {
     let fillRequestId = fillRequests.getSelectedFillRequestId();
-    fillRequestForms.selectForm(filledFormId, event.target.checked);
-    formsFields.refreshFields(fillRequestId, filledFormId, () => {}, () => {});
+    let flag = event.target.checked;
+
+    fillRequestForms.selectForm(filledFormId, flag);
+    formsFields.refreshFields(
+      fillRequestId,
+      filledFormId,
+      flag,
+      this._afterRefreshing.bind(this),
+      this._afterRefreshing.bind(
+        this,
+        fillRequestForms.selectForm.bind(fillRequestForms, filledFormId, false)
+      )
+    );
+  }
+
+  _afterRefreshing(callback) {
+    if (callback) {
+      callback();
+    }
+    m.redraw();
   }
 }
 

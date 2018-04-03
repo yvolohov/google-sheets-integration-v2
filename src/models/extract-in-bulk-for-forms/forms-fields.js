@@ -18,8 +18,15 @@ class FormsFields {
   refreshFields(fillRequestId, filledFormId, flag, onSuccess, onError) {
     this.loading = true;
 
+    if (!flag) {
+      this._removeFieldsFromList(fillRequestId, filledFormId);
+      this.loading = false;
+      onSuccess();
+      return;
+    }
+
     let localOnSuccess = (list, set) => {
-      console.log(list, set);
+      this._addFieldsToList(fillRequestId, filledFormId, list, set);
       this.loading = false;
       onSuccess();
     };
@@ -30,6 +37,14 @@ class FormsFields {
     };
 
     formsFieldsCache.loadFormFields(fillRequestId, filledFormId, localOnSuccess, localOnError);
+  }
+
+  _addFieldsToList(fillRequestId, filledFormId, list, set) {
+
+  }
+
+  _removeFieldsFromList(fillRequestId, filledFormId) {
+
   }
 }
 
