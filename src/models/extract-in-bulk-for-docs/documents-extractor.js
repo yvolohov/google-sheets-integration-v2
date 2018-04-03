@@ -56,17 +56,7 @@ class DocumentsExtractor extends BaseExtractor {
   }
 
   _getDocumentsHeader() {
-    let fields = documentsFields.getFields();
-    let header = [];
-
-    for (let idx in fields) {
-      let currentField = fields[idx];
-
-      if (currentField.flag) {
-        header.push(currentField.name);
-      }
-    }
-    return header;
+    return super._getHeader(documentsFields);
   }
 }
 
