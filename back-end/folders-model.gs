@@ -18,6 +18,10 @@ function FoldersModel()
   {
     var route = apiRoot + '/v2/folders';
 
+    if (!folderName) {
+      folderName = (Math.floor(Date.now() / 1000)).toString();
+    }
+
     var response = UrlFetchApp.fetch(
       route, {
         method: 'post',
