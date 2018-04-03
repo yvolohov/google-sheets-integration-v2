@@ -55,11 +55,12 @@ class SelectedFieldsList {
   }
 
   _checkboxHandler(fieldName, isService, event) {
-
+    formsFields.selectField(fieldName, isService, event.target.checked);
   }
 
   _arrowHandler(idx, up, event) {
-
+    event.preventDefault();
+    formsFields.moveField(idx, up);
   }
 }
 

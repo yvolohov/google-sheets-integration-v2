@@ -20,6 +20,17 @@ class FormsFields {
     return this.fieldsList;
   }
 
+  selectField(fieldName, isService, flag) {
+    let callback = (item) => {
+      return (item.name === fieldName && item.service === isService);
+    };
+    srvSelectListItem(this.fieldsList, callback, flag);
+  }
+
+  moveField(idx, up) {
+    srvMoveListItem(this.fieldsList, idx, up);
+  }
+
   refreshFields(fillRequestId, filledFormId, flag, onSuccess, onError) {
     this.loading = true;
 
