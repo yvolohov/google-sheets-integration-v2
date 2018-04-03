@@ -1,6 +1,7 @@
 import m from 'mithril';
 import fillRequests from '../../models/extract-in-bulk-for-forms/fill-requests';
 import fillRequestForms from '../../models/extract-in-bulk-for-forms/fill-request-forms';
+import formsFields from '../../models/extract-in-bulk-for-forms/forms-fields';
 import labels from '../../labels';
 
 class FillRequestSelector {
@@ -61,6 +62,7 @@ class FillRequestSelector {
     let afterRefresh = () => {m.redraw();};
     fillRequests.setSelectedFillRequestId(fillRequestId);
     fillRequestForms.refreshForms(fillRequestId, afterRefresh, afterRefresh);
+    formsFields.cleanFields();
   }
 }
 

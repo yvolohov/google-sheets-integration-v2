@@ -31,6 +31,10 @@ class FormsFields {
     srvMoveListItem(this.fieldsList, idx, up);
   }
 
+  cleanFields() {
+    this.fieldsList = [];
+  }
+
   refreshFields(fillRequestId, filledFormId, flag, onSuccess, onError) {
     this.loading = true;
 
