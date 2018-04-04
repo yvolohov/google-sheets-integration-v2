@@ -9,7 +9,17 @@ class DocumentsExtractor extends ObjectsExtractor {
   }
 
   extract(unlockScreenCallback) {
-    let documentsData = this._getData();
+    let docs = documents.getSelectedDocumentsList();
+    let fields = documentsFields.getFields();
+    let cacheCallback = (cache, doc) => {
+      return cache.getFieldsAsSet(doc.id);
+    };
+
+    let documentsData = this._getData(
+      docs,
+      fields,
+      cacheCallback.bind(this, fieldsCache)
+    );
 
     google.script.run
       .withSuccessHandler(unlockScreenCallback)
@@ -20,42 +30,6 @@ class DocumentsExtractor extends ObjectsExtractor {
   isButtonDisabled() {
     let noSelectedFields = (documentsFields.getFields().findIndex((item) => {return item.flag;}) === -1);
     return (documentsFields.isLoading() || noSelectedFields) ? true : null;
-  }
-
-  _getData() {
-    let documentsHeader = documentsFields.getFields()
-      .filter((item) => {return item.flag;})
-      .map((item) => {return item.name});
-
-    let selectedDocuments = documents.getSelectedDocumentsList();
-    let fields = documentsFields.getFields();
-    let documentsData = [documentsHeader];
-
-    for (let docIdx in selectedDocuments) {
-      let currentDocument = selectedDocuments[docIdx];
-      let currentDocumentFields = fieldsCache.getFieldsAsSet(currentDocument.id);
-      let documentData = [];
-
-      for (let fldIdx in fields) {
-        let currentField = fields[fldIdx];
-        let name = currentField.name;
-        let value = '';
-
-        if (!currentField.flag) {
-          continue;
-        }
-
-        if (currentField.service) {
-          value = this._getValueForServiceField(name, currentDocument);
-        }
-        else {
-          value = (name in currentDocumentFields) ? currentDocumentFields[name].value : '';
-        }
-        documentData.push(value);
-      }
-      documentsData.push(documentData);
-    }
-    return documentsData;
   }
 }
 
