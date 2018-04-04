@@ -1,9 +1,11 @@
+import ObjectsFields from '../classes/objects-fields';
 import fieldsCache from '../common/fields-cache';
 import { srvSelectListItem, srvMoveListItem } from '../../lib/service-functions';
-import { DOCUMENT_ID, DOCUMENT_NAME } from '../classes/base-extractor';
+import { DOCUMENT_ID, DOCUMENT_NAME } from '../classes/objects-extractor';
 
-class DocumentsFields {
+class DocumentsFields extends ObjectsFields {
   constructor() {
+    super();
     this.loading = false;
     this.fieldsList = [];
   }

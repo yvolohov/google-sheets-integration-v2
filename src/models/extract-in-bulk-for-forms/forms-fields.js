@@ -1,9 +1,11 @@
+import ObjectsFields from '../classes/objects-fields';
 import formsFieldsCache from '../common/forms-fields-cache';
 import { srvSelectListItem, srvMoveListItem } from '../../lib/service-functions';
-import { LINK_TO_FILL_ID, FILLED_FORM_ID, USER_NAME, USER_EMAIL } from '../classes/base-extractor';
+import { LINK_TO_FILL_ID, FILLED_FORM_ID, USER_NAME, USER_EMAIL } from '../classes/objects-extractor';
 
-class FormsFields {
+class FormsFields extends ObjectsFields {
   constructor() {
+    super();
     this.loading = false;
     this.fieldsList = [];
   }

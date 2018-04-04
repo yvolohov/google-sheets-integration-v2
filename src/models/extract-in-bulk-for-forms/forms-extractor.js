@@ -1,9 +1,9 @@
-import BaseExtractor from '../classes/base-extractor';
+import ObjectsExtractor from '../classes/objects-extractor';
 import fillRequestForms from './fill-request-forms';
 import formsFields from './forms-fields';
 import formsFieldsCache from '../common/forms-fields-cache';
 
-class FormsExtractor extends BaseExtractor {
+class FormsExtractor extends ObjectsExtractor {
   constructor() {
     super();
   }

@@ -5,7 +5,7 @@ export const FILLED_FORM_ID = '_FORM_ID_';
 export const USER_NAME = '_USER_NAME_';
 export const USER_EMAIL = '_USER_EMAIL_';
 
-class BaseExtractor {
+class ObjectsExtractor {
   constructor() {
     this.insertType = 0;
   }
@@ -71,4 +71,4 @@ class BaseExtractor {
   }
 }
 
-export default BaseExtractor;
+export default ObjectsExtractor;

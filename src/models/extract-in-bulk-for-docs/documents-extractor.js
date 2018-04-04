@@ -1,9 +1,9 @@
-import BaseExtractor from '../classes/base-extractor';
+import ObjectsExtractor from '../classes/objects-extractor';
 import documents from './documents';
 import documentsFields from './documents-fields';
 import fieldsCache from '../common/fields-cache';
 
-class DocumentsExtractor extends BaseExtractor {
+class DocumentsExtractor extends ObjectsExtractor {
   constructor() {
     super();
   }
