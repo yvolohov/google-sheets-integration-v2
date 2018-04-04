@@ -48,20 +48,6 @@ class ObjectsExtractor {
     }
     return value;
   }
-
-  _getHeader(fieldsModel) {
-    let fields = fieldsModel.getFields();
-    let header = [];
-
-    for (let idx in fields) {
-      let currentField = fields[idx];
-
-      if (currentField.flag) {
-        header.push(currentField.name);
-      }
-    }
-    return header;
-  }
 }
 
 export default ObjectsExtractor;

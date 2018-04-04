@@ -9,8 +9,7 @@ class DocumentsExtractor extends ObjectsExtractor {
   }
 
   extract(unlockScreenCallback) {
-    let documentsHeader = this._getHeader(documentsFields);
-    let documentsData = this._getDocumentsData(documentsHeader);
+    let documentsData = this._getData();
 
     google.script.run
       .withSuccessHandler(unlockScreenCallback)
@@ -23,7 +22,11 @@ class DocumentsExtractor extends ObjectsExtractor {
     return (documentsFields.isLoading() || noSelectedFields) ? true : null;
   }
 
-  _getDocumentsData(documentsHeader) {
+  _getData() {
+    let documentsHeader = documentsFields.getFields()
+      .filter((item) => {return item.flag;})
+      .map((item) => {return item.name});
+
     let selectedDocuments = documents.getSelectedDocumentsList();
     let fields = documentsFields.getFields();
     let documentsData = [documentsHeader];

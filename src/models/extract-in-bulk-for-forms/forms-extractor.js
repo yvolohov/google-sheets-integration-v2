@@ -9,8 +9,7 @@ class FormsExtractor extends ObjectsExtractor {
   }
 
   extract(unlockScreenCallback) {
-    let formsHeader = this._getHeader(formsFields);
-    let formsData = this._getFormsData(formsHeader);
+    let formsData = this._getData();
 
     google.script.run
       .withSuccessHandler(unlockScreenCallback)
@@ -23,7 +22,11 @@ class FormsExtractor extends ObjectsExtractor {
     return (formsFields.isLoading() || noSelectedFields) ? true : null;
   }
 
-  _getFormsData(formsHeader) {
+  _getData() {
+    let formsHeader = formsFields.getFields()
+      .filter((item) => {return item.flag;})
+      .map((item) => {return item.name});
+
     let selectedForms = fillRequestForms.getSelectedForms();
     let fields = formsFields.getFields();
     let formsData = [formsHeader];
