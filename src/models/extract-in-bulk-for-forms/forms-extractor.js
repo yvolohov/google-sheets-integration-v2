@@ -8,7 +8,7 @@ class FormsExtractor extends ObjectsExtractor {
     super();
   }
 
-  insertFormsData(unlockScreenCallback) {
+  extract(unlockScreenCallback) {
     let formsHeader = this._getHeader(formsFields);
     let formsData = this._getFormsData(formsHeader);
 
@@ -19,7 +19,8 @@ class FormsExtractor extends ObjectsExtractor {
   }
 
   isButtonDisabled() {
-    return this._isButtonDisabled(formsFields);
+    let noSelectedFields = (formsFields.getFields().findIndex((item) => {return item.flag;}) === -1);
+    return (formsFields.isLoading() || noSelectedFields) ? true : null;
   }
 
   _getFormsData(formsHeader) {

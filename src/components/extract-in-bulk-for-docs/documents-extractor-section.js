@@ -30,7 +30,7 @@ class DocumentsExtractorSection {
   _buttonClickHandler(event) {
     m.route.set('/loading');
     event.redraw = false;
-    documentsExtractor.insertDocumentsData(() => {
+    documentsExtractor.extract(() => {
       m.route.set('/extract-in-bulk-for-docs');
     });
   }

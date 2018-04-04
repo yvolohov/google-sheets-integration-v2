@@ -30,7 +30,7 @@ class FormsExtractorSection {
   _buttonClickHandler(event) {
     m.route.set('/loading');
     event.redraw = false;
-    formsExtractor.insertFormsData(() => {
+    formsExtractor.extract(() => {
       m.route.set('/extract-in-bulk-for-forms');
     });
   }

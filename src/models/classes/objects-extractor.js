@@ -18,13 +18,6 @@ class ObjectsExtractor {
     this.insertType = parseInt(insertType);
   }
 
-  _isButtonDisabled(fieldsModel) {
-    let loading = fieldsModel.isLoading();
-    let fields = fieldsModel.getFields();
-    let noSelectedFields = (fields.findIndex((item) => {return item.flag;}) === -1);
-    return (loading || noSelectedFields) ? true : null;
-  }
-
   _getValueForServiceField(fieldName, obj) {
     let value = '';
 

@@ -8,7 +8,7 @@ class DocumentsExtractor extends ObjectsExtractor {
     super();
   }
 
-  insertDocumentsData(unlockScreenCallback) {
+  extract(unlockScreenCallback) {
     let documentsHeader = this._getHeader(documentsFields);
     let documentsData = this._getDocumentsData(documentsHeader);
 
@@ -19,7 +19,8 @@ class DocumentsExtractor extends ObjectsExtractor {
   }
 
   isButtonDisabled() {
-    return this._isButtonDisabled(documentsFields);
+    let noSelectedFields = (documentsFields.getFields().findIndex((item) => {return item.flag;}) === -1);
+    return (documentsFields.isLoading() || noSelectedFields) ? true : null;
   }
 
   _getDocumentsData(documentsHeader) {
