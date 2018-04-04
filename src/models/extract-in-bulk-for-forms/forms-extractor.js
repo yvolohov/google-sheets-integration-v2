@@ -9,7 +9,17 @@ class FormsExtractor extends ObjectsExtractor {
   }
 
   extract(unlockScreenCallback) {
-    let formsData = this._getData();
+    let forms = fillRequestForms.getSelectedForms();
+    let fields = formsFields.getFields();
+    let cacheCallback = (cache, form) => {
+      return cache.getFormFieldsAsSet(form.fillRequestId, form.filledFormId);
+    };
+
+    let formsData = this._getData(
+      forms,
+      fields,
+      cacheCallback.bind(this, formsFieldsCache)
+    );
 
     google.script.run
       .withSuccessHandler(unlockScreenCallback)
@@ -20,45 +30,6 @@ class FormsExtractor extends ObjectsExtractor {
   isButtonDisabled() {
     let noSelectedFields = (formsFields.getFields().findIndex((item) => {return item.flag;}) === -1);
     return (formsFields.isLoading() || noSelectedFields) ? true : null;
-  }
-
-  _getData() {
-    let formsHeader = formsFields.getFields()
-      .filter((item) => {return item.flag;})
-      .map((item) => {return item.name});
-
-    let selectedForms = fillRequestForms.getSelectedForms();
-    let fields = formsFields.getFields();
-    let formsData = [formsHeader];
-
-    for (let formIdx in selectedForms) {
-      let currentForm = selectedForms[formIdx];
-      let currentFormFields = formsFieldsCache.getFormFieldsAsSet(
-        currentForm.fillRequestId,
-        currentForm.filledFormId
-      );
-      let formData = [];
-
-      for (let fldIdx in fields) {
-        let currentField = fields[fldIdx];
-        let name = currentField.name;
-        let value = '';
-
-        if (!currentField.flag) {
-          continue;
-        }
-
-        if (currentField.service) {
-          value = this._getValueForServiceField(name, currentForm);
-        }
-        else {
-          value = (name in currentFormFields) ? currentFormFields[name].value : '';
-        }
-        formData.push(value);
-      }
-      formsData.push(formData);
-    }
-    return formsData;
   }
 }
 

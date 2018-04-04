@@ -18,6 +18,39 @@ class ObjectsExtractor {
     this.insertType = parseInt(insertType);
   }
 
+  _getData(objects, fields, cacheCallback) {
+    let header = fields
+      .filter((item) => {return item.flag;})
+      .map((item) => {return item.name;});
+    let table = [header];
+
+    for (let objIdx in objects) {
+      let currentObject = objects[objIdx];
+      let currentObjectFields = cacheCallback(currentObject);
+      let row = [];
+
+      for (let fldIdx in fields) {
+        let currentField = fields[fldIdx];
+        let name = currentField.name;
+        let value = '';
+
+        if (!currentField.flag) {
+          continue;
+        }
+
+        if (!currentField.service) {
+          value = (name in currentObjectFields) ? currentObjectFields[name].value : '';
+        }
+        else {
+          value = this._getValueForServiceField(name, currentObject);
+        }
+        row.push(value);
+      }
+      table.push(row);
+    }
+    return table;
+  }
+
   _getValueForServiceField(fieldName, obj) {
     let value = '';
 
