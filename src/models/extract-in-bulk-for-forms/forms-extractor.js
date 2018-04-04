@@ -9,7 +9,7 @@ class FormsExtractor extends ObjectsExtractor {
   }
 
   insertFormsData(unlockScreenCallback) {
-    let formsHeader = super._getHeader(formsFields);
+    let formsHeader = this._getHeader(formsFields);
     let formsData = this._getFormsData(formsHeader);
 
     google.script.run
@@ -19,7 +19,7 @@ class FormsExtractor extends ObjectsExtractor {
   }
 
   isButtonDisabled() {
-    return super._isButtonDisabled(formsFields);
+    return this._isButtonDisabled(formsFields);
   }
 
   _getFormsData(formsHeader) {
@@ -45,7 +45,7 @@ class FormsExtractor extends ObjectsExtractor {
         }
 
         if (currentField.service) {
-          value = super._getValueForServiceField(name, currentForm);
+          value = this._getValueForServiceField(name, currentForm);
         }
         else {
           value = (name in currentFormFields) ? currentFormFields[name].value : '';

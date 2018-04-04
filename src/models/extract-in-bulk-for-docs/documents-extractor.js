@@ -9,7 +9,7 @@ class DocumentsExtractor extends ObjectsExtractor {
   }
 
   insertDocumentsData(unlockScreenCallback) {
-    let documentsHeader = super._getHeader(documentsFields);
+    let documentsHeader = this._getHeader(documentsFields);
     let documentsData = this._getDocumentsData(documentsHeader);
 
     google.script.run
@@ -19,7 +19,7 @@ class DocumentsExtractor extends ObjectsExtractor {
   }
 
   isButtonDisabled() {
-    return super._isButtonDisabled(documentsFields);
+    return this._isButtonDisabled(documentsFields);
   }
 
   _getDocumentsData(documentsHeader) {
@@ -42,7 +42,7 @@ class DocumentsExtractor extends ObjectsExtractor {
         }
 
         if (currentField.service) {
-          value = super._getValueForServiceField(name, currentDocument);
+          value = this._getValueForServiceField(name, currentDocument);
         }
         else {
           value = (name in currentDocumentFields) ? currentDocumentFields[name].value : '';

@@ -1,36 +1,10 @@
 import ObjectsFields from '../classes/objects-fields';
 import formsFieldsCache from '../common/forms-fields-cache';
-import { srvSelectListItem, srvMoveListItem } from '../../lib/service-functions';
 import { LINK_TO_FILL_ID, FILLED_FORM_ID, USER_NAME, USER_EMAIL } from '../classes/objects-extractor';
 
 class FormsFields extends ObjectsFields {
   constructor() {
     super();
-    this.loading = false;
-    this.fieldsList = [];
-  }
-
-  isLoading() {
-    return this.loading;
-  }
-
-  getFields() {
-    return this.fieldsList;
-  }
-
-  selectField(fieldName, isService, flag) {
-    let callback = (item) => {
-      return (item.name === fieldName && item.service === isService);
-    };
-    srvSelectListItem(this.fieldsList, callback, flag);
-  }
-
-  moveField(idx, up) {
-    srvMoveListItem(this.fieldsList, idx, up);
-  }
-
-  cleanFields() {
-    this.fieldsList = [];
   }
 
   refreshFields(fillRequestId, filledFormId, flag, onSuccess, onError) {
@@ -68,24 +42,6 @@ class FormsFields extends ObjectsFields {
     }
   }
 
-  _addFieldToList(fieldName, isService) {
-    let fieldIdx = this.fieldsList.findIndex((item) => {
-      return (item.name === fieldName && item.service === isService);
-    });
-
-    if (fieldIdx > -1) {
-      this.fieldsList[fieldIdx].count++;
-      return;
-    }
-
-    this.fieldsList.push({
-      name: fieldName,
-      flag: !isService,
-      count: 1,
-      service: isService
-    });
-  }
-
   _removeFieldsFromList(fillRequestId, filledFormId) {
     let list = formsFieldsCache.getFormFieldsAsList(fillRequestId, filledFormId);
     this._removeFieldFromList(LINK_TO_FILL_ID, true);
@@ -96,24 +52,6 @@ class FormsFields extends ObjectsFields {
     for (let currentFieldIdx in list) {
       this._removeFieldFromList(list[currentFieldIdx].name, false);
     }
-  }
-
-  _removeFieldFromList(fieldName, isService) {
-    let fieldIdx = this.fieldsList.findIndex((item) => {
-      return (item.name === fieldName && item.service === isService);
-    });
-
-    if (fieldIdx === -1) {
-      return;
-    }
-
-    let foundField = this.fieldsList[fieldIdx];
-
-    if (foundField.count > 1) {
-      foundField.count--;
-      return;
-    }
-    this.fieldsList.splice(fieldIdx, 1);
   }
 }
 
