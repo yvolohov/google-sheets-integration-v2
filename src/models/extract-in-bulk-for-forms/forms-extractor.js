@@ -48,7 +48,7 @@ class FormsExtractor extends BaseExtractor {
           value = super._getValueForServiceField(name, currentForm);
         }
         else {
-          value = (name in currentFormFields) ? currentFormFields[name].content : '';
+          value = (name in currentFormFields) ? currentFormFields[name].value : '';
         }
         formData.push(value);
       }

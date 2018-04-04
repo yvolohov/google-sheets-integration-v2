@@ -64,6 +64,9 @@ class FormsFieldsCache {
       if (itemIndex > -1) {
         continue;
       }
+      
+      currentField['value'] = currentField.content;
+      delete currentField.content;
       fields.push(currentField);
     }
     return fields;
